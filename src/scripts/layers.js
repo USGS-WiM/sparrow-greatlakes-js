@@ -1,6 +1,10 @@
 /**
  * Created by bdraper on 4/27/2015.
  */
+
+ /**UPDATE impoartant! -- when updating to a new application, make sure that all visiblelayer Ids match the corresponding REST service layer.
+    Also make sure that titles are appropriate
+ **/
 var allLayers;
 
 require([
@@ -23,7 +27,7 @@ require([
         sparrowOverlay = 1;
     }
 
-    //var imageParameters = new ImageParameters();
+
 
     allLayers = [
         {
@@ -58,7 +62,7 @@ require([
             "layers": {
                 "Phosphorus Calibration Sites" : {
                     "url": serviceBaseURL,
-                    "visibleLayers": [16],
+                    "visibleLayers": [18],
                     "options": {
                         "id": "phosCalibration",
                         "opacity": 0.85,
@@ -76,7 +80,7 @@ require([
                 },
                 "Nitrogen Calibration Sites" : {
                     "url": serviceBaseURL,
-                    "visibleLayers": [17],
+                    "visibleLayers": [19],
                     "options": {
                         "id": "nitroCalibration",
                         "visible": false,
@@ -98,9 +102,9 @@ require([
             "showGroupHeading": true,
             "includeInLayerList": true,
             "layers": {
-                "Tennessee Mainstems" : {
+                "Great Lakes Mainstems" : {
                     "url": serviceBaseURL,
-                    "visibleLayers": [18],
+                    "visibleLayers": [21],
                     "options": {
                         "id": "mainstems",
                         "opacity": 0.75,
@@ -116,9 +120,9 @@ require([
                         "includeLegend" : true
                     }
                 },
-                "Tennessee Streams" : {
+                "Great Lakes Streams" : {
                     "url": serviceBaseURL,
-                    "visibleLayers": [19],
+                    "visibleLayers": [20],
                     "options": {
                         "id": "streams",
                         "visible": false,

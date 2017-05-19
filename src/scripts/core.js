@@ -187,7 +187,7 @@ require([
     //TODO: FIGURE OUT HOW TO USE THE QUERY WHERECLAUSE     Call setupQueryTask for every layer inqueryParameters
     //setupQueryTask(serviceBaseURL + 4, ['ST', 'GP3', 'GP', 'GP1' ], '1=1');
 
-    setupQueryTask(serviceBaseURL + 0, ['ST', 'GP3', 'GP2', 'GP1' ], '1=1');
+    setupQueryTask(serviceBaseURL + 5, ['ST', 'GP3', 'GP2', 'GP1' ], '1=1');
 
     /*for (var key in queryParameters){
         if (key == 'grp3'){
@@ -695,16 +695,17 @@ require([
                     app.map.graphics.add(response[0].feature);
                     
                     $.each(response, function(index, responseObj){
+                        //UPDATE important! -- make sure that layerIds in if statements below match calibration sites layers in the REST services.
                         //Phosphorus Calibration Site InfoWindow
-                        if (responseObj.layerId === 14){
+                        if (responseObj.layerId === 18){
                             var model = 'Phosphorus';
                             var calibrationTemplate = new esri.InfoTemplate();
                             calibrationTemplate.setTitle('SPARROW ' + model + ' Calibration Site');
-                            calibrationTemplate.setContent('<div><b>Station Name:</b> ' + responseObj.feature.attributes.name + '</div><br>' +
-                                                            '<div><b>Station ID:</b> </b>' + responseObj.feature.attributes.staid + '</div><br>' +
+                            calibrationTemplate.setContent('<div><b>Station Name:</b> ' + responseObj.feature.attributes.NAME + '</div><br>' +
+                                                            '<div><b>Station ID:</b> </b>' + responseObj.feature.attributes.STATION_ID + '</div><br>' +
                                                             '<div><b>SPARROW Reach ID: </b>' + responseObj.feature.attributes.MRB_ID + '</div><br>'+
-                                                            '<div><b>Fluxmaster Load' + chartUnits +': </b>' + responseObj.feature.attributes.LOAD_A_665 + '</div><br>' +
-                                                            '<div><b>SPARROW Estimated Load ' + chartUnits +': </b>' + responseObj.feature.attributes.PLOAD_665 + '</div><br>');
+                                                            '<div><b>Fluxmaster Load' + chartUnits +': </b>' + responseObj.feature.attributes.FLUXMASTER + '</div><br>' +
+                                                            '<div><b>SPARROW Estimated Load ' + chartUnits +': </b>' + responseObj.feature.attributes.SPARROW_ES + '</div><br>');
                     
                             var graphic = new Graphic();
                             var feature = graphic;
@@ -715,15 +716,15 @@ require([
                         }
 
                         //Phosphorus Calibration Site InfoWindow
-                        if (responseObj.layerId === 15){
+                        if (responseObj.layerId === 19){
                             var modelN = 'Nitrogen';
                             var calibrationTemplateN = new esri.InfoTemplate();
                             calibrationTemplateN.setTitle('SPARROW ' + modelN + ' Calibration Site');
-                            calibrationTemplateN.setContent('<div><b>Station Name:</b> ' + responseObj.feature.attributes.name + '</div><br>' +
-                                                            '<div><b>Station ID:</b> </b>' + responseObj.feature.attributes.staid + '</div><br>' +
+                            calibrationTemplateN.setContent('<div><b>Station Name:</b> ' + responseObj.feature.attributes.NAME + '</div><br>' +
+                                                            '<div><b>Station ID:</b> </b>' + responseObj.feature.attributes.STATION_ID + '</div><br>' +
                                                             '<div><b>SPARROW Reach ID: </b>' + responseObj.feature.attributes.MRB_ID + '</div><br>'+
-                                                            '<div><b>Fluxmaster Load' + chartUnits +': </b>' + responseObj.feature.attributes.LOAD_A_600 + '</div><br>' +
-                                                            '<div><b>SPARROW Estimated Load ' + chartUnits +': </b>' + responseObj.feature.attributes.PLOAD_600 + '</div><br>');
+                                                            '<div><b>Fluxmaster Load' + chartUnits +': </b>' + responseObj.feature.attributes.FLUXMASTER + '</div><br>' +
+                                                            '<div><b>SPARROW Estimated Load ' + chartUnits +': </b>' + responseObj.feature.attributes.SPARROW_ES + '</div><br>');
                     
                             var graphic = new Graphic();
                             var feature = graphic;
@@ -1782,7 +1783,7 @@ require([
             switch ($('#groupResultsSelect')[0].selectedIndex){
                 case 0:
                     // UPDATE when split catchments are available
-                    if( $('#st-select')[0].selectedIndex > 0) whichName = 'MRB_ID';
+                    if( $('#st-select')[0].selectedIndex > 0) whichName = 'ST_MRB_ID';
                     else whichName = 'MRB_ID';
                     break;
                 case 1:
@@ -1884,7 +1885,7 @@ require([
         switch ($('#groupResultsSelect')[0].selectedIndex){
             case 0:
                 // UPDATE when split catchments are available
-                if( $('#st-select')[0].selectedIndex > 0) fieldName = 'MRB_ID';
+                if( $('#st-select')[0].selectedIndex > 0) fieldName = 'ST_MRB_ID';
                 else fieldName = 'MRB_ID';
                 break;
             case 1:
