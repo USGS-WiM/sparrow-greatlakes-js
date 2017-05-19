@@ -92,26 +92,30 @@ function populateMetricOptions(selectedIndex){
 function returnDefaultLayer(sparrowId){
     switch (sparrowId){
         case 5:
-            return 1; 
+            return 0; 
             break;
         
         case 6:
+            return 1;
+            break;
+        case 7:     
             return 2;
             break;
-        
-        case 7:     
-            return 3;
+        case 8:
+            return 3; 
             break;
-        case 13:
+        case 14:
             return 9; 
             break;
         
-        case 14:
+        case 15:
             return 10
             break;
-        
-        case 15:     
+        case 16:     
             return 11; 
+            break;
+        case 17:     
+            return 12; 
             break;
     }
 }
@@ -125,7 +129,7 @@ function setAggregateGroup(groupBySelectedIndex, selectedRadio){
         switch (groupBySelectedIndex){
             case 0:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 0; //TODO UPDATE AddCatchments with splits if they become available?
+                    layerArrayValue = 5; //TODO UPDATE AddCatchments with splits if they become available?
                 } else{
                     layerArrayValue = 0;
                 }
@@ -133,7 +137,7 @@ function setAggregateGroup(groupBySelectedIndex, selectedRadio){
             case 1:
             
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 5; //grp3 w/ state splits
+                    layerArrayValue = 6; //grp3 w/ state splits
                 } else{
                     layerArrayValue = 1;
                 }
@@ -141,14 +145,14 @@ function setAggregateGroup(groupBySelectedIndex, selectedRadio){
                 break;
             case 2: 
                  if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 6;    //grp2 w/state splits
+                    layerArrayValue = 7;    //grp2 w/state splits
                 } else{
                     layerArrayValue = 2;
                 }
                 break;
             case 3:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 7;    //grp1 w/state splits
+                    layerArrayValue = 8;    //grp1 w/state splits
                 } else{
                     layerArrayValue = 3;
                 }
@@ -158,34 +162,35 @@ function setAggregateGroup(groupBySelectedIndex, selectedRadio){
                 break;
         }
     } else if (selectedRadio == 'radio2'){
+        //UPDATE TODO impoartant! verify layerIDs here when Nitrogen Layers become available!!!!!
         var layerArrayValue;
         switch (groupBySelectedIndex){
             case 0:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 8; //TODO UPDATE AddCatchments with splits if they become available?
-                } else{
-                    layerArrayValue = 8;
-                }
-                break;
-            case 1:
-                if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 13; //grp3 w/ state splits
+                    layerArrayValue = 13; //TODO UPDATE AddCatchments with splits if they become available?
                 } else{
                     layerArrayValue = 9;
                 }
                 break;
-            case 2: 
+            case 1:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 14; //grp2 w/ state splits
+                    layerArrayValue = 14; //grp3 w/ state splits
                 } else{
                     layerArrayValue = 10;
                 }
                 break;
-            case 3: 
+            case 2: 
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 15; //grp1 w/ state splits
+                    layerArrayValue = 15; //grp2 w/ state splits
                 } else{
                     layerArrayValue = 11;
+                }
+                break;
+            case 3: 
+                if( $("#st-select")[0].selectedIndex > 0){
+                    layerArrayValue = 16; //grp1 w/ state splits
+                } else{
+                    layerArrayValue = 12;
                 }
                 break;
             case 4:
@@ -281,39 +286,20 @@ function setLayerDefs(){
         }
         
         var layerDefs = [];
-/*
-        if (layerDefObj.AOI3){
-            layerDefs[0] = definitionString;
-            layerDefs[1] = definitionString;
-        }
-        if (layerDefObj.AOI2){
-            layerDefs[0] = definitionString;
-            layerDefs[2] = definitionString;
-            layerDefs[5] = definitionString;
-            layerDefs[6] = definitionString;
-        }
-        if (layerDefObj.AOI1){
-            layerDefs[0] = definitionString;
-            layerDefs[1] = definitionString;
-            layerDefs[3] = definitionString;
-            layerDefs[5] = definitionString;
-            layerDefs[7] = definitionString;
-        }
-        */
+
         //LayerDefs on ALL Layers
         /***TODO UPDATE IMPORTANT -- note that not all of these layer combinations are going to work with the attributes we have currently.  Some layer defs will not set because the fields don't exist***/
-        layerDefs[0] = definitionString; //contains ST, GP1, GP2, GP3, SG1, SG2, SG3
-        layerDefs[1] = definitionString; //contains GP3, GP1;       NO GP2/Tributary
-        layerDefs[2] = definitionString; //contains GP2, GP1;       NO GP3/HUC8
-        layerDefs[3] = definitionString; //contains GP1 ONLY;
-        layerDefs[4] = definitionString; //contains ST ONLY;
-        layerDefs[5] = definitionString; //contains ST, GP2, GP1;
-        layerDefs[6] = definitionString; //contains SG2, ST, GP2, GP1;  NO GP3/HUC8
-        layerDefs[7] = definitionString; //contains SG1, ST, GP1;       NO GP3/HUC8, NO GP2/Tributary
-        
+        layerDefs[0] = definitionString; 
+        layerDefs[1] = definitionString; 
+        layerDefs[2] = definitionString; 
+        layerDefs[3] = definitionString; 
+        layerDefs[4] = definitionString; 
+        layerDefs[5] = definitionString; 
+        layerDefs[6] = definitionString; 
+        layerDefs[7] = definitionString; 
+        layerDefs[8] = definitionString;
 
-        /*layerDefs[8] = definitionString;
-        layerDefs[9] = definitionString;
+        /*layerDefs[9] = definitionString;
         layerDefs[10] = definitionString;
         layerDefs[11] = definitionString;
         layerDefs[12] = definitionString;
@@ -502,8 +488,8 @@ function getLegendLabels(sparrowLayerId){
     switch(sparrowLayerId){
         /////BEGIN PHOSPHORUS LAYERS___________________________________________________________
         case 0: 
-            //HUC10
-            $.each(Group3, function(index, item){
+            //catchments
+            $.each(Catchments, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                      label = item.name;
                 }
@@ -512,7 +498,7 @@ function getLegendLabels(sparrowLayerId){
             break;
         case 1:
             //HUC8
-            $.each(Group2, function(index, item){
+            $.each(Group3, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                      label = item.name;
                 }
@@ -520,8 +506,8 @@ function getLegendLabels(sparrowLayerId){
             return label;
             break;
         case 2: 
-            //Independent Watershed
-             $.each(Group1, function(index, item){
+            //Trib
+             $.each(Group2, function(index, item){
                if( $("#displayedMetricSelect").val() == item.field ) {
                      label = item.name;
                 }
@@ -529,6 +515,15 @@ function getLegendLabels(sparrowLayerId){
             return label;
             break;
         case 3:
+            //Main River Bains
+            $.each(Group1, function(index, item){
+                if( $("#displayedMetricSelect").val() == item.field ) {
+                     label = item.name;
+                }
+            });
+            return label;
+            break;
+        case 4:
             //State
             $.each(ST, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -537,7 +532,16 @@ function getLegendLabels(sparrowLayerId){
             });
             return label;
             break;
-        case 4:
+        case 5:
+            //cats w/ state divisions
+            $.each(Catchments_st, function(index, item){
+                if( $("#displayedMetricSelect").val() == item.field ) {
+                     label = item.name;
+                }
+            });
+            return label;
+            break;
+        case 6:
             //grp3 w/ state divisions
             $.each(Group3_st, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -546,16 +550,16 @@ function getLegendLabels(sparrowLayerId){
             });
             return label;
             break;
-        case 5:
-            //grp 2 w/ state divisions
+        case 7:
+            //grp2 w/ state divisions
             $.each(Group2_st, function(index, item){
-                if( $("#displayedMetricSelect").val() == item.field ) {
+               if( $("#displayedMetricSelect").val() == item.field ) {
                      label = item.name;
                 }
             });
             return label;
             break;
-        case 6:
+        case 8:
             //grp1 w/ state divisions
             $.each(Group1_st, function(index, item){
                if( $("#displayedMetricSelect").val() == item.field ) {
@@ -566,8 +570,17 @@ function getLegendLabels(sparrowLayerId){
             break;
         /////END PHOSPHORUS LAYERS___________________________________________________________
         /////BEGIN NITROGEN LAYERS___________________________________________________________
-        case 7: 
-            //HUC10
+        case 9: 
+            //Nitro Catchments
+            $.each(Catchments_tn, function(index, item){
+                if( $("#displayedMetricSelect").val() == item.field ) {
+                     label = item.name;
+                }
+            });
+            return label;
+            break;
+        case 10: 
+            //HUC8
             $.each(Group3_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                      label = item.name;
@@ -575,8 +588,8 @@ function getLegendLabels(sparrowLayerId){
             });
             return label;
             break;
-        case 8:
-            //HUC8
+        case 11:
+            //Trib
             $.each(Group2_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                      label = item.name;
@@ -584,8 +597,8 @@ function getLegendLabels(sparrowLayerId){
             });
             return label;
             break;
-        case 9: 
-            //Independent Watershed
+        case 12: 
+            //Main River Basin
              $.each(Group1_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                      label = item.name;
@@ -593,7 +606,7 @@ function getLegendLabels(sparrowLayerId){
             });
             return label;
             break;
-        case 10:
+        case 13:
             //State
             $.each(ST_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -602,7 +615,16 @@ function getLegendLabels(sparrowLayerId){
             });
             return label;
             break;
-        case 11:
+        case 14:
+            //Cats w/ state divisions
+            $.each(Catchments_st_tn, function(index, item){
+                if( $("#displayedMetricSelect").val() == item.field ) {
+                   label = item.name;
+                }
+            });
+            return label;
+            break;
+        case 15:
             //grp3 w/ state divisions
             $.each(Group3_st_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -611,7 +633,7 @@ function getLegendLabels(sparrowLayerId){
             });
             return label;
             break;
-        case 12:
+        case 16:
             //grp 2 w/ state divisions
             $.each(Group2_st_tn, function(index, item){
                if( $("#displayedMetricSelect").val() == item.field ) {
@@ -620,7 +642,7 @@ function getLegendLabels(sparrowLayerId){
             });
             return label;
             break;
-        case 13:
+        case 17:
             //grp1 w/ state divisions
             $.each(Group1_st_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -702,6 +724,18 @@ function getChartOutfields(sparrowLayerId){
             return chartFieldsArr;
             break;
         case 5:
+            //Catchments w/ state divisions
+            $.each(Catchments_st, function(index, item){
+                if( $("#displayedMetricSelect").val() == item.field ) {
+                    $.each(item.chartOutfields, function(i, fields) {
+                        chartFieldsArr.push( fields );
+
+                    });
+                }
+            });
+            return chartFieldsArr;
+            break;
+        case 6:
             //grp3 w/ state divisions
             $.each(Group3_st, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -713,8 +747,8 @@ function getChartOutfields(sparrowLayerId){
             });
             return chartFieldsArr;
             break;
-        case 6:
-            //grp 2 w/ state divisions
+        case 7:
+            //grp3 w/ state divisions
             $.each(Group2_st, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                     $.each(item.chartOutfields, function(i, fields) {
@@ -725,8 +759,8 @@ function getChartOutfields(sparrowLayerId){
             });
             return chartFieldsArr;
             break;
-        case 7:
-            //grp1 w/ state divisions
+        case 8:
+            //grp 2 w/ state divisions
             $.each(Group1_st, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                     $.each(item.chartOutfields, function(i, fields) {
@@ -739,7 +773,7 @@ function getChartOutfields(sparrowLayerId){
             break;
         /////END PHOSPHORUS LAYERS___________________________________________________________
         /////BEGIN NITROGEN LAYERS___________________________________________________________
-        case 8: 
+        case 9: 
             //Nitro Cats
             $.each(Group3_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -751,7 +785,7 @@ function getChartOutfields(sparrowLayerId){
             });
             return chartFieldsArr;
             break;
-        case 9: 
+        case 10: 
             //HUC8
             $.each(Group3_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -763,7 +797,7 @@ function getChartOutfields(sparrowLayerId){
             });
             return chartFieldsArr;
             break;
-        case 10:
+        case 11:
             //Trib
             $.each(Group2_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -775,7 +809,7 @@ function getChartOutfields(sparrowLayerId){
             });
             return chartFieldsArr;
             break;
-        case 11: 
+        case 12: 
             //Independent Watershed
              $.each(Group1_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -787,7 +821,7 @@ function getChartOutfields(sparrowLayerId){
             });
             return chartFieldsArr;
             break;
-        case 12:
+        case 13:
             //State
             $.each(ST_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -799,7 +833,19 @@ function getChartOutfields(sparrowLayerId){
             });
             return chartFieldsArr;
             break;
-        case 13:
+        case 14:
+            //cats with st divisions
+            $.each(Catchments_st_tn, function(index, item){
+                if( $("#displayedMetricSelect").val() == item.field ) {
+                    $.each(item.chartOutfields, function(i, fields) {
+                        chartFieldsArr.push( fields );
+
+                    });
+                }
+            });
+            return chartFieldsArr;
+            break;
+        case 15:
             //grp3 w/ state divisions
             $.each(Group3_st_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -811,7 +857,7 @@ function getChartOutfields(sparrowLayerId){
             });
             return chartFieldsArr;
             break;
-        case 14:
+        case 16:
             //grp 2 w/ state divisions
             $.each(Group2_st_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -823,7 +869,7 @@ function getChartOutfields(sparrowLayerId){
             });
             return chartFieldsArr;
             break;
-        case 15:
+        case 17:
             //grp1 w/ state divisions
             $.each(Group1_st_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
@@ -844,44 +890,44 @@ function getExtraOutfields(outfieldsArr, sparrowLayerId){
 
     switch(sparrowLayerId){
         /////BEGIN PHOSPHORUS LAYERS___________________________________________________________
-        case 0: case 8: 
+        case 0: case 9: 
             //CATCHMENTS
             //finalChartArr.push("PNAME");
             finalChartArr.push("DEMIAREA");
             finalChartArr.push("DEMTAREA");
             
             break;
-        case 1: case 9:
+        case 1: case 10:
             //HUC8 
             finalChartArr.push("GP3_AREA");
             
             break;
-        case 2: case 10:
+        case 2: case 11:
             //Tributarys
             finalChartArr.push("GP2_AREA");
             
             break;
-        case 3: case 11:
+        case 3: case 12:
             //Independent Watershed
              finalChartArr.push("GP1_AREA");
 
             break;
-        case 4: case 12:
+        case 4: case 13:
             //State
             finalChartArr.push("ST_AREA");
 
             break;
-        case 5: case 13:
+        case 5: case 15:
             //grp3 w/ state divisions
             finalChartArr.push("SG3_AREA");
 
             break;
-        case 6: case 14:
+        case 6: case 16:
             //grp 2 w/ state divisions
             finalChartArr.push("SG2_AREA");
 
             break;
-        case 7: case 15:
+        case 7: case 17:
             //grp1 w/ state divisions
             finalChartArr.push("SG1_AREA");
 
@@ -936,7 +982,8 @@ function generateRenderer(){
             app.layerDef = "1=1";
         }
         
-        app.Url = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowMRB3V2/SparrowMRB3/MapServer/" + sparrowId;
+        //UPDATE important!  url must match service url ---- note maybe move to config file?
+        app.Url = "http://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakesDev/MapServer/" + sparrowId;
         
         var selectedMetric = $('#displayedMetricSelect')[0].value;
         //var selectedMetric = "ST_AL";

@@ -5,7 +5,7 @@ Use this with MRB3v2 map services http://gis.wim.usgs.gov/arcgis/rest/services/S
 prior to data update on 3/17/2017
 */
 
-var serviceBaseURL = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowMRB3V2/SparrowMRB3/MapServer/"; //important! UPDATE rest service URL
+var serviceBaseURL = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakesDev/MapServer/"; //important! UPDATE rest service URL
 var chartUnits = " (kg/yr.)"
 
 var groupResultsInitIndex = 1; //sets the default layer for the application.  In this case service layer 1 == HUC8.
