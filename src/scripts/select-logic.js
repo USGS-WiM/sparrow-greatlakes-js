@@ -983,7 +983,7 @@ function generateRenderer(){
         }
         
         //UPDATE important!  url must match service url ---- note maybe move to config file?
-        app.Url = "http://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakesDev/MapServer/" + sparrowId;
+        app.Url = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakesDev/MapServer/" + sparrowId;
         
         var selectedMetric = $('#displayedMetricSelect')[0].value;
         //var selectedMetric = "ST_AL";
@@ -1021,7 +1021,7 @@ function generateRenderer(){
         var params = new GenerateRendererParameters();
         params.classificationDefinition = classDef;
         // limit the renderer to data being shown by the current layer
-        params.formatLabel = true;
+        params.formatLabel = false; //formatLabel = false otherwise expect some bad behavior from the renderer!
         params.where = app.layerDef; 
         var generateRenderer = new GenerateRendererTask(app.Url);
         generateRenderer.execute(params, applyRenderer, errorHandler);
@@ -1030,6 +1030,7 @@ function generateRenderer(){
         function applyRenderer(renderer){
             var sparrowId = app.map.getLayer('SparrowRanking').visibleLayers[0];
             var layer = app.map.getLayer('SparrowRanking');
+            //layer.hide();
 
 
             // dynamic layer stuff
