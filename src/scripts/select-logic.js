@@ -167,34 +167,34 @@ function setAggregateGroup(groupBySelectedIndex, selectedRadio){
         switch (groupBySelectedIndex){
             case 0:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 13; //TODO UPDATE AddCatchments with splits if they become available?
+                    layerArrayValue = 14; //TODO UPDATE AddCatchments with splits if they become available?
                 } else{
                     layerArrayValue = 9;
                 }
                 break;
             case 1:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 14; //grp3 w/ state splits
+                    layerArrayValue = 15; //grp3 w/ state splits
                 } else{
                     layerArrayValue = 10;
                 }
                 break;
             case 2: 
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 15; //grp2 w/ state splits
+                    layerArrayValue = 16; //grp2 w/ state splits
                 } else{
                     layerArrayValue = 11;
                 }
                 break;
             case 3: 
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 16; //grp1 w/ state splits
+                    layerArrayValue = 17; //grp1 w/ state splits
                 } else{
                     layerArrayValue = 12;
                 }
                 break;
             case 4:
-                layerArrayValue = 12;
+                layerArrayValue = 13;
                 break;
         }
     }
@@ -298,15 +298,18 @@ function setLayerDefs(){
         layerDefs[6] = definitionString; 
         layerDefs[7] = definitionString; 
         layerDefs[8] = definitionString;
-
-        /*layerDefs[9] = definitionString;
+        
+        layerDefs[9] = definitionString;
         layerDefs[10] = definitionString;
         layerDefs[11] = definitionString;
         layerDefs[12] = definitionString;
         layerDefs[13] = definitionString;
         layerDefs[14] = definitionString;
-        layerDefs[15] = definitionString;*/
-        
+        layerDefs[15] = definitionString;
+        layerDefs[16] = definitionString;
+        layerDefs[17] = definitionString;
+
+
         app.map.getLayer("SparrowRanking").setLayerDefinitions(layerDefs);
 
         //app.map.getLayer('SparrowRanking').refresh();
