@@ -12,7 +12,7 @@ function populateMetricOptions(selectedIndex){
         switch (selectedIndex){
             case 0:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    metricOptions = Catchments; //UPDATE TODO if catchments are split, update to the appropriate object.
+                    metricOptions = Catchments_st; //UPDATE TODO if catchments are split, update to the appropriate object.
                 }else{
                     metricOptions = Catchments;
                 }
@@ -47,7 +47,7 @@ function populateMetricOptions(selectedIndex){
         switch (selectedIndex){
             case 0:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    metricOptions = Catchments_tn;  //UPDATE TODO if catchments are split, update to the appropriate object.
+                    metricOptions = Catchments_st_tn;  //UPDATE TODO if catchments are split, update to the appropriate object.
                 }else{
                     metricOptions = Catchments_tn;
                 }
@@ -969,7 +969,6 @@ function generateRenderer(){
         domClass,
         on
     ) {
-        console.log('in generateRenderer()');
 
         var sparrowId = app.map.getLayer('SparrowRanking').visibleLayers[0];
         //apply layer defs to renderer if they exist
@@ -983,7 +982,7 @@ function generateRenderer(){
         }
         
         //UPDATE important!  url must match service url ---- note maybe move to config file?
-        app.Url = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakesDev/MapServer/" + sparrowId;
+        app.Url = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakes/MapServer/" + sparrowId;
         
         var selectedMetric = $('#displayedMetricSelect')[0].value;
         //var selectedMetric = "ST_AL";
