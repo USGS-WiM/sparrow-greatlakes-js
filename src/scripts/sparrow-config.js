@@ -116,7 +116,7 @@ var Catchments = [
         field: "ACCL", 
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.accl, 
         chartOutfields: [
-            { attribute: "MRB_ID", label: aggregateDefinitions.pname },
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
             { attribute: "ACCL_S1", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s1},
             { attribute: "ACCL_S2", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s2},
             { attribute: "ACCL_S3", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s3},
@@ -129,7 +129,7 @@ var Catchments = [
         field: "INCL", 
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.incl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname }, 
+            { attribute: "PNAME", label: catchmentDefinitions.pname }, 
             { attribute: "INCL_S1", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s1},
             { attribute: "INCL_S2", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s2},
             { attribute: "INCL_S3", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s3},
@@ -158,7 +158,7 @@ var Catchments = [
         field: "DINCL", 
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.dincl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname },
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
             { attribute: "DINCL_S1", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s1},
             { attribute: "DINCL_S2", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s2},
             { attribute: "DINCL_S3", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s3},
@@ -401,7 +401,7 @@ var Catchments_st = [
         field: "ACCL", 
         name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.accl, 
         chartOutfields: [
-            { attribute: "MRB_ID", label: aggregateDefinitions.pname },
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
             { attribute: "ACCL_S1", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s1},
             { attribute: "ACCL_S2", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s2},
             { attribute: "ACCL_S3", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s3},
@@ -414,7 +414,7 @@ var Catchments_st = [
         field: "INCL", 
         name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.incl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname }, 
+            { attribute: "PNAME", label: catchmentDefinitions.pname }, 
             { attribute: "INCL_S1", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s1},
             { attribute: "INCL_S2", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s2},
             { attribute: "INCL_S3", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s3},
@@ -443,7 +443,7 @@ var Catchments_st = [
         field: "DINCL", 
         name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.dincl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname },
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
             { attribute: "DINCL_S1", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s1},
             { attribute: "DINCL_S2", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s2},
             { attribute: "DINCL_S3", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s3},
@@ -631,7 +631,7 @@ var Catchments_tn = [
         field: "ACCL", 
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname },
+            { attribute: "PNAME",  label: catchmentDefinitions.pname },
             { attribute: "ACCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s1},
             { attribute: "ACCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s2},
             { attribute: "ACCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s3},
@@ -643,7 +643,7 @@ var Catchments_tn = [
         field: "INCL", 
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname }, 
+            { attribute: "PNAME", label: catchmentDefinitions.pname }, 
             { attribute: "INCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s1},
             { attribute: "INCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s2},
             { attribute: "INCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s3},
@@ -671,7 +671,7 @@ var Catchments_tn = [
         field: "DINCL", 
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname },
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
             { attribute: "DINCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s1},
             { attribute: "DINCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s2},
             { attribute: "DINCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s3},
@@ -890,7 +890,7 @@ var Catchments_st_tn = [
         field: "ACCL", 
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accl, 
         chartOutfields: [
-            { attribute: "MRB_ID", label: aggregateDefinitions.pname },
+            { attribute: "MRB_ID", label: catchmentDefinitions.pname },
             { attribute: "ACCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s1},
             { attribute: "ACCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s2},
             { attribute: "ACCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s3},
@@ -902,7 +902,7 @@ var Catchments_st_tn = [
         field: "INCL", 
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname }, 
+            { attribute: "PNAME", label: catchmentDefinitions.pname }, 
             { attribute: "INCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s1},
             { attribute: "INCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s2},
             { attribute: "INCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s3},
@@ -930,7 +930,7 @@ var Catchments_st_tn = [
         field: "DINCL", 
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname },
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
             { attribute: "DINCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s1},
             { attribute: "DINCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s2},
             { attribute: "DINCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s3},

@@ -778,7 +778,7 @@ function getChartOutfields(sparrowLayerId){
         /////BEGIN NITROGEN LAYERS___________________________________________________________
         case 9: 
             //Nitro Cats
-            $.each(Group3_tn, function(index, item){
+            $.each(Catchments_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                      $.each(item.chartOutfields, function(i, fields) {
                         chartFieldsArr.push( fields );
@@ -790,6 +790,7 @@ function getChartOutfields(sparrowLayerId){
             break;
         case 10: 
             //HUC8
+
             $.each(Group3_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                      $.each(item.chartOutfields, function(i, fields) {
@@ -920,17 +921,22 @@ function getExtraOutfields(outfieldsArr, sparrowLayerId){
             finalChartArr.push("ST_AREA");
 
             break;
-        case 5: case 15:
+        case 5: case 14:
+            //Catchments w/ state divisions
+            finalChartArr.push("STDEMIAREA");
+            finalChartArr.push("STDEMTAREA");
+            break;
+        case 6: case 15:
             //grp3 w/ state divisions
             finalChartArr.push("SG3_AREA");
 
             break;
-        case 6: case 16:
+        case 7: case 16:
             //grp 2 w/ state divisions
             finalChartArr.push("SG2_AREA");
 
             break;
-        case 7: case 17:
+        case 8: case 17:
             //grp1 w/ state divisions
             finalChartArr.push("SG1_AREA");
 
