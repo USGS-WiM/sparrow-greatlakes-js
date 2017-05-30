@@ -232,7 +232,7 @@ function AOIChange(e){
     if (newObj.selectedValue != ""){
         app.setLayerDefObj(newObj);
     }
-    app.map.getLayer('SparrowRanking').hide();
+    //app.map.getLayer('SparrowRanking').hide();
     setLayerDefs();    
 
     generateRenderer();
