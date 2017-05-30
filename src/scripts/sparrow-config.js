@@ -5,7 +5,7 @@ Use this with MRB3v2 map services http://gis.wim.usgs.gov/arcgis/rest/services/S
 prior to data update on 3/17/2017
 */
 
-var serviceBaseURL = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakesDev/MapServer/"; //important! UPDATE rest service URL
+var serviceBaseURL = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakes/MapServer/"; //important! UPDATE rest service URL
 var chartUnits = " (kg/yr.)"
 
 var groupResultsInitIndex = 1; //sets the default layer for the application.  In this case service layer 1 == HUC8.
@@ -51,6 +51,7 @@ var aggregateDefinitions = {
 // key, value pairs come from PHOSPHORUS attribute definitions Excel file
 var catchmentDefinitions = {
     mrb_id : "SPARROW Reach ID",
+    st_mrb_id: "SPARROW Reach ID by State",
     pname : "Reach Name",
     accl : "Accumulated load (kg)",
     incl : "Incremental load (kg)",
@@ -62,7 +63,20 @@ var catchmentDefinitions = {
     dincy : "Delivered incremental yield (kg/km2)"
 }
 
-/***TODO  add catchment definitions for NITRO?***/
+//Nitrogen same as Phosphorus in this model
+var catchmentDefinitions_tn = {
+    mrb_id : "SPARROW Reach ID",
+    st_mrb_id: "SPARROW Reach ID by State",
+    pname : "Reach Name",
+    accl : "Accumulated load (kg)",
+    incl : "Incremental load (kg)",
+    accy : "Accumulated yield (kg/km2)",
+    incy : "Incremental yield (kg/km2)",
+    daccl : "Delivered accumulated load (kg)",
+    daccy : "Delivered accumulated yield (kg/km2)",
+    dincl : "Delivered incremental load  (kg)",
+    dincy : "Delivered incremental yield (kg/km2)"
+}
 
 var mappedDefinitions = {
     area : "aggregated area (km2)",
@@ -74,8 +88,6 @@ var mappedDefinitions = {
     dap: "percent of delivered aggregated load"
 }
 
-/***TODO  add mapped definitions for NITRO?***/
-
 var phosphorusSourceDefinitons = {
     s1 : "Urban Land",
     s2 : "Sewerage Point Sources",
@@ -85,14 +97,13 @@ var phosphorusSourceDefinitons = {
     s6 : "Forest/Wetland"
 }
 
-/***TODO: complete when Nitro data becomes available***/
-var nitrogenSources = {
-    s1 : "",
-    s2 : "",
-    s3 : "",
-    s4 : "",
-    s5 : "",
-    s6 : ""
+/***UPDATE IMPORTANT! complete with source data Excel key***/
+var nitrogenSourceDefinitions = {
+    s1 : "Point Sources",
+    s2 : "Manure (Confined)",
+    s3 : "Farm Fertilizer",
+    s4 : "Additional Agricultural Sources",
+    s5 : "Atmospheric Depositon"
 }
 
 
@@ -105,7 +116,7 @@ var Catchments = [
         field: "ACCL", 
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.accl, 
         chartOutfields: [
-            { attribute: "MRB_ID", label: aggregateDefinitions.pname },
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
             { attribute: "ACCL_S1", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s1},
             { attribute: "ACCL_S2", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s2},
             { attribute: "ACCL_S3", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s3},
@@ -118,7 +129,7 @@ var Catchments = [
         field: "INCL", 
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.incl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname }, 
+            { attribute: "PNAME", label: catchmentDefinitions.pname }, 
             { attribute: "INCL_S1", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s1},
             { attribute: "INCL_S2", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s2},
             { attribute: "INCL_S3", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s3},
@@ -147,7 +158,7 @@ var Catchments = [
         field: "DINCL", 
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.dincl, 
         chartOutfields: [
-            { attribute: "PNAME", label: aggregateDefinitions.pname },
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
             { attribute: "DINCL_S1", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s1},
             { attribute: "DINCL_S2", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s2},
             { attribute: "DINCL_S3", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s3},
@@ -385,6 +396,68 @@ var ST = [
     }
 ]
 
+var Catchments_st = [
+    {
+        field: "ACCL", 
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.accl, 
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "ACCL_S1", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s1},
+            { attribute: "ACCL_S2", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s2},
+            { attribute: "ACCL_S3", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s3},
+            { attribute: "ACCL_S4", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s4},
+            { attribute: "ACCL_S5", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s5},
+            { attribute: "ACCL_S6", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.accl + ' ' + phosphorusSourceDefinitons.s6}
+        ]
+    },
+    {
+        field: "INCL", 
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.incl, 
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname }, 
+            { attribute: "INCL_S1", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s1},
+            { attribute: "INCL_S2", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s2},
+            { attribute: "INCL_S3", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s3},
+            { attribute: "INCL_S4", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s4},
+            { attribute: "INCL_S5", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s5},
+            { attribute: "INCL_S6", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.incl + ' ' + phosphorusSourceDefinitons.s6}
+        ] 
+    },
+    {
+        field: "ACCY", 
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.accy
+    },
+    {
+        field: "INCY", 
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.incy
+    },
+    {
+        field: "DACCL", 
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.daccl
+    },
+    {
+        field: "DACCY", 
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.daccy
+    },
+    {
+        field: "DINCL", 
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.dincl, 
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DINCL_S1", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s1},
+            { attribute: "DINCL_S2", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s2},
+            { attribute: "DINCL_S3", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s3},
+            { attribute: "DINCL_S4", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s4},
+            { attribute: "DINCL_S5", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s5},
+            { attribute: "DINCL_S6", label: catchmentDefinitions.st_mrb_id + ' ' + catchmentDefinitions.dincl + ' ' + phosphorusSourceDefinitons.s6}
+        ]
+    },
+    {
+        field: "DINCY", 
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.dincy
+    }
+]
+
 var Group3_st = [
     {
         field: "SG3_AL", 
@@ -552,78 +625,113 @@ var Group1_st = [
 ////END PHOSPHORUS LAYER GROUPS______________________________________________________________________________________________________________________________
 
 ////BEGIN NITROGEN LAYER GROUPS______________________________________________________________________________________________________________________________
-//HUC10 Metric choices, service Id 0
+//Catchments NITRO
+var Catchments_tn = [
+    {
+        field: "ACCL", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accl, 
+        chartOutfields: [
+            { attribute: "PNAME",  label: catchmentDefinitions.pname },
+            { attribute: "ACCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "ACCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "ACCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "ACCL_S4", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "ACCL_S5", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s5}
+        ]
+    },
+    {
+        field: "INCL", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incl, 
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname }, 
+            { attribute: "INCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "INCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "INCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "INCL_S4", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "INCL_S5", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s5}
+        ] 
+    },
+    {
+        field: "ACCY", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accy
+    },
+    {
+        field: "INCY", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incy
+    },
+    {
+        field: "DACCL", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccl
+    },
+    {
+        field: "DACCY", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccy
+    },
+    {
+        field: "DINCL", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincl, 
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DINCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "DINCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "DINCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "DINCL_S4", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "DINCL_S5", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s5}
+        ]
+    },
+    {
+        field: "DINCY", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincy
+    }
+]
+
 var Group3_tn = [
     {
-        field: "dy1_g3_tot", 
-        name: "Yield from HUC10 delivered to downstream boundary (lb/yr/mi2)", 
+        field: "GP3_AL", 
+        name: aggregateDefinitions.gp3 + " " + mappedDefinitions.al, 
         chartOutfields: [
-            { attribute: "GRP_3_NAM", label: "HUC10 name"}, 
-            { attribute: "dy1_g3_sc1", label: "Wastewater yield from HUC10 delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_g3_sc2", label: "Urban-land yield from HUC10 delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_g3_sc3", label: "Atmospheric deposition yield from HUC10 delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_g3_sc4", label: "Manure yield from HUC10 delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_g3_sc5", label: "Fertilizer yield from HUC10 delivered to downstream boundary (lb/yr/mi2)"}
+            { attribute: "GP3", label: aggregateDefinitions.gp3 }, 
+            { attribute: "GP3_AL_S1", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP3_AL_S2", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP3_AL_S3", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP3_AL_S4", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP3_AL_S5", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s5}
         ]
     },
     {
-        field: "dl1_g3_tot", 
-        name: "Group Aggregate Load delivered to donwstream boundary (lb/yr)", 
+        field: "GP3_DAL", 
+        name: aggregateDefinitions.gp3 + " " + mappedDefinitions.dal, 
         chartOutfields: [
-            { attribute: "GRP_3_NAM", label: "HUC10 name"}, 
-            { attribute: "dl1_g3_sc1", label: "Wastewater load from HUC10 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g3_sc2", label: "Urban-land load from HUC10 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g3_sc3", label: "Atmospheric deposition load from HUC10 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g3_sc4", label: "Manure load from HUC10 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g3_sc5", label: "Fertilizer load from HUC10 delivered to downstream boundary (lb/yr)"}
-        ]
-    },    
+            { attribute: "GP3", label: aggregateDefinitions.gp3 }, 
+            { attribute: "GP3_DAL_S1", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP3_DAL_S2", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP3_DAL_S3", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP3_DAL_S4", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP3_DAL_S5", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s5}
+        ] 
+    },
     {
-        field: "dl3_g3_tot", 
-        name: "Load from HUC10 delivered to HUC10 outlet (lb/yr)", 
+        field: "GP3_AY", 
+        name: aggregateDefinitions.gp3 + " " + mappedDefinitions.ay, 
         chartOutfields: [
-            { attribute: "GRP_3_NAM", label: "HUC10 name"}, 
-            { attribute: "dl3_g3_sc1", label: "Wastewater load from HUC10 delivered to HUC10 outlet (lb/yr)"},
-            { attribute: "dl3_g3_sc2", label: "Urban-land load from HUC10 delivered to HUC10 outlet (lb/yr)"},
-            { attribute: "dl3_g3_sc3", label: "Atmospheric deposition load from HUC10 delivered to HUC10 outlet (lb/yr)"},
-            { attribute: "dl3_g3_sc4", label: "Manure load from HUC10 delivered to HUC10 outlet (lb/yr)"},
-            { attribute: "dl3_g3_sc5", label: "Fertilizer load from HUC10 delivered to HUC10 outlet (lb/yr)"}
+            { attribute: "GP3", label: aggregateDefinitions.gp3 }, 
+            { attribute: "GP3_AY_S1", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP3_AY_S2", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP3_AY_S3", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP3_AY_S4", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP3_AY_S5", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s5}
         ]
     },
     {
-        field: "dy3_g3_tot", 
-        name: "Yield from HUC10 delivered to HUC10 outlet (lb/yr/mi2)", 
+        field: "GP3_DAY", 
+        name: aggregateDefinitions.gp3 + " " + mappedDefinitions.day, 
         chartOutfields: [
-            { attribute: "GRP_3_NAM", label: "HUC10 name"}, 
-            { attribute: "dy3_g3_sc1", label: "Wastewater yield from HUC10 delivered to HUC10 outlet (lb/yr/mi2)"},
-            { attribute: "dy3_g3_sc2", label: "Urban-land yield from HUC10 delivered to HUC10 outlet (lb/yr/mi2)"},
-            { attribute: "dy3_g3_sc3", label: "Atmospheric deposition yield from HUC10 delivered to HUC10 outlet (lb/yr/mi2)"},
-            { attribute: "dy3_g3_sc4", label: "Manure yield from HUC10 delivered to HUC10 outlet (lb/yr/mi2)"},
-            { attribute: "dy3_g3_sc5", label: "Fertilizer yield from HUC10 delivered to HUC10 outlet (lb/yr/mi2)"}
-        ]
-    },
-    {
-        field: "al_g3_tot", 
-        name: "Accumulated load at HUC10 outlet (lb/yr)", 
-        chartOutfields: [
-            { attribute: "GRP_3_NAM", label: "HUC10 name"}, 
-            { attribute: "al_g3_sc1", label: "Accumulated wastewater load at HUC10 outlet (lb/yr)"},
-            { attribute: "al_g3_sc2", label: "Accumulated urban-land load at HUC10 outlet (lb/yr)"},
-            { attribute: "al_g3_sc3", label: "Accumulated Atmospheric deposition load at HUC10 outlet (lb/yr)"},
-            { attribute: "al_g3_sc4", label: "Accumulated Manure load at HUC10 outlet (lb/yr)"},
-            { attribute: "al_g3_sc5", label: "Accumulated Fertilizer load at HUC10 outlet (lb/yr)"}
-        ]
-    },
-    {
-        field: "ay_g3_tot", 
-        name: "Accumulated yield at HUC10 outlet (lb/yr/mi2)", 
-        chartOutfields: [
-        { attribute: "GRP_3_NAM", label: "HUC10 name"}, 
-            { attribute: "ay_g3_sc1", label: "Accumulated wastewater yield at HUC10 outlet (lb/yr/mi2)"},
-            { attribute: "ay_g3_sc2", label: "Accumulated urban-land yield at HUC10 outlet (lb/yr/mi2)"},
-            { attribute: "ay_g3_sc3", label: "Accumulated Atmospheric deposition yield at HUC10 outlet (lb/yr/mi2)"},
-            { attribute: "ay_g3_sc4", label: "Accumulated Manure yield at HUC10 outlet (lb/yr/mi2)"},
-            { attribute: "ay_g3_sc5", label: "Accumulated Fertilizer yield at HUC10 outlet (lb/yr/mi2)"}
+            { attribute: "GP3", label: aggregateDefinitions.gp3 }, 
+            { attribute: "GP3_DAY_S1", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP3_DAY_S2", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP3_DAY_S3", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP3_DAY_S4", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP3_DAY_S5", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s5}
         ]
     }
 ]
@@ -631,53 +739,51 @@ var Group3_tn = [
 //HUC8 Metric choices, Service Id 1
 var Group2_tn = [
     {
-        field: "dy1_g2_tot", 
-        name: "Yield from HUC8 delivered to downstream boundary (lb/yr)", 
+        field: "GP2_AL", 
+        name: aggregateDefinitions.gp2 + " " + mappedDefinitions.al, 
         chartOutfields: [
-            { attribute: "GRP_2_NAM", label: "HUC8 name"}, 
-            { attribute: "dy1_g2_sc1", label: "Wastewater yield from HUC8 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_g2_sc2", label: "Urban-land yield from HUC8 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_g2_sc3", label: "Atmospheric deposition yield from HUC8 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_g2_sc4", label: "Manure yield from HUC8 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_g2_sc5", label: "Fertilizer yield from HUC8 delivered to downstream boundary (lb/yr)"}
+            { attribute: "GP2", label: aggregateDefinitions.gp2 }, 
+            { attribute: "GP2_AL_S1", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP2_AL_S2", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP2_AL_S3", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP2_AL_S4", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP2_AL_S5", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s5}
         ]
     },
     {
-        field: "dl1_g2_tot", 
-        name: "Load from HUC8 delivered to downstream boundary (lb/yr)", 
+        field: "GP2_DAL", 
+        name: aggregateDefinitions.gp2 + " " + mappedDefinitions.dal, 
         chartOutfields: [
-            { attribute: "GRP_2_NAM", label: "HUC8 name"}, 
-            { attribute: "dl1_g2_sc1", label: "Wastewater load from HUC8 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g2_sc2", label: "Urban-land load from HUC8 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g2_sc3", label: "Atmospheric deposition load from HUC8 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g2_sc4", label: "Manure load from HUC8 delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g2_sc5", label: "Fertilizer load from HUC8 delivered to downstream boundary (lb/yr)"}
-        ]
-    },    
+            { attribute: "GP2", label: aggregateDefinitions.gp2 }, 
+            { attribute: "GP2_DAL_S1", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP2_DAL_S2", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP2_DAL_S3", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP2_DAL_S4", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP2_DAL_S5", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s5}
+        ] 
+    },
     {
-        field: "dl2_g2_tot", 
-        name: "Load from HUC8 delivered to HUC8 outlet (lb/yr)", 
+        field: "GP2_AY", 
+        name: aggregateDefinitions.gp2 + " " + mappedDefinitions.ay, 
         chartOutfields: [
-            { attribute: "GRP_2_NAM", label: "HUC8 name"}, 
-            { attribute: "dl2_g2_sc1", label: "Wastewater load from HUC8 delivered to HUC8 outlet (lb/yr)"},
-            { attribute: "dl2_g2_sc2", label: "Urban-land load from HUC8 delivered to HUC8 outlet (lb/yr)"},
-            { attribute: "dl2_g2_sc3", label: "Atmospheric deposition load from HUC8 delivered to HUC8 outlet (lb/yr)"},
-            { attribute: "dl2_g2_sc4", label: "Manure load from HUC8 delivered to HUC8 outlet(lb/yr)"},
-            { attribute: "dl2_g2_sc5", label: "Fertilizer load from HUC8 delivered to HUC8 outlet (lb/yr)"}
-
+            { attribute: "GP2", label: aggregateDefinitions.gp2 }, 
+            { attribute: "GP2_AY_S1", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP2_AY_S2", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP2_AY_S3", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP2_AY_S4", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP2_AY_S5", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s5}
         ]
     },
     {
-        field: "dy2_g2_tot", 
-        name: "Yield from HUC8 delivered to HUC8 outlet (lb/yr)", 
+        field: "GP2_DAY", 
+        name: aggregateDefinitions.gp2 + " " + mappedDefinitions.day, 
         chartOutfields: [
-            { attribute: "GRP_2_NAM", label: "HUC8 name"}, 
-            { attribute: "dy2_g2_sc1", label: "Wastewater yield from HUC8 delivered to HUC8 outlet (lb/yr)"},
-            { attribute: "dy2_g2_sc2", label: "Urban-land yield from HUC8 delivered to HUC8 outlet (lb/yr)"},
-            { attribute: "dy2_g2_sc3", label: "Atmospheric deposition yield from HUC8 delivered to HUC8 outlet (lb/yr)"},
-            { attribute: "dy2_g2_sc4", label: "Manure yield from HUC8 delivered to HUC8 outlet(lb/yr)"},
-            { attribute: "dy2_g2_sc5", label: "Fertilizer yield from HUC8 delivered to HUC8 outlet (lb/yr)"}
-
+            { attribute: "GP2", label: aggregateDefinitions.gp2 }, 
+            { attribute: "GP2_DAY_S1", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP2_DAY_S2", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP2_DAY_S3", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP2_DAY_S4", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP2_DAY_S5", label: aggregateDefinitions.gp2 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s5}
         ]
     }
 ]
@@ -685,232 +791,302 @@ var Group2_tn = [
 //independent watershed Metric choices, Service ID 2
 var Group1_tn = [
     {
-        field: "dy1_g1_tot", 
-        name: "Yield from independent watershed delivered to downstream boundary (lb/yr)", 
+        field: "GP1_AL", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.al, 
         chartOutfields: [
-            { attribute: "GRP_1_NAM", label: "Independent Watershed name"}, 
-            { attribute: "dy1_g1_sc1", label: "Wastewater yield from independent watershed delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_g1_sc2", label: "Urban-land yield from independent watershed delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_g1_sc3", label: "Atmospheric deposition yield from independent watershed delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_g1_sc4", label: "Manure yield from independent watershed delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_g1_sc5", label: "Fertilizer yield from independent watershed delivered to downstream boundary (lb/yr)"}
+            { attribute: "GP1", label: aggregateDefinitions.gp1 }, 
+            { attribute: "GP1_AL_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP1_AL_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP1_AL_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP1_AL_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP1_AL_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s5}        ]
+    },
+    {
+        field: "GP1_DAL", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.dal, 
+        chartOutfields: [
+            { attribute: "GP1", label: aggregateDefinitions.gp1 }, 
+            { attribute: "GP1_DAL_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP1_DAL_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP1_DAL_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP1_DAL_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP1_DAL_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s5}        ] 
+    },
+    {
+        field: "GP1_AY", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.ay, 
+        chartOutfields: [
+            { attribute: "GP1", label: aggregateDefinitions.gp1 }, 
+            { attribute: "GP1_AY_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP1_AY_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP1_AY_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP1_AY_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP1_AY_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s5}
         ]
     },
     {
-        field: "dl1_g1_tot", 
-        name: "Load from independent watershed delivered to downstream boundary (lb/yr)", 
+        field: "GP1_DAY", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.day, 
         chartOutfields: [
-            { attribute: "GRP_1_NAM", label: "Independent Watershed name"},
-            { attribute: "dl1_g1_sc1", label: "Wastewater load from independent watershed delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g1_sc2", label: "Urban-land load from independent watershed delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g1_sc3", label: "Atmospheric deposition load from independent watershed delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g1_sc4", label: "Manure load from independent watershed delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_g1_sc5", label: "Fertilizer load from independent watershed delivered to downstream boundary (lb/yr)"}
+            { attribute: "GP1", label: aggregateDefinitions.gp1 }, 
+            { attribute: "GP1_DAY_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "GP1_DAY_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "GP1_DAY_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "GP1_DAY_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "GP1_DAY_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s5}
         ]
     }
 ]
 
 var ST_tn = [
     {
-        field: "dy1_ST_tot", 
-        name: "Yield from State delivered to downstream boundary (lb/yr)", 
+        field: "ST_AL", 
+        name: aggregateDefinitions.st + " " + mappedDefinitions.al, 
         chartOutfields: [
-            { attribute: "ST", label: "State"},
-            { attribute: "dy1_ST_sc1", label: "Wastewater yield from State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_ST_sc2", label: "Urban-land yield from State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_ST_sc3", label: "Atmospheric deposition yield from State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_ST_sc4", label: "Manure yield from State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dy1_ST_sc5", label: "Fertilizer yield from State delivered to downstream boundary (lb/yr)"}
+            { attribute: "ST", label: aggregateDefinitions.st }, 
+            { attribute: "ST_AL_S1", label: aggregateDefinitions.st + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "ST_AL_S2", label: aggregateDefinitions.st + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "ST_AL_S3", label: aggregateDefinitions.st + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "ST_AL_S4", label: aggregateDefinitions.st + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "ST_AL_S5", label: aggregateDefinitions.st + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s5}        ]
+    },
+    {
+        field: "ST_DAL", 
+        name: aggregateDefinitions.st + " " + mappedDefinitions.dal, 
+        chartOutfields: [
+            { attribute: "ST", label: aggregateDefinitions.st }, 
+            { attribute: "ST_DAL_S1", label: aggregateDefinitions.st + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "ST_DAL_S2", label: aggregateDefinitions.st + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "ST_DAL_S3", label: aggregateDefinitions.st + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "ST_DAL_S4", label: aggregateDefinitions.st + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "ST_DAL_S5", label: aggregateDefinitions.st + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s5}        ] 
+    },
+    {
+        field: "ST_AY", 
+        name: aggregateDefinitions.st + " " + mappedDefinitions.ay, 
+        chartOutfields: [
+            { attribute: "ST", label: aggregateDefinitions.st }, 
+            { attribute: "ST_AY_S1", label: aggregateDefinitions.st + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "ST_AY_S2", label: aggregateDefinitions.st + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "ST_AY_S3", label: aggregateDefinitions.st + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "ST_AY_S4", label: aggregateDefinitions.st + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "ST_AY_S5", label: aggregateDefinitions.st + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s5}        ]
+    },
+    {
+        field: "ST_DAY", 
+        name: aggregateDefinitions.st + " " + mappedDefinitions.day, 
+        chartOutfields: [
+            { attribute: "ST", label: aggregateDefinitions.st }, 
+            { attribute: "ST_DAY_S1", label: aggregateDefinitions.st + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "ST_DAY_S2", label: aggregateDefinitions.st + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "ST_DAY_S3", label: aggregateDefinitions.st + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "ST_DAY_S4", label: aggregateDefinitions.st + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "ST_DAY_S5", label: aggregateDefinitions.st + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s5}        ]
+    }
+]
+
+var Catchments_st_tn = [
+    {
+        field: "ACCL", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accl, 
+        chartOutfields: [
+            { attribute: "MRB_ID", label: catchmentDefinitions.pname },
+            { attribute: "ACCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "ACCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "ACCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "ACCL_S4", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "ACCL_S5", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s5}
         ]
     },
     {
-        field: "dl1_ST_tot", 
-        name: "Load from State delivered to downstream boundary (lb/yr)", 
+        field: "INCL", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incl, 
         chartOutfields: [
-            { attribute: "ST", label: "State"}, 
-            { attribute: "dl1_ST_sc1", label: "Wastewater load from State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_ST_sc2", label: "Urban-land load from State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_ST_sc3", label: "Atmospheric deposition load from State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_ST_sc4", label: "Manure load from State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_ST_sc5", label: "Fertilizer load from State delivered to downstream boundary (lb/yr)"}
-        ]
-    },    
+            { attribute: "PNAME", label: catchmentDefinitions.pname }, 
+            { attribute: "INCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "INCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "INCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "INCL_S4", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "INCL_S5", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.incl + ' ' + nitrogenSourceDefinitions.s5}
+        ] 
+    },
     {
-        field: "l_ST_tot", 
-        name: "Load from State within model area (lb/yr)", 
+        field: "ACCY", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accy
+    },
+    {
+        field: "INCY", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incy
+    },
+    {
+        field: "DACCL", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccl
+    },
+    {
+        field: "DACCY", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccy
+    },
+    {
+        field: "DINCL", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincl, 
         chartOutfields: [
-            { attribute: "ST", label: "State"},
-            { attribute: "l_ST_sc1", label: "Wastewater load from State within model area (lb/yr)"},
-            { attribute: "l_ST_sc2", label: "Urban-land load from State within model area (lb/yr)"},
-            { attribute: "l_ST_sc3", label: "Atmospheric-deposition load from State within model area (lb/yr)"},
-            { attribute: "l_ST_sc4", label: "Manure load from State within model area (lb/yr)"},
-            { attribute: "l_ST_sc5", label: "Fertilizer load from State within model area (lb/yr)"}
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DINCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "DINCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "DINCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "DINCL_S4", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "DINCL_S5", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.dincl + ' ' + nitrogenSourceDefinitions.s5}
         ]
     },
     {
-        field: "y_ST_tot", 
-        name: "Yield from State within model area (lb/yr/mi2)", 
-        chartOutfields: [
-            { attribute: "ST", label: "State"},
-            { attribute: "y_ST_sc1", label: "Wastewater yield from State within model area (lb/yr)"},
-            { attribute: "y_ST_sc2", label: "Urban-land yield from State within model area (lb/yr)"},
-            { attribute: "y_ST_sc3", label: "Atmospheric-deposition yield from State within model area (lb/yr)"},
-            { attribute: "y_ST_sc4", label: "Manure yield from State within model area (lb/yr)"},
-            { attribute: "y_ST_sc5", label: "Fertilizer yield from State within model area (lb/yr)"}
-        ]
+        field: "DINCY", 
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincy
     }
 ]
 
 var Group3_st_tn = [
     {
-        field: "dy1_S3_tot", 
-        name: "Yield from HUC10/State delivered to downstream boundary (lb/yr/mi2)", 
+        field: "SG3_AL", 
+        name: aggregateDefinitions.gp3 + " " + mappedDefinitions.al, 
         chartOutfields: [
-            { attribute: "ST_GP3_NAM", label: "HUC10/State"},
-            { attribute: "dy1_S3_sc1", label: "Wastewater yield from HUC10/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S3_sc2", label: "Urban-land yield from HUC10/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S3_sc3", label: "Atmospheric deposition yield from HUC10/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S3_sc4", label: "Manure yield from HUC10/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S3_sc5", label: "Fertilizer yield from HUC10/State delivered to downstream boundary (lb/yr/mi2)"}
+            { attribute: "SG3", label: aggregateDefinitions.gp3 }, 
+            { attribute: "SG3_AL_S1", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG3_AL_S2", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG3_AL_S3", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG3_AL_S4", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG3_AL_S5", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s5}
         ]
     },
     {
-        field: "dl1_S3_tot", 
-        name: "Load from HUC10/State delivered to downstream boundary (lb/yr)", 
+        field: "SG3_DAL", 
+        name: aggregateDefinitions.gp3 + " " + mappedDefinitions.dal, 
         chartOutfields: [
-            { attribute: "ST_GP3_NAM", label: "HUC10/State"}, 
-            { attribute: "dl1_S3_sc1", label: "Wastewater load from HUC10/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S3_sc2", label: "Urban-land load from HUC10/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S3_sc3", label: "Atmospheric deposition load from HUC10/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S3_sc4", label: "Manure load from HUC10/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S3_sc5", label: "Fertilizer load from HUC10/State delivered to downstream boundary (lb/yr)"}
-        ]
-    },    
+            { attribute: "SG3", label: aggregateDefinitions.gp3 }, 
+            { attribute: "SG3_DAL_S1", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG3_DAL_S2", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG3_DAL_S3", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG3_DAL_S4", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG3_DAL_S5", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s5}
+        ] 
+    },
     {
-        field: "l_S3_tot", 
-        name: "Load from HUC10/State within model area (lb/yr)", 
+        field: "SG3_AY", 
+        name: aggregateDefinitions.gp3 + " " + mappedDefinitions.ay, 
         chartOutfields: [
-            { attribute: "ST_GP3_NAM", label: "HUC10/State"},
-            { attribute: "l_S3_sc1", label: "Wastewater load from HUC10/State within model area (lb/yr)"},
-            { attribute: "l_S3_sc2", label: "Urban-land load from HUC10/State within model area (lb/yr)"},
-            { attribute: "l_S3_sc3", label: "Atmospheric-deposition load from HUC10/State within model area (lb/yr)"},
-            { attribute: "l_S3_sc4", label: "Manure load from HUC10/State within model area (lb/yr)"},
-            { attribute: "l_S3_sc5", label: "Fertilizer load from HUC10/State within model area (lb/yr)"}
+            { attribute: "SG3", label: aggregateDefinitions.gp3 }, 
+            { attribute: "SG3_AY_S1", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG3_AY_S2", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG3_AY_S3", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG3_AY_S4", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG3_AY_S5", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s5}
         ]
     },
     {
-        field: "y_S3_tot", 
-        name: "Yield from HUC10/State within model area (lb/yr)", 
+        field: "SG3_DAY", 
+        name: aggregateDefinitions.gp3 + " " + mappedDefinitions.day, 
         chartOutfields: [
-            { attribute: "ST_GP3_NAM", label: "HUC10/State"},
-            { attribute: "y_S3_sc1", label: "Wastewater yield from HUC10/State within model area (lb/yr)"},
-            { attribute: "y_S3_sc2", label: "Urban-land yield from HUC10/State within model area (lb/yr)"},
-            { attribute: "y_S3_sc3", label: "Atmospheric-deposition yield from HUC10/State within model area (lb/yr)"},
-            { attribute: "y_S3_sc4", label: "Manure yield from HUC10/State within model area (lb/yr)"},
-            { attribute: "y_S3_sc5", label: "Fertilizer yield from HUC10/State within model area (lb/yr)"}
+            { attribute: "SG3", label: aggregateDefinitions.gp3 }, 
+            { attribute: "SG3_DAY_S1", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG3_DAY_S2", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG3_DAY_S3", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG3_DAY_S4", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG3_DAY_S5", label: aggregateDefinitions.gp3 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s5}
         ]
     }
 ]
 
 var Group2_st_tn = [
-    {
-        field: "dy1_S2_tot", 
-        name: "Yield from HUC8/State delivered to downstream boundary (lb/yr/mi2)", 
+   {
+        field: "SG2_AL", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.al, 
         chartOutfields: [
-            { attribute: "ST_GP2_NAM", label: "HUC8/State"},
-            { attribute: "dy1_S2_sc1", label: "Wastewater yield from HUC8/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S2_sc2", label: "Urban-land yield from HUC8/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S2_sc3", label: "Atmospheric deposition yield from HUC8/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S2_sc4", label: "Manure yield from HUC8/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S2_sc5", label: "Fertilizer yield from HUC8/State delivered to downstream boundary (lb/yr/mi2)"}
+            { attribute: "SG2", label: aggregateDefinitions.gp1 }, 
+            { attribute: "SG2_AL_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG2_AL_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG2_AL_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG2_AL_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG2_AL_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s5}
         ]
     },
     {
-        field: "dl1_S2_tot", 
-        name: "Load from HUC8/State delivered to downstream boundary (lb/yr)", 
+        field: "SG2_DAL", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.dal, 
         chartOutfields: [
-            { attribute: "ST_GP2_NAM", label: "HUC8/State"}, 
-            { attribute: "dl1_S2_sc1", label: "Wastewater load from HUC8/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S2_sc2", label: "Urban-land load from HUC8/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S2_sc3", label: "Atmospheric deposition load from HUC8/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S2_sc4", label: "Manure load from HUC8/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S2_sc5", label: "Fertilizer load from HUC8/State delivered to downstream boundary (lb/yr)"}
-        ]
+            { attribute: "SG2", label: aggregateDefinitions.gp1 }, 
+            { attribute: "SG2_DAL_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG2_DAL_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG2_DAL_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG2_DAL_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG2_DAL_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s5}        ] 
     },
     {
-        field: "l_S2_tot", 
-        name: "Load from HUC8/State within model area (lb/yr)", 
+        field: "SG2_AY", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.ay, 
         chartOutfields: [
-            { attribute: "ST_GP2_NAM", label: "HUC8/State"},
-            { attribute: "l_S2_sc1", label: "Wastewater load from HUC8/State within model area (lb/yr)"},
-            { attribute: "l_S2_sc2", label: "Urban-land load from HUC8/State within model area (lb/yr)"},
-            { attribute: "l_S2_sc3", label: "Atmospheric-deposition load from HUC8/State within model area (lb/yr)"},
-            { attribute: "l_S2_sc4", label: "Manure load from HUC8/State within model area (lb/yr)"},
-            { attribute: "l_S2_sc5", label: "Fertilizer load from HUC8/State within model area (lb/yr)"}
-        ]
+            { attribute: "SG2", label: aggregateDefinitions.gp1 }, 
+            { attribute: "SG2_AY_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG2_AY_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG2_AY_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG2_AY_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG2_AY_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s5},        ]
     },
     {
-        field: "y_S2_tot", 
-        name: "Yield from HUC8/State within model area (lb/yr)", 
+        field: "SG2_DAY", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.day, 
         chartOutfields: [
-            { attribute: "ST_GP2_NAM", label: "HUC8/State"},
-            { attribute: "y_S2_sc1", label: "Wastewater yield from HUC8/State within model area (lb/yr)"},
-            { attribute: "y_S2_sc2", label: "Urban-land yield from HUC8/State within model area (lb/yr)"},
-            { attribute: "y_S2_sc3", label: "Atmospheric-deposition yield from HUC8/State within model area (lb/yr)"},
-            { attribute: "y_S2_sc4", label: "Manure yield from HUC8/State within model area (lb/yr)"},
-            { attribute: "y_S2_sc5", label: "Fertilizer yield from HUC8/State within model area (lb/yr)"}
-        ]
+            { attribute: "SG2", label: aggregateDefinitions.gp1 }, 
+            { attribute: "SG2_DAY_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG2_DAY_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG2_DAY_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG2_DAY_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG2_DAY_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s5}        ]
     }
 ]
 
 var Group1_st_tn = [
     {
-        field: "dy1_S1_tot", 
-        name: "Yield from watershed/State delivered to downstream boundary (lb/yr/mi2)", 
+        field: "SG1_AL", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.al, 
         chartOutfields: [
-            { attribute: "ST_GP1_NAM", label: "Independend Watershed/State"},
-            { attribute: "dy1_S1_sc1", label: "Wastewater yield from Independend Watershed/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S1_sc2", label: "Urban-land yield from Independend Watershed/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S1_sc3", label: "Atmospheric deposition yield from Independend Watershed/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S1_sc4", label: "Manure yield from Independend Watershed/State delivered to downstream boundary (lb/yr/mi2)"},
-            { attribute: "dy1_S1_sc5", label: "Fertilizer yield from Independend Watershed/State delivered to downstream boundary (lb/yr/mi2)"}
-        ]
+            { attribute: "SG1", label: aggregateDefinitions.gp1 }, 
+            { attribute: "SG1_AL_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG1_AL_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG1_AL_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG1_AL_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG1_AL_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.al + ' ' + nitrogenSourceDefinitions.s5}        ]
     },
     {
-        field: "dl1_S1_tot", 
-        name: "Load from watershed/State delivered to downstream boundary (lb/yr)", 
+        field: "SG1_DAL", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.dal, 
         chartOutfields: [
-            { attribute: "ST_GP1_NAM", label: "Independend Watershed/State"}, 
-            { attribute: "dl1_S1_sc1", label: "Wastewater load from Independend Watershed/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S1_sc2", label: "Urban-land load from Independend Watershed/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S1_sc3", label: "Atmospheric deposition load from Independend Watershed/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S1_sc4", label: "Manure load from Independend Watershed/State delivered to downstream boundary (lb/yr)"},
-            { attribute: "dl1_S1_sc5", label: "Fertilizer load from Independend Watershed/State delivered to downstream boundary (lb/yr)"}
-        ]
+            { attribute: "SG1", label: aggregateDefinitions.gp1 }, 
+            { attribute: "SG1_DAL_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG1_DAL_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG1_DAL_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG1_DAL_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG1_DAL_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.dal + ' ' + nitrogenSourceDefinitions.s5}        ] 
     },
     {
-        field: "l_S1_tot", 
-        name: "Load from watershed/State within model area (lb/yr)", 
+        field: "SG1_AY", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.ay, 
         chartOutfields: [
-            { attribute: "ST_GP1_NAM", label: "Independend Watershed/State"},
-            { attribute: "l_S1_sc1", label: "Wastewater load from Independend Watershed/State within model area (lb/yr)"},
-            { attribute: "l_S1_sc2", label: "Urban-land load from Independend Watershed/State within model area (lb/yr)"},
-            { attribute: "l_S1_sc3", label: "Atmospheric-deposition load from Independend Watershed/State within model area (lb/yr)"},
-            { attribute: "l_S1_sc4", label: "Manure load from Independend Watershed/State within model area (lb/yr)"},
-            { attribute: "l_S1_sc5", label: "Fertilizer load from Independend Watershed/State within model area (lb/yr)"}
-        ]
+            { attribute: "SG1", label: aggregateDefinitions.gp1 }, 
+            { attribute: "SG1_AY_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG1_AY_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG1_AY_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG1_AY_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG1_AY_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.ay + ' ' + nitrogenSourceDefinitions.s5}        ]
     },
     {
-        field: "y_S1_tot", 
-        name: "Yield from watershed/State within model area (lb/yr/mi2)", 
+        field: "SG1_DAY", 
+        name: aggregateDefinitions.gp1 + " " + mappedDefinitions.day, 
         chartOutfields: [
-            { attribute: "ST_GP1_NAM", label: "Independend Watershed/State"},
-            { attribute: "y_S1_sc1", label: "Wastewater yield from Independend Watershed/State within model area (lb/yr)"},
-            { attribute: "y_S1_sc2", label: "Urban-land yield from Independend Watershed/State within model area (lb/yr)"},
-            { attribute: "y_S1_sc3", label: "Atmospheric-deposition yield from Independend Watershed/State within model area (lb/yr)"},
-            { attribute: "y_S1_sc4", label: "Manure yield from Independend Watershed/State within model area (lb/yr)"},
-            { attribute: "y_S1_sc5", label: "Fertilizer yield from Independend Watershed/State within model area (lb/yr)"}
-        ]
+            { attribute: "SG1", label: aggregateDefinitions.gp1 }, 
+            { attribute: "SG1_DAY_S1", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s1},
+            { attribute: "SG1_DAY_S2", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s2},
+            { attribute: "SG1_DAY_S3", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s3},
+            { attribute: "SG1_DAY_S4", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s4},
+            { attribute: "SG1_DAY_S5", label: aggregateDefinitions.gp1 + ' ' + mappedDefinitions.day + ' ' + nitrogenSourceDefinitions.s5}        ]
     }
 ]
 ////END NITROGEN LAYER GROUPS______________________________________________________________________________________________________________________________

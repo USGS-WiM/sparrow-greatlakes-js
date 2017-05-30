@@ -1153,6 +1153,7 @@ require([
             }
         }
 
+        //UPDATE IMPORTANT! must match layers in service to Groups in sparrow-config.js
         function labelySelect(){
             var layerId = app.map.getLayer('SparrowRanking').visibleLayers[0];
             var label;
@@ -1193,76 +1194,90 @@ require([
                    });
                     break;
                 case 5: 
+                    $.each(Catchments_st, function(index, object){
+                        if (object.field == $('#displayedMetricSelect').val() ){
+                            label = object.name;
+                        }
+                   });
+                    break;
+                case 6: 
                     $.each(Group3_st, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
                         }
                    });
                     break;
-                case 6:
+                case 7:
                     $.each(Group2_st, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
                         }
                    });
                     break;
-                case 7:
+                case 8:
                    $.each(Group1_st, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
                         }
                    });
                     break;
-                case 8:
+                case 9:
                     $.each(Catchments_tn, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
                         }
                    });
                     break;
-                case 9: 
+                case 10: 
                     $.each(Group3_tn, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
                         }
                    });
                     break;
-                case 10:
+                case 11:
                     $.each(Group2_tn, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
                         }
                    });
                     break;
-                case 11:
+                case 12:
                     $.each(Group1_tn, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
                         }
                    });
                     break;
-                case 12: 
+                case 13: 
                     $.each(ST_tn, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
                         }
                    });
                     break;
-                case 13:
-                    $.each(Group3_st_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
                 case 14:
-                    $.each(Group2_st_tn, function(index, object){
+                    $.each(Catchments_st_tn, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
                         }
                    });
                     break;
                 case 15:
+                    $.each(Group3_st_tn, function(index, object){
+                        if (object.field == $('#displayedMetricSelect').val() ){
+                            label = object.name;
+                        }
+                   });
+                    break;
+                case 16:
+                    $.each(Group2_st_tn, function(index, object){
+                        if (object.field == $('#displayedMetricSelect').val() ){
+                            label = object.name;
+                        }
+                   });
+                    break;
+                case 17:
                     $.each(Group1_st_tn, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;

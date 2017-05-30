@@ -102,24 +102,6 @@ require([
             "showGroupHeading": true,
             "includeInLayerList": true,
             "layers": {
-                "Great Lakes Mainstems" : {
-                    "url": serviceBaseURL,
-                    "visibleLayers": [21],
-                    "options": {
-                        "id": "mainstems",
-                        "opacity": 0.75,
-                        "visible": false
-                    },
-                    "wimOptions": {
-                        "type": "layer",
-                        "layerType": "agisDynamic",
-                        "includeInLayerList": true,
-                        "zoomScale": 144448,
-                        "hasOpacitySlider": true,
-                        "hasZoomto" : false,
-                        "includeLegend" : true
-                    }
-                },
                 "Great Lakes Streams" : {
                     "url": serviceBaseURL,
                     "visibleLayers": [20],

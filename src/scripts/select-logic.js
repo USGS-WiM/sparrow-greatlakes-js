@@ -12,7 +12,7 @@ function populateMetricOptions(selectedIndex){
         switch (selectedIndex){
             case 0:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    metricOptions = Catchments; //UPDATE TODO if catchments are split, update to the appropriate object.
+                    metricOptions = Catchments_st; //UPDATE TODO if catchments are split, update to the appropriate object.
                 }else{
                     metricOptions = Catchments;
                 }
@@ -47,7 +47,7 @@ function populateMetricOptions(selectedIndex){
         switch (selectedIndex){
             case 0:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    metricOptions = Catchments_tn;  //UPDATE TODO if catchments are split, update to the appropriate object.
+                    metricOptions = Catchments_st_tn;  //UPDATE TODO if catchments are split, update to the appropriate object.
                 }else{
                     metricOptions = Catchments_tn;
                 }
@@ -167,34 +167,34 @@ function setAggregateGroup(groupBySelectedIndex, selectedRadio){
         switch (groupBySelectedIndex){
             case 0:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 13; //TODO UPDATE AddCatchments with splits if they become available?
+                    layerArrayValue = 14; //TODO UPDATE AddCatchments with splits if they become available?
                 } else{
                     layerArrayValue = 9;
                 }
                 break;
             case 1:
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 14; //grp3 w/ state splits
+                    layerArrayValue = 15; //grp3 w/ state splits
                 } else{
                     layerArrayValue = 10;
                 }
                 break;
             case 2: 
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 15; //grp2 w/ state splits
+                    layerArrayValue = 16; //grp2 w/ state splits
                 } else{
                     layerArrayValue = 11;
                 }
                 break;
             case 3: 
                 if( $("#st-select")[0].selectedIndex > 0){
-                    layerArrayValue = 16; //grp1 w/ state splits
+                    layerArrayValue = 17; //grp1 w/ state splits
                 } else{
                     layerArrayValue = 12;
                 }
                 break;
             case 4:
-                layerArrayValue = 12;
+                layerArrayValue = 13;
                 break;
         }
     }
@@ -232,7 +232,7 @@ function AOIChange(e){
     if (newObj.selectedValue != ""){
         app.setLayerDefObj(newObj);
     }
-    app.map.getLayer('SparrowRanking').hide();
+    //app.map.getLayer('SparrowRanking').hide();
     setLayerDefs();    
 
     generateRenderer();
@@ -298,15 +298,18 @@ function setLayerDefs(){
         layerDefs[6] = definitionString; 
         layerDefs[7] = definitionString; 
         layerDefs[8] = definitionString;
-
-        /*layerDefs[9] = definitionString;
+        
+        layerDefs[9] = definitionString;
         layerDefs[10] = definitionString;
         layerDefs[11] = definitionString;
         layerDefs[12] = definitionString;
         layerDefs[13] = definitionString;
         layerDefs[14] = definitionString;
-        layerDefs[15] = definitionString;*/
-        
+        layerDefs[15] = definitionString;
+        layerDefs[16] = definitionString;
+        layerDefs[17] = definitionString;
+
+
         app.map.getLayer("SparrowRanking").setLayerDefinitions(layerDefs);
 
         //app.map.getLayer('SparrowRanking').refresh();
@@ -775,7 +778,7 @@ function getChartOutfields(sparrowLayerId){
         /////BEGIN NITROGEN LAYERS___________________________________________________________
         case 9: 
             //Nitro Cats
-            $.each(Group3_tn, function(index, item){
+            $.each(Catchments_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                      $.each(item.chartOutfields, function(i, fields) {
                         chartFieldsArr.push( fields );
@@ -787,6 +790,7 @@ function getChartOutfields(sparrowLayerId){
             break;
         case 10: 
             //HUC8
+
             $.each(Group3_tn, function(index, item){
                 if( $("#displayedMetricSelect").val() == item.field ) {
                      $.each(item.chartOutfields, function(i, fields) {
@@ -917,17 +921,22 @@ function getExtraOutfields(outfieldsArr, sparrowLayerId){
             finalChartArr.push("ST_AREA");
 
             break;
-        case 5: case 15:
+        case 5: case 14:
+            //Catchments w/ state divisions
+            finalChartArr.push("STDEMIAREA");
+            finalChartArr.push("STDEMTAREA");
+            break;
+        case 6: case 15:
             //grp3 w/ state divisions
             finalChartArr.push("SG3_AREA");
 
             break;
-        case 6: case 16:
+        case 7: case 16:
             //grp 2 w/ state divisions
             finalChartArr.push("SG2_AREA");
 
             break;
-        case 7: case 17:
+        case 8: case 17:
             //grp1 w/ state divisions
             finalChartArr.push("SG1_AREA");
 
@@ -969,7 +978,6 @@ function generateRenderer(){
         domClass,
         on
     ) {
-        console.log('in generateRenderer()');
 
         var sparrowId = app.map.getLayer('SparrowRanking').visibleLayers[0];
         //apply layer defs to renderer if they exist
@@ -983,7 +991,7 @@ function generateRenderer(){
         }
         
         //UPDATE important!  url must match service url ---- note maybe move to config file?
-        app.Url = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakesDev/MapServer/" + sparrowId;
+        app.Url = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakes/MapServer/" + sparrowId;
         
         var selectedMetric = $('#displayedMetricSelect')[0].value;
         //var selectedMetric = "ST_AL";
