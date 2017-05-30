@@ -140,19 +140,35 @@ var Catchments = [
     },
     {
         field: "ACCY", 
-        name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.accy
+        name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.accy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' total'}
+        ]
     },
     {
         field: "INCY", 
-        name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.incy
+        name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.incy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' total'}
+        ]
     },
     {
         field: "DACCL", 
-        name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.daccl
+        name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.daccl,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' total'}
+        ]
     },
     {
         field: "DACCY", 
-        name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.daccy
+        name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.daccy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' total'}
+        ]
     },
     {
         field: "DINCL", 
@@ -169,7 +185,11 @@ var Catchments = [
     },
     {
         field: "DINCY", 
-        name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.dincy
+        name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.dincy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' total'}
+        ]
     }
 
 ]
@@ -425,19 +445,35 @@ var Catchments_st = [
     },
     {
         field: "ACCY", 
-        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.accy
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.accy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' total'}
+        ]
     },
     {
         field: "INCY", 
-        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.incy
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.incy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' total'}
+        ]
     },
     {
         field: "DACCL", 
-        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.daccl
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.daccl,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' total'}
+        ]
     },
     {
         field: "DACCY", 
-        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.daccy
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.daccy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' total'}
+        ]
     },
     {
         field: "DINCL", 
@@ -454,7 +490,11 @@ var Catchments_st = [
     },
     {
         field: "DINCY", 
-        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.dincy
+        name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.dincy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' total'}
+        ]
     }
 ]
 
@@ -653,19 +693,35 @@ var Catchments_tn = [
     },
     {
         field: "ACCY", 
-        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accy
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' total'}
+        ]
     },
     {
         field: "INCY", 
-        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incy
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' total'}
+        ]
     },
     {
         field: "DACCL", 
-        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccl
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccl,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' total'}
+        ]
     },
     {
         field: "DACCY", 
-        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccy
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' total'}
+        ]
     },
     {
         field: "DINCL", 
@@ -681,7 +737,11 @@ var Catchments_tn = [
     },
     {
         field: "DINCY", 
-        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincy
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' total'}
+        ]
     }
 ]
 
@@ -912,19 +972,35 @@ var Catchments_st_tn = [
     },
     {
         field: "ACCY", 
-        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accy
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' total'}
+        ]
     },
     {
         field: "INCY", 
-        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incy
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' total'}
+        ]
     },
     {
         field: "DACCL", 
-        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccl
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccl,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' total'}
+        ]
     },
     {
         field: "DACCY", 
-        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccy
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' total'}
+        ]
     },
     {
         field: "DINCL", 
@@ -940,7 +1016,11 @@ var Catchments_st_tn = [
     },
     {
         field: "DINCY", 
-        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincy
+        name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincy,
+        chartOutfields: [
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
+            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' total'}
+        ]
     }
 ]
 
