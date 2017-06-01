@@ -899,6 +899,7 @@ function getExtraOutfields(outfieldsArr, sparrowLayerId){
             //finalChartArr.push("PNAME");
             finalChartArr.push("DEMIAREA");
             finalChartArr.push("DEMTAREA");
+            finalChartArr.push("MRB_ID"); // ADDED TMR
             
             break;
         case 1: case 10:
@@ -925,6 +926,7 @@ function getExtraOutfields(outfieldsArr, sparrowLayerId){
             //Catchments w/ state divisions
             finalChartArr.push("STDEMIAREA");
             finalChartArr.push("STDEMTAREA");
+            finalChartArr.push("ST_MRB_ID"); // ADDED TMR
             break;
         case 6: case 15:
             //grp3 w/ state divisions
