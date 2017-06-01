@@ -573,7 +573,7 @@ require([
         $(select1_ID).selectpicker('refresh');
         //set the filtered grp3 options
         $.each(secondOptions, function(index, option){
-                $(select2_ID).append(new Option(option));                     
+            $(select2_ID).append(new Option(option));                     
         });
         $(select2_ID).selectpicker('refresh');
 
@@ -836,7 +836,38 @@ require([
         chartQueryTask.execute(chartQuery, showChart);
     }//END app.createChartQuery
 
-   
+   // used several times to get the configuration object needed to perform operation
+    app.getLayerConfigObject = function(sparrowLayerId) {
+        var configObject = (function(tempLayerId) {
+            switch(tempLayerId) {
+                /////BEGIN PHOSPHORUS LAYERS___________________________________________________________
+                case 0: return Catchments; // catchments
+                case 1: return Group3; // HUC8
+                case 2: return Group2; // Trib
+                case 3: return Group1; // Main River Bains
+                case 4: return ST; // State
+                case 5: return Catchments_st; // cats w/ state divisions
+                case 6: return Group3_st; // grp3 w/ state divisions
+                case 7: return Group2_st; // grp2 w/ state divisions
+                case 8: return Group1_st; // grp1 w/ state divisions
+                /////END PHOSPHORUS LAYERS___________________________________________________________
+                /////BEGIN NITROGEN LAYERS___________________________________________________________
+                case 9: return Catchments_tn; // Nitro catchments
+                case 10: return Group3_tn; // HUC8
+                case 11: return Group2_tn; // Trib
+                case 12: return Group1_tn; // Main River Bains
+                case 13: return ST_tn; // State
+                case 14: return Catchments_st_tn; // cats w/ state divisions
+                case 15: return Group3_st_tn; // grp3 w/ state divisions
+                case 16: return Group2_st_tn; // grp2 w/ state divisions
+                case 17: return Group1_st_tn; // grp1 w/ state divisions
+                /////END NITROGEN LAYERS___________________________________________________________
+            }
+        })(sparrowLayerId);
+
+        return configObject;
+    }
+
     function setupQueryTask(url, outFieldsArr, whereClause){
         var queryTask;
         queryTask = new esri.tasks.QueryTask(url);
@@ -1012,6 +1043,39 @@ require([
         }
     }
 
+    // called 3 times from highcharts mouseover, selection, and click
+    function switchWhereField(selectedIndex){
+        switch (selectedIndex){
+            case 0:
+                if( $('#st-select')[0].selectedIndex > 0){
+                    return 'ST_MRB_ID';
+                }else{
+                    return 'MRB_ID';
+                }
+            case 1:
+                if( $('#st-select')[0].selectedIndex > 0){
+                    return 'SG3';
+                }else{
+                    return 'GP3';
+                }
+            case 2:
+                if( $('#st-select')[0].selectedIndex > 0){
+                    return 'SG2';
+                }else{
+                    return 'GP2';
+                }
+            case 3: 
+                if( $('#st-select')[0].selectedIndex > 0){
+                    return 'SG1';
+                }else{
+                    return 'GP1';
+                }
+                
+            case 4:
+                return 'ST';
+        }
+    }
+
     function showChart(response){               
         var columnLabels = [];
         var chartTitle;
@@ -1019,8 +1083,7 @@ require([
         var chartArr = [];
         var series = [];
         var featureSort = [];
-        var tableFeatures = [];       
-  //  var mrbIDstorage = [];
+        var tableFeatures = [];
 
         $.each(response.features, function(index, feature){
             // first push these into a separate array for table to use
@@ -1169,30 +1232,8 @@ require([
         function labelySelect(){
             var layerId = app.map.getLayer('SparrowRanking').visibleLayers[0];
             var label;
-            var iterateThruThis = (function(tempLayerId){
-                switch (tempLayerId){
-                    case 0: return Catchments;
-                    case 1: return Group3;
-                    case 2: return Group2;
-                    case 3: return Group1;
-                    case 4: return ST;
-                    case 5: return Catchments_st;
-                    case 6: return Group3_st;
-                    case 7: return Group2_st;
-                    case 8: return Group1_st;
-                    case 9: return Catchments_tn;
-                    case 10: return Group3_tn;
-                    case 11: return Group2_tn;
-                    case 12: return Group1_tn;
-                    case 13: return ST_tn;
-                    case 14: return Catchments_st_tn;
-                    case 15: return Group3_st_tn;
-                    case 16: return Group2_st_tn;
-                    case 17: return Group1_st_tn;
-                }
-            })(layerId);
-
-            $.each(iterateThruThis, function(index, object){
+            var configObject = app.getLayerConfigObject(layerId);           
+            $.each(configObject, function(index, object){
                 if (object.field == $('#displayedMetricSelect').val() ){
                     label = object.name;
                 }
@@ -1294,38 +1335,6 @@ require([
                     backgroundColor:'rgba(255, 255, 255, 0.45)',
                     events: {
                         selection: function (e) {
-                            function switchWhereField(selectedIndex){
-                                switch (selectedIndex){
-                                    case 0:
-                                        if( $('#st-select')[0].selectedIndex > 0){
-                                            return 'ST_MRB_ID';
-                                        }else{
-                                            return 'MRB_ID';
-                                        }
-                                    case 1:
-                                        if( $('#st-select')[0].selectedIndex > 0){
-                                            return 'SG3';
-                                        }else{
-                                            return 'GP3';
-                                        }
-                                    case 2:
-                                        if( $('#st-select')[0].selectedIndex > 0){
-                                            return 'SG2';
-                                        }else{
-                                            return 'GP2';
-                                        }
-                                    case 3: 
-                                        if( $('#st-select')[0].selectedIndex > 0){
-                                            return 'SG1';
-                                        }else{
-                                            return 'GP1';
-                                        }
-                                        
-                                    case 4:
-                                        return 'ST';
-                                }
-                            }
-
                             var categoryArr = []        
 
                             if (e.xAxis){
@@ -1335,21 +1344,14 @@ require([
                                 if(xAxis) {
                                     $.each(this.series, function (i, series) {
                                         $.each(series.points, function (j, point) {
-
-                                            //app.previousChartValues.push(point.category);
-
                                             //find data inside max/min selected axes
                                             if ( point.x >= xAxis.min && point.x <= xAxis.max ) {
                                                 //check if point.category is already in the array, if not add it
-                                                // TMR ADDED
                                                 var thisCategory;
                                                 thisCategory = $('#groupResultsSelect')[0].selectedIndex == 0 ? point.id : point.category;
                                                 if (categoryArr.indexOf(thisCategory) == -1){
                                                     categoryArr.push(thisCategory);
                                                 }
-                                                /*if (categoryArr.indexOf(point.category) == -1){
-                                                    categoryArr.push(point.category);
-                                                }*/
                                             }
                                         });
                                     }); 
@@ -1374,8 +1376,7 @@ require([
                                 var categoryStr = "";
                                 $.each(categoryArr, function(i, category){
                                     // only MRB_ID is a number, ST_MRB_ID is a string
-                                    categoryStr += fieldName == "MRB_ID" ?  + category + ", " : "'" + category + "', "; // TMR ADDED
-                                //    categoryStr += "'" + category + "', "
+                                    categoryStr += fieldName == "MRB_ID" ?  + category + ", " : "'" + category + "', "; 
                                 });  
                                 var queryStr = categoryStr.slice(0, categoryStr.length - 2);                                
                                 graphicsQuery.where = fieldName + " IN (" + queryStr + ")";
@@ -1386,9 +1387,7 @@ require([
                                         if (obj.symbol.id == 'zoomhighlight'){
                                             app.map.graphics.remove(obj);
                                         }
-                                    });
-                                    //app.map.graphics.clear();   
-                                    //var feature, selectedSymbol;
+                                    });                                    
                                     $.each(response.features, function(i, feature){
                                         var feature = feature;                                       
                                         var selectedSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,0]), 1);
@@ -1501,11 +1500,11 @@ require([
                     borderWidth: 1,
                     shadow: false,                    
                     labelFormatter: function () {
-                        var yI = this.name.indexOf(")");//yield");
+                        var yI = this.name.indexOf(")");
                         var shortName = "";
-                        if (yI > -1) shortName = this.name.substring(yI+1);//0, yI-1);
+                        if (yI > -1) shortName = this.name.substring(yI+1);
                         else shortName = this.name;
-                        return shortName;// this.name + ' (click to hide)';
+                        return shortName;
                     }
                 },
                 tooltip: {
@@ -1524,45 +1523,12 @@ require([
                         dataLabels: {
                             enabled: false,
                             color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
-                        }//,
-                        //events: { legendItemClick: function(){return false;}}
+                        }
                     },
                     series:{
                         point:{
                              events:{
                                 mouseOver: function(){
-                                    function switchWhereField(selectedIndex){
-                                        switch (selectedIndex){
-                                            case 0:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'ST_MRB_ID';
-                                                }else{
-                                                    return 'MRB_ID';
-                                                }
-                                            case 1:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG3';
-                                                }else{
-                                                    return 'GP3';
-                                                }
-                                            case 2:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG2';
-                                                }else{
-                                                    return 'GP2';
-                                                }
-                                            case 3: 
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG1';
-                                                }else{
-                                                    return 'GP1';
-                                                }
-                                                
-                                            case 4:
-                                                return 'ST';
-                                        }
-                                    }
-
                                     //get everything needed for the query
                                     var category = $('#groupResultsSelect')[0].selectedIndex == 0 ? this.id : this.category;  //refers to the selected chart area
                                     var visibleLayers = app.map.getLayer('SparrowRanking').visibleLayers[0];
@@ -1601,38 +1567,6 @@ require([
                                     }
                                 },
                                 click: function(evt){
-                                    function switchWhereField(selectedIndex){
-                                        switch (selectedIndex){
-                                            case 0:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'ST_MRB_ID';
-                                                }else{
-                                                    return 'MRB_ID';
-                                                }
-                                            case 1:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG3';
-                                                }else{
-                                                    return 'GP3';
-                                                }
-                                            case 2:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG2';
-                                                }else{
-                                                    return 'GP2';
-                                                }
-                                            case 3: 
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG1';
-                                                }else{
-                                                    return 'GP1';
-                                                }
-                                                
-                                            case 4:
-                                                return 'ST';
-                                        }
-                                    }
-
                                     var queryField = switchWhereField( $('#groupResultsSelect')[0].selectedIndex );
                                     var thisCategory;                                    
                                     if ($('#groupResultsSelect')[0].selectedIndex == 0) {
@@ -1647,25 +1581,11 @@ require([
                                         //MRB_ID field is NOT a string!!!
                                         var queryString = queryField + " = " + thisCategory ;
                                     }
-
-                                    //clear any zoom graphics
-                                   /* $.each(app.map.graphics.graphics, function(i, graphic){
-                                        if(graphic.symbol.id){
-                                            if ( graphic.symbol.id == "zoomHighlight"){
-                                                app.map.graphics.remove(graphic);
-                                            }
-                                        }
-                                            
-                                    });*/
                                     app.map.graphics.clear();
-
                                     app.createChartQuery(queryString);
-
-
                                 }
                             }
-                        }
-                       
+                        }                       
                     }
                 },
                 credits: {
@@ -1688,36 +1608,10 @@ require([
         
     } //END ShowChart()
 
-    $('#tableResizable').resizable({
-        handles: 'n'
-    });
-
     //function to filter table based on selection in chart
     function filterTable(categories){
         if (categories !== undefined){
-            var whichName = "";
-            switch ($('#groupResultsSelect')[0].selectedIndex){
-                case 0:
-                    // UPDATE when split catchments are available
-                    if( $('#st-select')[0].selectedIndex > 0) whichName = 'ST_MRB_ID';
-                    else whichName = 'MRB_ID';
-                    break;
-                case 1:
-                    if( $('#st-select')[0].selectedIndex > 0) whichName = 'SG3';
-                    else whichName = 'GP3';
-                    break;
-                case 2:
-                    if( $('#st-select')[0].selectedIndex > 0) whichName = 'SG2';
-                    else whichName = 'GP2';
-                    break;
-                case 3: 
-                    if( $('#st-select')[0].selectedIndex > 0) whichName = 'SG1';
-                    else whichName = 'GP1';                
-                    break;
-                case 4:
-                    whichName = 'ST';
-                    break;
-            }
+            var whichName = switchWhereField($('#groupResultsSelect')[0].selectedIndex);
             var newResponse = [];
             $.each(categories, function(i,c){
                 newResponse.push(tableArr.filter(function(t){return t[whichName] == c;})[0]);
@@ -1726,6 +1620,7 @@ require([
         } else 
             buildTable(tableArr, labelArr);
     }
+
     //table in lobipanel Table tab (updates everytime chart changes)
     function buildTable(response, headers){    
         $("#resultsTable").empty();
@@ -1799,31 +1694,7 @@ require([
         var category = $('#groupResultsSelect')[0].selectedIndex == 0 ? e.currentTarget.id.substring(3) : e.currentTarget.cells[0].innerHTML; //this.category;  //refers to the selected chart area
         var visibleLayers = app.map.getLayer('SparrowRanking').visibleLayers[0];
         var URL = app.map.getLayer('SparrowRanking').url;
-        var fieldName = "";
-
-        switch ($('#groupResultsSelect')[0].selectedIndex){
-            case 0:
-                // UPDATE when split catchments are available
-                if( $('#st-select')[0].selectedIndex > 0) fieldName = 'ST_MRB_ID';
-                else fieldName = 'MRB_ID';
-                break;
-            case 1:
-                if( $('#st-select')[0].selectedIndex > 0) fieldName = 'SG3';
-                else fieldName = 'GP3';
-                break;
-            case 2:
-                if( $('#st-select')[0].selectedIndex > 0) fieldName = 'SG2';
-                else fieldName = 'GP2';
-                break;
-            case 3: 
-                if( $('#st-select')[0].selectedIndex > 0) fieldName = 'SG1';
-                else fieldName = 'GP1';                
-                break;
-            case 4:
-                fieldName = 'ST';
-                break;        
-        }
-
+        var fieldName = switchWhereField($('#groupResultsSelect')[0].selectedIndex);
         var queryTask;
         queryTask = new esri.tasks.QueryTask(URL + visibleLayers.toString() );
 
@@ -1937,7 +1808,6 @@ require([
         });
 
         function addLayer(groupHeading, showGroupHeading, layer, layerName, options, wimOptions) {
-
             //add layer to map
             app.map.addLayer(layer);
 
@@ -1978,7 +1848,6 @@ require([
 
             //group heading logic
             if (showGroupHeading) {
-
                 //camelize it for divID
                 var groupDivID = camelize(groupHeading);
 
@@ -2072,10 +1941,8 @@ require([
                             });
                         });
                     }                    
-                });
-                //end zoomto logic
+                });//end zoomto logic
             }
-        }
-        //get visible and non visible layer lists
+        } //get visible and non visible layer lists
     });//end of require statement containing legend building code
 });

@@ -190,12 +190,7 @@ function setAggregateGroup(groupBySelectedIndex, selectedRadio){
     }
     var visibleLayerIds = [layerArrayValue];
     var sparrowRanking = app.map.getLayer('SparrowRanking');
-    sparrowRanking.setVisibleLayers(visibleLayerIds);
-
-
-    //generateRenderer();
-        
-    
+    sparrowRanking.setVisibleLayers(visibleLayerIds);    
 } //END setAggregateGroup()
 
 function AOIChange(e){
@@ -214,8 +209,8 @@ function AOIChange(e){
         //if not already on a state split layer, set one now.
         //TODO: figure out how you can access the current layers to see if you're on a split layer.  
         //if(app.map.getLayer('SparrowRanking').visibleLayers[0]){
-            populateMetricOptions($("#groupResultsSelect")[0].selectedIndex);
-            setAggregateGroup( groupResultsIndex, $(".radio input[type='radio']:checked")[0].id );
+        populateMetricOptions($("#groupResultsSelect")[0].selectedIndex);
+        setAggregateGroup( groupResultsIndex, $(".radio input[type='radio']:checked")[0].id );
     }
 
     //only update if there's a value to update to (clearing selected values depending on Group Results by selections)
@@ -230,13 +225,7 @@ function AOIChange(e){
     if( $("#chartWindowDiv").css("visibility") == "visible" ) {
         app.map.graphics.clear();
         app.createChartQuery();
-    }
-
-    //rebuild the table if open
-        if ($('#tableResizable').is(":visible")){
-            app.createTableQuery();
-        }
-
+    }   
 } //END AOIChange()
 
 
@@ -245,32 +234,32 @@ function setLayerDefs(){
         var layerDefObj = app.getLayerDefObj();
         
         if (layerDefObj.AOIST){
-            if(definitionString != ""){
+            if(definitionString != "") {
                 definitionString += " AND ST = "+ "'" + layerDefObj.AOIST + "'";
-            } else{
+            } else {
                definitionString += "ST = "+ "'" + layerDefObj.AOIST + "'"; 
             }
         }
         if (layerDefObj.AOI1){
-            if(definitionString != ""){
+            if(definitionString != "") {
                 definitionString += " AND GP1 = "+ "'" + layerDefObj.AOI1 + "'";
-            }else{
+            } else {
                 definitionString += "GP1 = "+ "'" + layerDefObj.AOI1 + "'";
             }
             
         }
         if (layerDefObj.AOI2){
-            if(definitionString != ""){
+            if(definitionString != "") {
                definitionString += " AND GP2 = "+ "'" + layerDefObj.AOI2 + "'";
-            }else{
+            } else {
                 definitionString += "GP2 = "+ "'" + layerDefObj.AOI2 + "'";
             }
         }
         /***TODO UPDATE IMPORTANT -- ADDED BUT NOT ***/
         if (layerDefObj.AOI3){
-            if(definitionString != ""){
+            if(definitionString != "") {
                definitionString += " AND GP3 = "+ "'" + layerDefObj.AOI3 + "'";
-            }else{
+            } else {
                 definitionString += "GP3 = "+ "'" + layerDefObj.AOI3 + "'";
             }
         }
@@ -344,7 +333,7 @@ function getTableFields(headerKeysArr, sparrowLayerId){
     $.each(configArr, function(index, item){
         flatArr.push({field: item.field, name: item.name});
         $.each(item.chartOutfields, function(i, fields){
-            if (fields.attribute == removeField && (flatArr.map(function (f) { return f.field }).indexOf(removeField) < 0)) {// $.inArray(fields.attribute, flatArr) < 0) {
+            if (fields.attribute == removeField && (flatArr.map(function (f) { return f.field }).indexOf(removeField) < 0)) {
                 flatArr.push({field: fields.attribute, name: fields.label});
             } else if (fields.attribute != removeField) {
                 flatArr.push({field:fields.attribute, name:fields.label});
@@ -367,41 +356,10 @@ function getTableFields(headerKeysArr, sparrowLayerId){
     return htmlHeaderArr.join('');
 }
 
-// used several times to get the configuration object needed to perform operation
-function getLayerConfigObject(sparrowLayerId) {
-    var iterateThruThis = (function(tempSparrowLayerId) {
-        switch(tempSparrowLayerId) {
-            /////BEGIN PHOSPHORUS LAYERS___________________________________________________________
-            case 0: return Catchments; // catchments
-            case 1: return Group3; // HUC8
-            case 2: return Group2; // Trib
-            case 3: return Group1; // Main River Bains
-            case 4: return ST; // State
-            case 5: return Catchments_st; // cats w/ state divisions
-            case 6: return Group3_st; // grp3 w/ state divisions
-            case 7: return Group2_st; // grp2 w/ state divisions
-            case 8: return Group1_st; // grp1 w/ state divisions
-            /////END PHOSPHORUS LAYERS___________________________________________________________
-            /////BEGIN NITROGEN LAYERS___________________________________________________________
-            case 9: return Catchments_tn; // Nitro catchments
-            case 10: return Group3_tn; // HUC8
-            case 11: return Group2_tn; // Trib
-            case 12: return Group1_tn; // Main River Bains
-            case 13: return ST_tn; // State
-            case 14: return Catchments_st_tn; // cats w/ state divisions
-            case 15: return Group3_st_tn; // grp3 w/ state divisions
-            case 16: return Group2_st_tn; // grp2 w/ state divisions
-            case 17: return Group1_st_tn; // grp1 w/ state divisions
-            /////END NITROGEN LAYERS___________________________________________________________
-        }
-    })(sparrowLayerId);
-
-    return iterateThruThis;
-}
 
 function getLegendLabels(sparrowLayerId){
     var label = "";
-    var configObject = getLayerConfigObject(sparrowLayerId);
+    var configObject = app.getLayerConfigObject(sparrowLayerId);
 
     $.each(configObject, function(index, item){
         if( $("#displayedMetricSelect").val() == item.field ) {
@@ -415,12 +373,11 @@ function getLegendLabels(sparrowLayerId){
 function getChartOutfields(sparrowLayerId){
     var chartFieldsArr = [];
     console.log("in GetChartOutfields()")
-    var configObject = getLayerConfigObject(sparrowLayerId);
+    var configObject = app.getLayerConfigObject(sparrowLayerId);
     $.each(configObject, function(index, item){
         if( $("#displayedMetricSelect").val() == item.field ) {
-                $.each(item.chartOutfields, function(i, fields) {
+            $.each(item.chartOutfields, function(i, fields) {
                 chartFieldsArr.push( fields );
-
             });
         }
     });
@@ -437,55 +394,45 @@ function getExtraOutfields(outfieldsArr, sparrowLayerId){
             //finalChartArr.push("PNAME");
             finalChartArr.push("DEMIAREA");
             finalChartArr.push("DEMTAREA");
-            finalChartArr.push("MRB_ID"); // ADDED TMR
-            
+            finalChartArr.push("MRB_ID");             
             break;
         case 1: case 10:
             //HUC8 
-            finalChartArr.push("GP3_AREA");
-            
+            finalChartArr.push("GP3_AREA");            
             break;
         case 2: case 11:
             //Tributarys
-            finalChartArr.push("GP2_AREA");
-            
+            finalChartArr.push("GP2_AREA");            
             break;
         case 3: case 12:
             //Independent Watershed
              finalChartArr.push("GP1_AREA");
-
             break;
         case 4: case 13:
             //State
             finalChartArr.push("ST_AREA");
-
             break;
         case 5: case 14:
             //Catchments w/ state divisions
             finalChartArr.push("STDEMIAREA");
             finalChartArr.push("STDEMTAREA");
-            finalChartArr.push("ST_MRB_ID"); // ADDED TMR
+            finalChartArr.push("ST_MRB_ID");
             break;
         case 6: case 15:
             //grp3 w/ state divisions
             finalChartArr.push("SG3_AREA");
-
             break;
         case 7: case 16:
             //grp 2 w/ state divisions
             finalChartArr.push("SG2_AREA");
-
             break;
         case 8: case 17:
             //grp1 w/ state divisions
             finalChartArr.push("SG1_AREA");
-
             break;
     }
-
     return finalChartArr;
 }
-
 
 function generateRenderer(){
         require([
@@ -518,7 +465,6 @@ function generateRenderer(){
         domClass,
         on
     ) {
-
         var sparrowId = app.map.getLayer('SparrowRanking').visibleLayers[0];
         //apply layer defs to renderer if they exist
         if(app.map.getLayer('SparrowRanking').layerDefinitions){
@@ -541,7 +487,6 @@ function generateRenderer(){
         classDef.classificationField = app.currentAttribute;
         classDef.classificationMethod = "quantile";
         classDef.breakCount = 5;
-
 
         classDef.baseSymbol = new SimpleFillSymbol("solid", null, null);
         //not sure about this one, needs a little work to get the borders right.
@@ -574,36 +519,31 @@ function generateRenderer(){
         var generateRenderer = new GenerateRendererTask(app.Url);
         generateRenderer.execute(params, applyRenderer, errorHandler);
 
-
         function applyRenderer(renderer){
             var sparrowId = app.map.getLayer('SparrowRanking').visibleLayers[0];
             var layer = app.map.getLayer('SparrowRanking');
-            //layer.hide();
 
+            // dynamic layer stuff            
+            var optionsArray = [];
+            var drawingOptions = new LayerDrawingOptions();
+            drawingOptions.renderer = renderer;
+            // set the drawing options for the relevant layer
+            // optionsArray index corresponds to layer index in the map service
+            optionsArray[sparrowId] = drawingOptions;
 
-            // dynamic layer stuff
-              var optionsArray = [];
-              var drawingOptions = new LayerDrawingOptions();
-              drawingOptions.renderer = renderer;
-              // set the drawing options for the relevant layer
-              // optionsArray index corresponds to layer index in the map service
-              optionsArray[sparrowId] = drawingOptions;
+            layer.setLayerDrawingOptions(optionsArray);
 
-              layer.setLayerDrawingOptions(optionsArray);
-
-              if (! app.hasOwnProperty("legend")){
+            if (! app.hasOwnProperty("legend")){
                 createLegend();
-              } else{
+            } else {
                 app.legend.refresh([{
                     layer: app.map.getLayer("SparrowRanking"),
                     title : getLegendLabels( app.map.getLayer('SparrowRanking').visibleLayers[0] )
                 }]);
-              }
-              if(layer.visible == false){
-               layer.show();
-              }
-              
-
+            }
+            if(layer.visible == false){
+                layer.show();
+            }
         }
 
         function errorHandler(err){
@@ -618,10 +558,7 @@ function generateRenderer(){
                     title: getLegendLabels( app.map.getLayer('SparrowRanking').visibleLayers[0] )
                 }]
             }, dom.byId("legendDiv"));
-            app.legend.startup();
-            
+            app.legend.startup();            
         }
-
     }); // END Dojo
-
 } //END generateRenderer()
