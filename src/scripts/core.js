@@ -1100,6 +1100,13 @@ require([
             //push the feature attributes AFTER removing all the "AREA" atributes.
             featureSort.push(feature.attributes);            
         });
+       /* var singleChart = false;
+        var checkArr = ["ACCY", "INCY"];
+        $.each(checkArr, function(index, val){
+            if( featureSort[0].hasOwnProperty(val) ){
+                singleChart = true;
+            }
+        });*/
 
         var sum = 0;
         $.each(featureSort, function(index, obj){
@@ -1117,6 +1124,12 @@ require([
         featureSort.sort(function(a, b){
             return parseFloat(b.total) - parseFloat(a.total);
         });
+
+       /* if (singleChart === true){
+            $.each(featureSort, function(index, obj){
+                delete obj.total;
+            });
+        }*/
         
         console.log('featureSort', featureSort);
 
