@@ -11,9 +11,6 @@ body {
     background-position: center;
     background-color:#474747;
 }
-#userGuideNav {
-    background-color: transparent!important;
-}
 
 .user-guide-header {
     display: block;
@@ -63,37 +60,6 @@ body {
     display: block;
     font-weight: bolder;
     padding-bottom: 10px;
-}
-#aboutNav, #userGuideNav {
-    /*background-color: #474747;*/
-
-    background: 0 0;
-    border: none;
-    line-height: 16px;
-    /*padding-top: 0;*/
-    /*padding-bottom: 0;*/
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    position: relative;
-    top: 2px;
-    transition: .2s;
-    color: rgba(255,255,255,.35);
-}
-
-
-#aboutNav, #userGuideNav {
-    letter-spacing: 2px;
-    position: relative; top: 2px;
-    transition: 0.2s;
-    color: rgba(255,255,255,0.35);
-}
-#aboutNav:hover, #userGuideNav:hover {
-    cursor: pointer;
-    color: rgba(255,255,255,1);
-    transition: 0.2s;
-}
-#aboutNav:focus, #userGuideNav:focus {
-    outline: none;
 }
 
 .keepit100 {
@@ -395,7 +361,7 @@ a.lgi-zoom:hover {
 }
 /*needs the overflow and z-index for select overflow*/
 #sidebar {
-    top: 50px;
+    top: 70px;
     padding-bottom: 50px;
     overflow:visible !important;
     z-index:1000;
@@ -557,9 +523,9 @@ table.hover-highlight tbody > tr.even:hover > td {
 }
 /* Tooltip */
 .grp1-warning + .tooltip > .tooltip-inner {
-    background-color: #73AD21; 
-    color: #FFFFFF; 
-    border: 1px solid green; 
+    background-color: #73AD21;
+    color: #FFFFFF;
+    border: 1px solid green;
     padding: 15px;
     font-size: 20px;
 }
@@ -572,9 +538,9 @@ table.hover-highlight tbody > tr.even:hover > td {
 }
 
 .grp2-warning + .tooltip > .tooltip-inner {
-    background-color: #73AD21; 
-    color: #FFFFFF; 
-    border: 1px solid green; 
+    background-color: #73AD21;
+    color: #FFFFFF;
+    border: 1px solid green;
     padding: 15px;
     font-size: 20px;
 }
@@ -660,8 +626,8 @@ table.hover-highlight tbody > tr.even:hover > td {
     padding: 25px 0 !important;
 }
 .panel-body{
-   
-} 
+
+}
 .panel-body .btn{
     display: block;
     width: 100%;
@@ -702,4 +668,47 @@ table.hover-highlight tbody > tr.even:hover > td {
 #customSelect p {
     padding-left: 10px;
     margin-bottom: 0;
+}
+
+
+
+/*Geosearch Styles*/
+#geosearch_usgs{
+  display: -webkit-flex !important;
+  display: flex !important;
+  width: 100%;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.search-api-container{
+  margin: 0 auto !important;
+  border: 0px solid transparent !important;
+}
+.search-api-container span{
+  -webkit-flex-grow: 2;
+  flex-grow: 2;
+  width: 100% !important;
+  display: block;
+}
+.search-api-container input{
+  display: block;
+  -webkit-flex-grow: 2;
+  flex-grow: 2;
+  font-size: 18px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.5px !important;
+  border-right: 0px;
+  border: 1px solid rgba(0,0,0,0.25) !important;
+  border-radius: 0px !important;
+  padding: 0 15px !important;
+  margin-top: 15px !important;
+  border-radius: 3px !important;
+}
+.search-api-container input:focus{
+  border: none !important;
+  border: 1px solid #0F8AFF !important;
+  outline: none !important;
+}
+.search-api-button{
+  display: none !important;
 }
