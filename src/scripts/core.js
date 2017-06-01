@@ -1020,6 +1020,7 @@ require([
         var series = [];
         var featureSort = [];
         var tableFeatures = [];       
+  //  var mrbIDstorage = [];
 
         $.each(response.features, function(index, feature){
             // first push these into a separate array for table to use
@@ -1042,9 +1043,9 @@ require([
             $.each(obj, function(i, attribute){
                 //don't try to sum up an strings or ID numbers
                 //UPDATE important! -- if catchments ID field is returned make sure the correctly named field is in the catch below.
-                if(jQuery.type(attribute) !== 'string' && i != "MRB_ID" ){
+                if(jQuery.type(attribute) !== 'string' && (i != "MRB_ID" || i != "ST_MRB_ID") ){
                     sum += attribute;
-                }
+                }                
             });
             obj.total = sum;
             tableFeatures[index].total = sum;
@@ -1063,19 +1064,28 @@ require([
 
         categories.pop();
 
-
         //create multidimensional array from query response
         $.each(categories, function(index, value){  
             var data = [];
             $.each(featureSort, function(innerIndex, feature){
-                data.push( feature[value] );
+                if ($('#groupResultsSelect')[0].selectedIndex == 0) { //catchments only
+                    data.push( {y: feature[value], id: feature["MRB_ID"] || feature["ST_MRB_ID"]}); // TMR ADDED
+                } else {
+                    data.push( feature[value] );
+                }
             });
             chartArr.push(data);
         });
 
+        if ($('#groupResultsSelect')[0].selectedIndex == 0) {
+            chartArr.pop(); // remove the last array of MRB_IDs  // TMR ADDED
+        }
         //remove 1st field ('group by') from charting arrays
         categories.shift();
-        columnLabels = chartArr.shift(); //removes AND returns column labels ( chartArr[0] )
+        $.each(chartArr.shift(), function(key, value) {  // TMR ADDED
+            // check to see if catchments, this will be an object otherwise it will be array
+            value.y !== undefined ? columnLabels.push(value.y) : columnLabels.push(value);
+        });  //removes AND returns column labels ( chartArr[0] )
         //chartArr.pop();
 
 
@@ -1094,15 +1104,17 @@ require([
             labelArr.push(value);
         });
      //   labelArr.push("Area"); // for all but catchments
-        if (sparrowLayerId == 0 || sparrowLayerId == 8) labelArr[0] = "Name";
-         buildTable(tableArr, labelArr);
+        if (sparrowLayerId == 0 || sparrowLayerId == 8) {
+            labelArr[0] = "Name";
+        }
+        buildTable(tableArr, labelArr);
 
         //removes 'group by' from labels  (MUST MATCH CATEGORIES)
         chartLabelsArr.shift();
 
         //push label array into series
         $.each(chartLabelsArr, function(index, value){
-            series.push( {name: value});
+            series.push( {name: value, turboThreshold: 3000});
         });  
 
 
@@ -1373,6 +1385,7 @@ require([
             $('#chartWindowDiv').css('visibility', 'hidden');
             $('#chartWindowContainer').empty();
             $('#chartWindowPanelTitle').empty();
+            app.mrbIDstorage = []; // TMR ADDED
         });
 
         //need listener to resize chart
@@ -1412,7 +1425,7 @@ require([
                                 switch (selectedIndex){
                                     case 0:
                                         if( $('#st-select')[0].selectedIndex > 0){
-                                            return 'MRB_ID';
+                                            return 'ST_MRB_ID';
                                         }else{
                                             return 'MRB_ID';
                                         }
@@ -1455,9 +1468,15 @@ require([
                                             //find data inside max/min selected axes
                                             if ( point.x >= xAxis.min && point.x <= xAxis.max ) {
                                                 //check if point.category is already in the array, if not add it
-                                                if (categoryArr.indexOf(point.category) == -1){
-                                                    categoryArr.push(point.category);
+                                                // TMR ADDED
+                                                var thisCategory;
+                                                thisCategory = $('#groupResultsSelect')[0].selectedIndex == 0 ? point.id : point.category;
+                                                if (categoryArr.indexOf(thisCategory) == -1){
+                                                    categoryArr.push(thisCategory);
                                                 }
+                                                /*if (categoryArr.indexOf(point.category) == -1){
+                                                    categoryArr.push(point.category);
+                                                }*/
                                             }
                                         });
                                     }); 
@@ -1481,7 +1500,9 @@ require([
                             if (e.resetSelection != true) {                                 
                                 var categoryStr = "";
                                 $.each(categoryArr, function(i, category){
-                                    categoryStr += "'" + category + "', "
+                                    // only MRB_ID is a number, ST_MRB_ID is a string
+                                    categoryStr += fieldName == "MRB_ID" ?  + category + ", " : "'" + category + "', "; // TMR ADDED
+                                //    categoryStr += "'" + category + "', "
                                 });  
                                 var queryStr = categoryStr.slice(0, categoryStr.length - 2);                                
                                 graphicsQuery.where = fieldName + " IN (" + queryStr + ")";
@@ -1641,7 +1662,7 @@ require([
                                         switch (selectedIndex){
                                             case 0:
                                                 if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'MRB_ID';
+                                                    return 'ST_MRB_ID';
                                                 }else{
                                                     return 'MRB_ID';
                                                 }
@@ -1670,7 +1691,7 @@ require([
                                     }
 
                                     //get everything needed for the query
-                                    var category = this.category;  //refers to the selected chart area
+                                    var category = $('#groupResultsSelect')[0].selectedIndex == 0 ? this.id : this.category;  //refers to the selected chart area
                                     var visibleLayers = app.map.getLayer('SparrowRanking').visibleLayers[0];
                                     var URL = app.map.getLayer('SparrowRanking').url;
                                     var fieldName = switchWhereField( $('#groupResultsSelect')[0].selectedIndex );
@@ -1686,7 +1707,7 @@ require([
                                     if (fieldName != "MRB_ID"){
                                         graphicsQuery.where = fieldName + "= '" + category + "'";
                                     }else {
-                                        //MRB_ID field is NOT a string!!!
+                                        //MRB_ID (but ST_MRB_ID is) field is NOT a string!!!
                                         graphicsQuery.where = fieldName + " = " + category;
                                     }
                                                                 
@@ -1711,7 +1732,7 @@ require([
                                         switch (selectedIndex){
                                             case 0:
                                                 if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'MRB_ID';
+                                                    return 'ST_MRB_ID';
                                                 }else{
                                                     return 'MRB_ID';
                                                 }
@@ -1740,13 +1761,18 @@ require([
                                     }
 
                                     var queryField = switchWhereField( $('#groupResultsSelect')[0].selectedIndex );
-                                    var queryString = queryField + " = " + "'" + this.category + "'";
-
+                                    var thisCategory;                                    
+                                    if ($('#groupResultsSelect')[0].selectedIndex == 0) {
+                                        thisCategory = this.id;
+                                    } else {
+                                        thisCategory = this.category;
+                                    }
+                                        
                                     if (queryField != "MRB_ID"){
-                                        var queryString = queryField + " = " + "'" + this.category + "'";
-                                    }else {
+                                        var queryString = queryField + " = " + "'" + thisCategory + "'";
+                                    } else {
                                         //MRB_ID field is NOT a string!!!
-                                        var queryString = queryField + " = " + this.category ;
+                                        var queryString = queryField + " = " + thisCategory ;
                                     }
 
                                     //clear any zoom graphics
@@ -1843,7 +1869,8 @@ require([
         });        
         
         // if not sparrowLayer 0 or 8, only add Area, else add other 2 DEM fields headers too
-        if (app.map.getLayer('SparrowRanking').visibleLayers[0] == 0 || app.map.getLayer('SparrowRanking').visibleLayers[0] == 8) {
+        var selectedLayerId = $('#groupResultsSelect')[0].selectedIndex;
+        if (selectedLayerId == 0) {
             //add Basin Area, Upstream Area, and Total
             headerKeyArr.push("Basin Area");
             headerKeyArr.push("Upstream Area");
@@ -1868,11 +1895,13 @@ require([
         
         $('#resultsTable').append('<tbody id="tableBody"></tbody>');
         $.each(response, function(rowIndex, feature) {
-            var rowI = rowIndex;
+            var rowI = selectedLayerId == 0 ? feature["MRB_ID"] || feature["ST_MRB_ID"] : rowIndex;
 
-            htmlArr.push("<tr id='row"+rowIndex+"'>");
+            htmlArr.push("<tr id='row"+rowI+"'>");
             $.each(feature, function(key, value){
-                htmlArr.push('<td>'+ value +'</td>'); 
+                if (key !== "MRB_ID" && key !== "ST_MRB_ID") {
+                    htmlArr.push('<td>'+ value +'</td>'); 
+                }
             });
 
             htmlArr.push("</tr>");
@@ -1894,7 +1923,7 @@ require([
 
     //hover over table row, go highlight region on map
     $(document).on('mouseenter', '#tableBody tr', function(e) {
-        var category = e.currentTarget.cells[0].innerHTML //this.category;  //refers to the selected chart area
+        var category = $('#groupResultsSelect')[0].selectedIndex == 0 ? e.currentTarget.id.substring(3) : e.currentTarget.cells[0].innerHTML; //this.category;  //refers to the selected chart area
         var visibleLayers = app.map.getLayer('SparrowRanking').visibleLayers[0];
         var URL = app.map.getLayer('SparrowRanking').url;
         var fieldName = "";
