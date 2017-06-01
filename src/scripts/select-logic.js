@@ -302,15 +302,21 @@ function setLayerDefs(){
 
         app.map.getLayer("SparrowRanking").setLayerDefinitions(layerDefs);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1e044513487d145c38f50fb3299612500d42cfe5
 
 } // END setLayerDefs()
 
 
+<<<<<<< HEAD
 
 =======
 } // END setLayerDefs()
 
 >>>>>>> 8acd44f0116d6a47acc90ff5893e752489d42770
+=======
+>>>>>>> 1e044513487d145c38f50fb3299612500d42cfe5
 function getTableFields(headerKeysArr, sparrowLayerId){
     var label = "";
     var flatArr = [];
