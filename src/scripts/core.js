@@ -1041,7 +1041,7 @@ require([
             $.each(obj, function(i, attribute){
                 //don't try to sum up an strings or ID numbers
                 //UPDATE important! -- if catchments ID field is returned make sure the correctly named field is in the catch below.
-                if(jQuery.type(attribute) !== 'string' && (i != "MRB_ID" || i != "ST_MRB_ID") ){
+                if(jQuery.type(attribute) !== 'string' && i !== "MRB_ID") { // (dont need this because ST_MRB_ID is a string) || i !== "ST_MRB_ID") ){
                     sum += attribute;
                 }                
             });
@@ -1084,8 +1084,6 @@ require([
             // check to see if catchments, this will be an object otherwise it will be array
             value.y !== undefined ? columnLabels.push(value.y) : columnLabels.push(value);
         });  //removes AND returns column labels ( chartArr[0] )
-        //chartArr.pop();
-
 
        //get chartOutfields from config --i.e {attribute: "VALUE", label: "value"}
         var sparrowLayerId = app.map.getLayer('SparrowRanking').visibleLayers[0];
@@ -1169,154 +1167,37 @@ require([
         function labelySelect(){
             var layerId = app.map.getLayer('SparrowRanking').visibleLayers[0];
             var label;
-            switch( layerId ){
-                case 0:
-                   $.each(Catchments, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 1:
-                    $.each(Group3, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 2: 
-                    $.each(Group2, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 3:
-                    $.each(Group1, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 4:
-                    $.each(ST, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 5: 
-                    $.each(Catchments_st, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 6: 
-                    $.each(Group3_st, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 7:
-                    $.each(Group2_st, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 8:
-                   $.each(Group1_st, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 9:
-                    $.each(Catchments_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 10: 
-                    $.each(Group3_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 11:
-                    $.each(Group2_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 12:
-                    $.each(Group1_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 13: 
-                    $.each(ST_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 14:
-                    $.each(Catchments_st_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 15:
-                    $.each(Group3_st_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 16:
-                    $.each(Group2_st_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 17:
-                    $.each(Group1_st_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-            }
+            var iterateThruThis = (function(tempLayerId){
+                switch (tempLayerId){
+                    case 0: return Catchments;
+                    case 1: return Group3;
+                    case 2: return Group2;
+                    case 3: return Group1;
+                    case 4: return ST;
+                    case 5: return Catchments_st;
+                    case 6: return Group3_st;
+                    case 7: return Group2_st;
+                    case 8: return Group1_st;
+                    case 9: return Catchments_tn;
+                    case 10: return Group3_tn;
+                    case 11: return Group2_tn;
+                    case 12: return Group1_tn;
+                    case 13: return ST_tn;
+                    case 14: return Catchments_st_tn;
+                    case 15: return Group3_st_tn;
+                    case 16: return Group2_st_tn;
+                    case 17: return Group1_st_tn;
+                }
+            })(layerId);
+
+            $.each(iterateThruThis, function(index, object){
+                if (object.field == $('#displayedMetricSelect').val() ){
+                    label = object.name;
+                }
+            });
+                
             return label;
         }
-
-
-         /*function highlightMapFeature(category){
-            var layerDefinitions = "GP3 = '" + category + "'";
-            var selectionSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, 
-                new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-                new Color([255, 0, 0]), 2), new Color([255,255, 0, 0.5]));
-
-            app.map.getLayer("SparrowGraphics").setDefinitionExpression(layerDefinitions);
-
-            app.map.getLayer("SparrowGraphics").setSelectionSymbol(selectionSymbol);
-        }*/
-
-        /*function highlightMapFeature(attributeString){
-            console.log('in highlightMapFeature()');
-            //TODO: need to query for geometry??? using attribute string?
-            var highlightGraphic = new Graphic(attributeString)
-        }*/
 
         //START LOBIPANEL-------------------------------------------------------------------------------------------------------
         $('#chartWindowDiv').lobiPanel({
@@ -1352,8 +1233,6 @@ require([
             }
         }
 
-        //$('#chartWindowPanelTitle').append('<br/><div class="btn"><button type="button" class="btn btn-primary" id="exportButton"><span class="glyphicon glyphicon-signal"></span> Export Chart Data</button></div>');
-
         //only create close / minimize if they don't already exist        
         if ($('#chartClose').length == 0){
             $('#chartWindowDiv .dropdown').prepend('<div id="chartClose" title="close"><b>X</b></div>');
@@ -1369,13 +1248,7 @@ require([
         instance.unpin();
         //getPosition and setPosition will ensure the x is the same as it should be and the y is higher up (not cut off at bottom)
         var xPos =  instance.getPosition().x;
-        instance.setPosition(xPos,50);
-         /*$("#chartMinimize").on('click', function(){
-            $("#chartWindowDiv").slideDown(250);
-            $("#chartWindowDiv").removeClass("chartWindowMaximize");
-            $("#chartWindowDiv").attr('style', '');
-            $("#chartWindowDiv").addClass("chartWindowMinimize");
-        });*/
+        instance.setPosition(xPos,50);        
 
         $('#chartClose').on('click', function(){
             app.map.graphics.clear();
