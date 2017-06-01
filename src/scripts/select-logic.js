@@ -301,7 +301,9 @@ function setLayerDefs(){
 
 
         app.map.getLayer("SparrowRanking").setLayerDefinitions(layerDefs);
+
 } // END setLayerDefs()
+
 
 function getTableFields(headerKeysArr, sparrowLayerId){
     var label = "";

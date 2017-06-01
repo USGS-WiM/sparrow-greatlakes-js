@@ -15,6 +15,7 @@ require([
     'esri/layers/ArcGISTiledMapServiceLayer',
     'esri/layers/ArcGISDynamicMapServiceLayer',
     'esri/layers/FeatureLayer',
+    'esri/layers/ArcGISImageServiceLayer',
     'esri/layers/WMSLayer',
     'esri/dijit/Geocoder',
     'esri/dijit/PopupTemplate',
@@ -53,6 +54,7 @@ require([
     ArcGISTiledMapServiceLayer,
     ArcGISDynamicMapServiceLayer,
     FeatureLayer,
+    ArcGISImageServiceLayer,
     WMSLayer,
     Geocoder,
     PopupTemplate,
@@ -1910,12 +1912,27 @@ require([
         $.each(allLayers, function (index,group) {
             //sub-loop over layers within this groupType
             $.each(group.layers, function (layerName,layerDetails) {
-
-                var layer = new ArcGISDynamicMapServiceLayer(layerDetails.url, layerDetails.options);
-                if (layerDetails.visibleLayers) {
-                    layer.setVisibleLayers(layerDetails.visibleLayers);
+                if(layerDetails.wimOptions.layerType === 'agisImage'){
+                   var layer = new ArcGISImageServiceLayer(layerDetails.url, layerDetails.options);
+                    //check if include in legend is true
+                    if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
+                        legendLayers.push({layer:layer, title: legendLayerName});
+                    }
+                    if (layerDetails.visibleLayers) {
+                        layer.setVisibleLayers(layerDetails.visibleLayers);
+                    }
+                    //map.addLayer(layer);
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, layerDetails.options, layerDetails.wimOptions);
+                    //addMapServerLegend(layerName, layerDetails); 
+                } else{
+                    var layer = new ArcGISDynamicMapServiceLayer(layerDetails.url, layerDetails.options);
+                    if (layerDetails.visibleLayers) {
+                        layer.setVisibleLayers(layerDetails.visibleLayers);
+                    }
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, layerDetails.options, layerDetails.wimOptions);
                 }
-                addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, layerDetails.options, layerDetails.wimOptions);
+
+                
             });
         });
 

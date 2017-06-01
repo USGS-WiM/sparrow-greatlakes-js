@@ -118,7 +118,23 @@ require([
                         "hasZoomto": false,
                         "includeLegend" : false
                     }
-                }
+                },
+                "Land Use 2012": {
+                    "url": "https://gis.wim.usgs.gov/arcgis/rest/services/SWTrends/lu2012_100515_test/ImageServer",
+                    "options": {
+                        "id": "lu2012",
+                        "opacity": 0.5,
+                        "visible": false
+                    },
+                    "wimOptions": {
+                        "type": "layer",
+                        "layerType": "agisImage",
+                        "includeInLayerList": true,
+                        "hasOpacitySlider": true,
+                        "hasZoomto": false,
+                        "includeLegend": false
+                    }
+                },
             }
         }
     ]
