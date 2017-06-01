@@ -143,7 +143,7 @@ var Catchments = [
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.accy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' total'}
+            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' all sources'}
         ]
     },
     {
@@ -151,7 +151,7 @@ var Catchments = [
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.incy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' total'}
+            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' all sources'}
         ]
     },
     {
@@ -159,7 +159,7 @@ var Catchments = [
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.daccl,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' total'}
+            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' all sources'}
         ]
     },
     {
@@ -167,7 +167,7 @@ var Catchments = [
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.daccy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' total'}
+            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' all sources'}
         ]
     },
     {
@@ -188,7 +188,7 @@ var Catchments = [
         name: catchmentDefinitions.mrb_id + " " + catchmentDefinitions.dincy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' total'}
+            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' all sources'}
         ]
     }
 
@@ -448,7 +448,7 @@ var Catchments_st = [
         name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.accy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' total'}
+            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' all sources'}
         ]
     },
     {
@@ -456,7 +456,7 @@ var Catchments_st = [
         name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.incy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' total'}
+            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' all sources'}
         ]
     },
     {
@@ -464,7 +464,7 @@ var Catchments_st = [
         name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.daccl,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' total'}
+            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' all sources'}
         ]
     },
     {
@@ -472,7 +472,7 @@ var Catchments_st = [
         name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.daccy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' total'}
+            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' all sources'}
         ]
     },
     {
@@ -493,7 +493,7 @@ var Catchments_st = [
         name: catchmentDefinitions.st_mrb_id + " " + catchmentDefinitions.dincy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' total'}
+            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' all sources'}
         ]
     }
 ]
@@ -696,7 +696,7 @@ var Catchments_tn = [
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' total'}
+            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' all sources'}
         ]
     },
     {
@@ -704,7 +704,7 @@ var Catchments_tn = [
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' total'}
+            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' all sources'}
         ]
     },
     {
@@ -712,7 +712,7 @@ var Catchments_tn = [
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccl,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' total'}
+            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' all sources'}
         ]
     },
     {
@@ -720,7 +720,7 @@ var Catchments_tn = [
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' total'}
+            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' all sources'}
         ]
     },
     {
@@ -740,7 +740,7 @@ var Catchments_tn = [
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' total'}
+            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' all sources'}
         ]
     }
 ]
@@ -975,7 +975,7 @@ var Catchments_st_tn = [
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' total'}
+            { attribute: "ACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.accy + ' all sources'}
         ]
     },
     {
@@ -983,7 +983,7 @@ var Catchments_st_tn = [
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.incy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' total'}
+            { attribute: "INCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.incy + ' all sources'}
         ]
     },
     {
@@ -991,7 +991,7 @@ var Catchments_st_tn = [
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccl,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' total'}
+            { attribute: "DACCL", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccl + ' all sources'}
         ]
     },
     {
@@ -999,7 +999,7 @@ var Catchments_st_tn = [
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.daccy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' total'}
+            { attribute: "DACCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.daccy + ' all sources'}
         ]
     },
     {
@@ -1019,7 +1019,7 @@ var Catchments_st_tn = [
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.dincy,
         chartOutfields: [
             { attribute: "PNAME", label: catchmentDefinitions.pname },
-            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' total'}
+            { attribute: "DINCY", label: catchmentDefinitions.mrb_id + ' ' + catchmentDefinitions.dincy + ' all sources'}
         ]
     }
 ]
