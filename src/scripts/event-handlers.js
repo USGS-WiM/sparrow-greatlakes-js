@@ -62,17 +62,6 @@ function loadEventHandlers() {
         }
     });
 
-/*  Cant find reference to this in html
-    var showCustomChart = $('#customChartButton');
-    showCustomChart.click(function() {
-        app.formattedHighlightString = app.userSelectedDispFieldName + " IN (" + app.userSelectedShapes.join(",") + ")";
-        app.customChartClicked = true;
-        console.log("Custom Click: " + app.formattedHighlightString);
-        app.createChartQuery(app.formattedHighlightString);
-        app.userSelectedDispFieldName = "";
-        app.userSelectedShapes = [];
-    }); */
-
    //keep Displayed Metric options in sync
     $("#groupResultsSelect").on('changed.bs.select', function(e){
         app.clearFindGraphics();
@@ -124,10 +113,7 @@ function loadEventHandlers() {
 
         if( $("#chartWindowDiv").css("visibility") == "visible" ) {
             app.createChartQuery();
-        }
-        if ($('#tableResizable').is(":visible")){
-            app.createTableQuery();
-        }
+        }        
     });
     /*END CLEAR AOI BUTTON EVENT */
 

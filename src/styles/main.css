@@ -491,17 +491,6 @@ table.hover-highlight tbody > tr.even:hover > td {
     font-size: 12px;
 }
 
-
-/*jquery resizeable*/
-#tableResizable {
-    width: 100%;
-    height: 400px;
-    /*overflow-y:auto;
-    overflow-x: scroll;*/
-
-}
-#tableResizable h3 { text-align: left; padding-left: 20px; }
-
 .ui-widget-header{
     border: none;
     background: rgb(30,39,50);

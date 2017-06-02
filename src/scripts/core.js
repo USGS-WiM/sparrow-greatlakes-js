@@ -15,6 +15,7 @@ require([
     'esri/layers/ArcGISTiledMapServiceLayer',
     'esri/layers/ArcGISDynamicMapServiceLayer',
     'esri/layers/FeatureLayer',
+    'esri/layers/ArcGISImageServiceLayer',
     'esri/layers/WMSLayer',
     'esri/dijit/Geocoder',
     'esri/dijit/PopupTemplate',
@@ -53,6 +54,7 @@ require([
     ArcGISTiledMapServiceLayer,
     ArcGISDynamicMapServiceLayer,
     FeatureLayer,
+    ArcGISImageServiceLayer,
     WMSLayer,
     Geocoder,
     PopupTemplate,
@@ -182,22 +184,15 @@ require([
     var tableArr = []; //global for table updating
     var labelArr = []; //glocal for table updating
 
+    // in event-handlers.js
     loadEventHandlers();
-    //setupQueryTask(serviceBaseURL + 1, [ 'GP2', 'GRP_2_DESC' ], '1=1');
-    //TODO: FIGURE OUT HOW TO USE THE QUERY WHERECLAUSE     Call setupQueryTask for every layer inqueryParameters
-    //setupQueryTask(serviceBaseURL + 4, ['ST', 'GP3', 'GP', 'GP1' ], '1=1');
 
+    //fire initial query to populate AOIs
+    //UPDATE IMPORTANT!  check layer and field names to make sure the fields exist in the service layers
     setupQueryTask(serviceBaseURL + 5, ['ST', 'GP3', 'GP2', 'GP1' ], '1=1');
 
-    /*for (var key in queryParameters){
-        if (key == 'grp3'){
-            setupQueryTask(serviceBaseURL + queryParameters[key].serviceId, ["ST", "GP3", "GP2", "GP1" ], "1=1");
-        } else{
-            setupQueryTask(serviceBaseURL + queryParameters[key].serviceId, queryParameters[key].nameField, "1=1");
-        }
-    }*/
+    app.setLayerDefObj = function(newObj){        
 
-    app.setLayerDefObj = function(newObj){
         //UPDATE NOTE: need 1 case for every AOI select
         switch(newObj.selectedId){
             case 'st-select':
@@ -560,8 +555,10 @@ require([
                 //set other two AOI options and reselect if previously selected
                 appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', stOptions, '#st-select', 'AOIST');
                 break;
-        }
-    };
+
+        } 
+    }
+
     //function used several times in above switch case
     var appendSelectOptions = function(firstOptions, select1_ID, firstAOI, secondOptions, select2_ID, secondAOI){
         //set the filtered state options
@@ -571,7 +568,9 @@ require([
         $(select1_ID).selectpicker('refresh');
         //set the filtered grp3 options
         $.each(secondOptions, function(index, option){
-                $(select2_ID).append(new Option(option));
+
+            $(select2_ID).append(new Option(option));                     
+
         });
         $(select2_ID).selectpicker('refresh');
 
@@ -695,12 +694,13 @@ require([
                     app.map.graphics.add(response[0].feature);
 
                     $.each(response, function(index, responseObj){
-                        //UPDATE important! -- make sure that layerIds in if statements below match calibration sites layers in the REST services.
+                        //UPDATE important! -- make sure that layerIds in 'if' statements below match calibration sites layers in the REST services.
                         //Phosphorus Calibration Site InfoWindow
                         if (responseObj.layerId === 18){
                             var model = 'Phosphorus';
                             var calibrationTemplate = new esri.InfoTemplate();
                             calibrationTemplate.setTitle('SPARROW ' + model + ' Calibration Site');
+                            //UPDATE important! make sure the field names match what is in the REST layer
                             calibrationTemplate.setContent('<div><b>Station Name:</b> ' + responseObj.feature.attributes.NAME + '</div><br>' +
                                                             '<div><b>Station ID:</b> </b>' + responseObj.feature.attributes.STATION_ID + '</div><br>' +
                                                             '<div><b>SPARROW Reach ID: </b>' + responseObj.feature.attributes.MRB_ID + '</div><br>'+
@@ -715,11 +715,13 @@ require([
                             calibrationInfoWindow = true;
                         }
 
-                        //Phosphorus Calibration Site InfoWindow
+                        //UPDATE important! -- make sure that layerIds in 'if' statements below match calibration sites layers in the REST services
+                        //Nitrogen Calibration Site InfoWindow
                         if (responseObj.layerId === 19){
                             var modelN = 'Nitrogen';
                             var calibrationTemplateN = new esri.InfoTemplate();
                             calibrationTemplateN.setTitle('SPARROW ' + modelN + ' Calibration Site');
+                            //UPDATE important! make sure the field names below match what is in the REST layer
                             calibrationTemplateN.setContent('<div><b>Station Name:</b> ' + responseObj.feature.attributes.NAME + '</div><br>' +
                                                             '<div><b>Station ID:</b> </b>' + responseObj.feature.attributes.STATION_ID + '</div><br>' +
                                                             '<div><b>SPARROW Reach ID: </b>' + responseObj.feature.attributes.MRB_ID + '</div><br>'+
@@ -735,7 +737,7 @@ require([
                         }
                     });
 
-
+                    //handle map click for Sparrow Data layer
                     if (calibrationInfoWindow != true){
                         var fields = getChartOutfields( app.map.getLayer('SparrowRanking').visibleLayers[0] );
                         var attributes = response[0].feature.attributes;
@@ -757,7 +759,6 @@ require([
                 }
             }// end else
         }); //END deferred callback
-
     } //END executeIdentifyTask();
 
 
@@ -833,6 +834,39 @@ require([
 
         chartQueryTask.execute(chartQuery, showChart);
     }//END app.createChartQuery
+
+
+   // used several times to get the configuration object needed to perform operation
+    app.getLayerConfigObject = function(sparrowLayerId) {
+        var configObject = (function(tempLayerId) {
+            switch(tempLayerId) {
+                /////BEGIN PHOSPHORUS LAYERS___________________________________________________________
+                case 0: return Catchments; // catchments
+                case 1: return Group3; // HUC8
+                case 2: return Group2; // Trib
+                case 3: return Group1; // Main River Bains
+                case 4: return ST; // State
+                case 5: return Catchments_st; // cats w/ state divisions
+                case 6: return Group3_st; // grp3 w/ state divisions
+                case 7: return Group2_st; // grp2 w/ state divisions
+                case 8: return Group1_st; // grp1 w/ state divisions
+                /////END PHOSPHORUS LAYERS___________________________________________________________
+                /////BEGIN NITROGEN LAYERS___________________________________________________________
+                case 9: return Catchments_tn; // Nitro catchments
+                case 10: return Group3_tn; // HUC8
+                case 11: return Group2_tn; // Trib
+                case 12: return Group1_tn; // Main River Bains
+                case 13: return ST_tn; // State
+                case 14: return Catchments_st_tn; // cats w/ state divisions
+                case 15: return Group3_st_tn; // grp3 w/ state divisions
+                case 16: return Group2_st_tn; // grp2 w/ state divisions
+                case 17: return Group1_st_tn; // grp1 w/ state divisions
+                /////END NITROGEN LAYERS___________________________________________________________
+            }
+        })(sparrowLayerId);
+
+        return configObject;
+    }
 
 
     function setupQueryTask(url, outFieldsArr, whereClause){
@@ -1010,7 +1044,42 @@ require([
         }
     }
 
-    function showChart(response){
+
+    // called 3 times from highcharts mouseover, selection, and click
+    //UPDATE IMPORTANT! 
+    function switchWhereField(selectedIndex){
+        switch (selectedIndex){
+            case 0:
+                if( $('#st-select')[0].selectedIndex > 0){
+                    return 'ST_MRB_ID';
+                }else{
+                    return 'MRB_ID';
+                }
+            case 1:
+                if( $('#st-select')[0].selectedIndex > 0){
+                    return 'SG3';
+                }else{
+                    return 'GP3';
+                }
+            case 2:
+                if( $('#st-select')[0].selectedIndex > 0){
+                    return 'SG2';
+                }else{
+                    return 'GP2';
+                }
+            case 3: 
+                if( $('#st-select')[0].selectedIndex > 0){
+                    return 'SG1';
+                }else{
+                    return 'GP1';
+                }
+            case 4:
+                return 'ST';
+        }
+    }
+
+    function showChart(response){               
+
         var columnLabels = [];
         var chartTitle;
         var categories = [];
@@ -1034,15 +1103,22 @@ require([
             //push the feature attributes AFTER removing all the "AREA" atributes.
             featureSort.push(feature.attributes);
         });
+       /* var singleChart = false;
+        var checkArr = ["ACCY", "INCY"];
+        $.each(checkArr, function(index, val){
+            if( featureSort[0].hasOwnProperty(val) ){
+                singleChart = true;
+            }
+        });*/
 
         var sum = 0;
         $.each(featureSort, function(index, obj){
             $.each(obj, function(i, attribute){
                 //don't try to sum up an strings or ID numbers
                 //UPDATE important! -- if catchments ID field is returned make sure the correctly named field is in the catch below.
-                if(jQuery.type(attribute) !== 'string' && i != "MRB_ID" ){
+                if(jQuery.type(attribute) !== 'string' && i !== "MRB_ID") { // (dont need this because ST_MRB_ID is a string) || i !== "ST_MRB_ID") ){
                     sum += attribute;
-                }
+                }                
             });
             obj.total = sum;
             tableFeatures[index].total = sum;
@@ -1051,6 +1127,14 @@ require([
         featureSort.sort(function(a, b){
             return parseFloat(b.total) - parseFloat(a.total);
         });
+
+
+       /* if (singleChart === true){
+            $.each(featureSort, function(index, obj){
+                delete obj.total;
+            });
+        }*/
+        
 
         console.log('featureSort', featureSort);
 
@@ -1061,21 +1145,28 @@ require([
 
         categories.pop();
 
-
         //create multidimensional array from query response
         $.each(categories, function(index, value){
             var data = [];
             $.each(featureSort, function(innerIndex, feature){
-                data.push( feature[value] );
+                if ($('#groupResultsSelect')[0].selectedIndex == 0) { //catchments only
+                    data.push( {y: feature[value], id: feature["MRB_ID"] || feature["ST_MRB_ID"]}); // TMR ADDED
+                } else {
+                    data.push( feature[value] );
+                }
             });
             chartArr.push(data);
         });
 
+        if ($('#groupResultsSelect')[0].selectedIndex == 0) {
+            chartArr.pop(); // remove the last array of MRB_IDs  // TMR ADDED
+        }
         //remove 1st field ('group by') from charting arrays
         categories.shift();
-        columnLabels = chartArr.shift(); //removes AND returns column labels ( chartArr[0] )
-        //chartArr.pop();
-
+        $.each(chartArr.shift(), function(key, value) {  // TMR ADDED
+            // check to see if catchments, this will be an object otherwise it will be array
+            value.y !== undefined ? columnLabels.push(value.y) : columnLabels.push(value);
+        });  //removes AND returns column labels ( chartArr[0] )
 
        //get chartOutfields from config --i.e {attribute: "VALUE", label: "value"}
         var sparrowLayerId = app.map.getLayer('SparrowRanking').visibleLayers[0];
@@ -1092,16 +1183,20 @@ require([
             labelArr.push(value);
         });
      //   labelArr.push("Area"); // for all but catchments
-        if (sparrowLayerId == 0 || sparrowLayerId == 8) labelArr[0] = "Name";
-         buildTable(tableArr, labelArr);
+        if (sparrowLayerId == 0 || sparrowLayerId == 8) {
+            labelArr[0] = "Name";
+        }
+        buildTable(tableArr, labelArr);
 
         //removes 'group by' from labels  (MUST MATCH CATEGORIES)
         chartLabelsArr.shift();
 
         //push label array into series
         $.each(chartLabelsArr, function(index, value){
-            series.push( {name: value});
-        });
+
+            series.push( {name: value, turboThreshold: 3000});
+        });  
+
 
 
         //chartArr is a multi-dimensional array.  Each item in chartArr is an array of series data.
@@ -1157,154 +1252,17 @@ require([
         function labelySelect(){
             var layerId = app.map.getLayer('SparrowRanking').visibleLayers[0];
             var label;
-            switch( layerId ){
-                case 0:
-                   $.each(Catchments, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 1:
-                    $.each(Group3, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 2:
-                    $.each(Group2, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 3:
-                    $.each(Group1, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 4:
-                    $.each(ST, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 5:
-                    $.each(Catchments_st, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 6:
-                    $.each(Group3_st, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 7:
-                    $.each(Group2_st, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 8:
-                   $.each(Group1_st, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 9:
-                    $.each(Catchments_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 10:
-                    $.each(Group3_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 11:
-                    $.each(Group2_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 12:
-                    $.each(Group1_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 13:
-                    $.each(ST_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 14:
-                    $.each(Catchments_st_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 15:
-                    $.each(Group3_st_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 16:
-                    $.each(Group2_st_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-                case 17:
-                    $.each(Group1_st_tn, function(index, object){
-                        if (object.field == $('#displayedMetricSelect').val() ){
-                            label = object.name;
-                        }
-                   });
-                    break;
-            }
+
+            var configObject = app.getLayerConfigObject(layerId);           
+            $.each(configObject, function(index, object){
+                if (object.field == $('#displayedMetricSelect').val() ){
+                    label = object.name;
+                }
+            });
+                
             return label;
         }
 
-
-         /*function highlightMapFeature(category){
-            var layerDefinitions = "GP3 = '" + category + "'";
-            var selectionSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-                new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-                new Color([255, 0, 0]), 2), new Color([255,255, 0, 0.5]));
-
-            app.map.getLayer("SparrowGraphics").setDefinitionExpression(layerDefinitions);
-
-            app.map.getLayer("SparrowGraphics").setSelectionSymbol(selectionSymbol);
-        }*/
-
-        /*function highlightMapFeature(attributeString){
-            console.log('in highlightMapFeature()');
-            //TODO: need to query for geometry??? using attribute string?
-            var highlightGraphic = new Graphic(attributeString)
-        }*/
 
         //START LOBIPANEL-------------------------------------------------------------------------------------------------------
         $('#chartWindowDiv').lobiPanel({
@@ -1342,9 +1300,8 @@ require([
             }
         }
 
-        //$('#chartWindowPanelTitle').append('<br/><div class="btn"><button type="button" class="btn btn-primary" id="exportButton"><span class="glyphicon glyphicon-signal"></span> Export Chart Data</button></div>');
 
-        //only create close / minimize if they don't already exist
+        //only create close / minimize if they don't already exist        
         if ($('#chartClose').length == 0){
             $('#chartWindowDiv .dropdown').prepend('<div id="chartClose" title="close"><b>X</b></div>');
         }
@@ -1359,13 +1316,7 @@ require([
         instance.unpin();
         //getPosition and setPosition will ensure the x is the same as it should be and the y is higher up (not cut off at bottom)
         var xPos =  instance.getPosition().x;
-        instance.setPosition(xPos,50);
-         /*$("#chartMinimize").on('click', function(){
-            $("#chartWindowDiv").slideDown(250);
-            $("#chartWindowDiv").removeClass("chartWindowMaximize");
-            $("#chartWindowDiv").attr('style', '');
-            $("#chartWindowDiv").addClass("chartWindowMinimize");
-        });*/
+        instance.setPosition(xPos,50);        
 
         $('#chartClose').on('click', function(){
             app.map.graphics.clear();
@@ -1373,6 +1324,7 @@ require([
             $('#chartWindowDiv').css('visibility', 'hidden');
             $('#chartWindowContainer').empty();
             $('#chartWindowPanelTitle').empty();
+            app.mrbIDstorage = []; // TMR ADDED
         });
 
         //need listener to resize chart
@@ -1408,39 +1360,8 @@ require([
                     backgroundColor:'rgba(255, 255, 255, 0.45)',
                     events: {
                         selection: function (e) {
-                            function switchWhereField(selectedIndex){
-                                switch (selectedIndex){
-                                    case 0:
-                                        if( $('#st-select')[0].selectedIndex > 0){
-                                            return 'MRB_ID';
-                                        }else{
-                                            return 'MRB_ID';
-                                        }
-                                    case 1:
-                                        if( $('#st-select')[0].selectedIndex > 0){
-                                            return 'SG3';
-                                        }else{
-                                            return 'GP3';
-                                        }
-                                    case 2:
-                                        if( $('#st-select')[0].selectedIndex > 0){
-                                            return 'SG2';
-                                        }else{
-                                            return 'GP2';
-                                        }
-                                    case 3:
-                                        if( $('#st-select')[0].selectedIndex > 0){
-                                            return 'SG1';
-                                        }else{
-                                            return 'GP1';
-                                        }
 
-                                    case 4:
-                                        return 'ST';
-                                }
-                            }
-
-                            var categoryArr = []
+                            var categoryArr = []        
 
                             if (e.xAxis){
                                 var xAxis = e.xAxis[0]
@@ -1449,14 +1370,13 @@ require([
                                 if(xAxis) {
                                     $.each(this.series, function (i, series) {
                                         $.each(series.points, function (j, point) {
-
-                                            //app.previousChartValues.push(point.category);
-
                                             //find data inside max/min selected axes
                                             if ( point.x >= xAxis.min && point.x <= xAxis.max ) {
                                                 //check if point.category is already in the array, if not add it
-                                                if (categoryArr.indexOf(point.category) == -1){
-                                                    categoryArr.push(point.category);
+                                                var thisCategory;
+                                                thisCategory = $('#groupResultsSelect')[0].selectedIndex == 0 ? point.id : point.category;
+                                                if (categoryArr.indexOf(thisCategory) == -1){
+                                                    categoryArr.push(thisCategory);
                                                 }
                                             }
                                         });
@@ -1481,9 +1401,12 @@ require([
                             if (e.resetSelection != true) {
                                 var categoryStr = "";
                                 $.each(categoryArr, function(i, category){
-                                    categoryStr += "'" + category + "', "
-                                });
-                                var queryStr = categoryStr.slice(0, categoryStr.length - 2);
+
+                                    // only MRB_ID is a number, ST_MRB_ID is a string
+                                    categoryStr += fieldName == "MRB_ID" ?  + category + ", " : "'" + category + "', "; 
+                                });  
+                                var queryStr = categoryStr.slice(0, categoryStr.length - 2);                                
+
                                 graphicsQuery.where = fieldName + " IN (" + queryStr + ")";
                                 queryTask.execute(graphicsQuery, responseHandler);
 
@@ -1492,9 +1415,9 @@ require([
                                         if (obj.symbol.id == 'zoomhighlight'){
                                             app.map.graphics.remove(obj);
                                         }
-                                    });
-                                    //app.map.graphics.clear();
-                                    //var feature, selectedSymbol;
+
+                                    });                                    
+
                                     $.each(response.features, function(i, feature){
                                         var feature = feature;
                                         var selectedSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,0]), 1);
@@ -1607,11 +1530,11 @@ require([
                     borderWidth: 1,
                     shadow: false,
                     labelFormatter: function () {
-                        var yI = this.name.indexOf(")");//yield");
+                        var yI = this.name.indexOf(")");
                         var shortName = "";
-                        if (yI > -1) shortName = this.name.substring(yI+1);//0, yI-1);
+                        if (yI > -1) shortName = this.name.substring(yI+1);
                         else shortName = this.name;
-                        return shortName;// this.name + ' (click to hide)';
+                        return shortName;
                     }
                 },
                 tooltip: {
@@ -1630,47 +1553,16 @@ require([
                         dataLabels: {
                             enabled: false,
                             color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
-                        }//,
-                        //events: { legendItemClick: function(){return false;}}
+                        }
                     },
                     series:{
                         point:{
                              events:{
                                 mouseOver: function(){
-                                    function switchWhereField(selectedIndex){
-                                        switch (selectedIndex){
-                                            case 0:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'MRB_ID';
-                                                }else{
-                                                    return 'MRB_ID';
-                                                }
-                                            case 1:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG3';
-                                                }else{
-                                                    return 'GP3';
-                                                }
-                                            case 2:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG2';
-                                                }else{
-                                                    return 'GP2';
-                                                }
-                                            case 3:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG1';
-                                                }else{
-                                                    return 'GP1';
-                                                }
 
-                                            case 4:
-                                                return 'ST';
-                                        }
-                                    }
 
                                     //get everything needed for the query
-                                    var category = this.category;  //refers to the selected chart area
+                                    var category = $('#groupResultsSelect')[0].selectedIndex == 0 ? this.id : this.category;  //refers to the selected chart area
                                     var visibleLayers = app.map.getLayer('SparrowRanking').visibleLayers[0];
                                     var URL = app.map.getLayer('SparrowRanking').url;
                                     var fieldName = switchWhereField( $('#groupResultsSelect')[0].selectedIndex );
@@ -1686,7 +1578,7 @@ require([
                                     if (fieldName != "MRB_ID"){
                                         graphicsQuery.where = fieldName + "= '" + category + "'";
                                     }else {
-                                        //MRB_ID field is NOT a string!!!
+                                        //MRB_ID (but ST_MRB_ID is) field is NOT a string!!!
                                         graphicsQuery.where = fieldName + " = " + category;
                                     }
 
@@ -1707,66 +1599,29 @@ require([
                                     }
                                 },
                                 click: function(evt){
-                                    function switchWhereField(selectedIndex){
-                                        switch (selectedIndex){
-                                            case 0:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'MRB_ID';
-                                                }else{
-                                                    return 'MRB_ID';
-                                                }
-                                            case 1:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG3';
-                                                }else{
-                                                    return 'GP3';
-                                                }
-                                            case 2:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG2';
-                                                }else{
-                                                    return 'GP2';
-                                                }
-                                            case 3:
-                                                if( $('#st-select')[0].selectedIndex > 0){
-                                                    return 'SG1';
-                                                }else{
-                                                    return 'GP1';
-                                                }
-
-                                            case 4:
-                                                return 'ST';
-                                        }
-                                    }
 
                                     var queryField = switchWhereField( $('#groupResultsSelect')[0].selectedIndex );
-                                    var queryString = queryField + " = " + "'" + this.category + "'";
-
+                                    var thisCategory;                                    
+                                    if ($('#groupResultsSelect')[0].selectedIndex == 0) {
+                                        thisCategory = this.id;
+                                    } else {
+                                        thisCategory = this.category;
+                                    }
+                                        
                                     if (queryField != "MRB_ID"){
-                                        var queryString = queryField + " = " + "'" + this.category + "'";
-                                    }else {
+                                        var queryString = queryField + " = " + "'" + thisCategory + "'";
+                                    } else {
                                         //MRB_ID field is NOT a string!!!
-                                        var queryString = queryField + " = " + this.category ;
+                                        var queryString = queryField + " = " + thisCategory ;
                                     }
 
-                                    //clear any zoom graphics
-                                   /* $.each(app.map.graphics.graphics, function(i, graphic){
-                                        if(graphic.symbol.id){
-                                            if ( graphic.symbol.id == "zoomHighlight"){
-                                                app.map.graphics.remove(graphic);
-                                            }
-                                        }
-
-                                    });*/
                                     app.map.graphics.clear();
-
                                     app.createChartQuery(queryString);
-
-
                                 }
                             }
-                        }
 
+                        }                       
+                      
                     }
                 },
                 credits: {
@@ -1789,36 +1644,12 @@ require([
 
     } //END ShowChart()
 
-    $('#tableResizable').resizable({
-        handles: 'n'
-    });
-
     //function to filter table based on selection in chart
     function filterTable(categories){
         if (categories !== undefined){
-            var whichName = "";
-            switch ($('#groupResultsSelect')[0].selectedIndex){
-                case 0:
-                    // UPDATE when split catchments are available
-                    if( $('#st-select')[0].selectedIndex > 0) whichName = 'ST_MRB_ID';
-                    else whichName = 'MRB_ID';
-                    break;
-                case 1:
-                    if( $('#st-select')[0].selectedIndex > 0) whichName = 'SG3';
-                    else whichName = 'GP3';
-                    break;
-                case 2:
-                    if( $('#st-select')[0].selectedIndex > 0) whichName = 'SG2';
-                    else whichName = 'GP2';
-                    break;
-                case 3:
-                    if( $('#st-select')[0].selectedIndex > 0) whichName = 'SG1';
-                    else whichName = 'GP1';
-                    break;
-                case 4:
-                    whichName = 'ST';
-                    break;
-            }
+
+            var whichName = switchWhereField($('#groupResultsSelect')[0].selectedIndex);
+
             var newResponse = [];
             $.each(categories, function(i,c){
                 newResponse.push(tableArr.filter(function(t){return t[whichName] == c;})[0]);
@@ -1827,6 +1658,7 @@ require([
         } else
             buildTable(tableArr, labelArr);
     }
+
     //table in lobipanel Table tab (updates everytime chart changes)
     function buildTable(response, headers){
         $("#resultsTable").empty();
@@ -1843,7 +1675,8 @@ require([
         });
 
         // if not sparrowLayer 0 or 8, only add Area, else add other 2 DEM fields headers too
-        if (app.map.getLayer('SparrowRanking').visibleLayers[0] == 0 || app.map.getLayer('SparrowRanking').visibleLayers[0] == 8) {
+        var selectedLayerId = $('#groupResultsSelect')[0].selectedIndex;
+        if (selectedLayerId == 0) {
             //add Basin Area, Upstream Area, and Total
             headerKeyArr.push("Basin Area");
             headerKeyArr.push("Upstream Area");
@@ -1868,11 +1701,15 @@ require([
 
         $('#resultsTable').append('<tbody id="tableBody"></tbody>');
         $.each(response, function(rowIndex, feature) {
-            var rowI = rowIndex;
+            var rowI = selectedLayerId == 0 ? feature["MRB_ID"] || feature["ST_MRB_ID"] : rowIndex;
 
-            htmlArr.push("<tr id='row"+rowIndex+"'>");
+            htmlArr.push("<tr id='row"+rowI+"'>");
             $.each(feature, function(key, value){
-                htmlArr.push('<td>'+ value +'</td>');
+
+                if (key !== "MRB_ID" && key !== "ST_MRB_ID") {
+                    htmlArr.push('<td>'+ value +'</td>'); 
+                }
+
             });
 
             htmlArr.push("</tr>");
@@ -1894,33 +1731,11 @@ require([
 
     //hover over table row, go highlight region on map
     $(document).on('mouseenter', '#tableBody tr', function(e) {
-        var category = e.currentTarget.cells[0].innerHTML //this.category;  //refers to the selected chart area
+        var category = $('#groupResultsSelect')[0].selectedIndex == 0 ? e.currentTarget.id.substring(3) : e.currentTarget.cells[0].innerHTML; //this.category;  //refers to the selected chart area
         var visibleLayers = app.map.getLayer('SparrowRanking').visibleLayers[0];
         var URL = app.map.getLayer('SparrowRanking').url;
-        var fieldName = "";
 
-        switch ($('#groupResultsSelect')[0].selectedIndex){
-            case 0:
-                // UPDATE when split catchments are available
-                if( $('#st-select')[0].selectedIndex > 0) fieldName = 'ST_MRB_ID';
-                else fieldName = 'MRB_ID';
-                break;
-            case 1:
-                if( $('#st-select')[0].selectedIndex > 0) fieldName = 'SG3';
-                else fieldName = 'GP3';
-                break;
-            case 2:
-                if( $('#st-select')[0].selectedIndex > 0) fieldName = 'SG2';
-                else fieldName = 'GP2';
-                break;
-            case 3:
-                if( $('#st-select')[0].selectedIndex > 0) fieldName = 'SG1';
-                else fieldName = 'GP1';
-                break;
-            case 4:
-                fieldName = 'ST';
-                break;
-        }
+        var fieldName = switchWhereField($('#groupResultsSelect')[0].selectedIndex);
 
         var queryTask;
         queryTask = new esri.tasks.QueryTask(URL + visibleLayers.toString() );
@@ -2010,17 +1825,31 @@ require([
         $.each(allLayers, function (index,group) {
             //sub-loop over layers within this groupType
             $.each(group.layers, function (layerName,layerDetails) {
-
-                var layer = new ArcGISDynamicMapServiceLayer(layerDetails.url, layerDetails.options);
-                if (layerDetails.visibleLayers) {
-                    layer.setVisibleLayers(layerDetails.visibleLayers);
+                if(layerDetails.wimOptions.layerType === 'agisImage'){
+                   var layer = new ArcGISImageServiceLayer(layerDetails.url, layerDetails.options);
+                    //check if include in legend is true
+                    if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
+                        legendLayers.push({layer:layer, title: legendLayerName});
+                    }
+                    if (layerDetails.visibleLayers) {
+                        layer.setVisibleLayers(layerDetails.visibleLayers);
+                    }
+                    //map.addLayer(layer);
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, layerDetails.options, layerDetails.wimOptions);
+                    //addMapServerLegend(layerName, layerDetails); 
+                } else{
+                    var layer = new ArcGISDynamicMapServiceLayer(layerDetails.url, layerDetails.options);
+                    if (layerDetails.visibleLayers) {
+                        layer.setVisibleLayers(layerDetails.visibleLayers);
+                    }
+                    addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, layerDetails.options, layerDetails.wimOptions);
                 }
-                addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, layerDetails.options, layerDetails.wimOptions);
+
+                
             });
         });
 
         function addLayer(groupHeading, showGroupHeading, layer, layerName, options, wimOptions) {
-
             //add layer to map
             app.map.addLayer(layer);
 
@@ -2061,7 +1890,6 @@ require([
 
             //group heading logic
             if (showGroupHeading) {
-
                 //camelize it for divID
                 var groupDivID = camelize(groupHeading);
 
@@ -2154,11 +1982,10 @@ require([
                                 map.setExtent(projectedExtent, new SpatialReference({wkid: 102100}));
                             });
                         });
-                    }
-                });
-                //end zoomto logic
+
+                    }                    
+                });//end zoomto logic
             }
-        }
-        //get visible and non visible layer lists
+        } //get visible and non visible layer lists
     });//end of require statement containing legend building code
 });
