@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="bower_components/lobipanel/dist/css/lobipanel.min.css">
-    <link rel="stylesheet" href="bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css"/> <!--recent Addition-->    
-    <link rel="stylesheet" href="bower_components/bootstrap-map-js/dist/css/bootstrapmap.min.css">    
-    <link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css">    
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/ui-lightness/jquery-ui.min.css"/> <!--recent Addition-->
+    <link rel="stylesheet" href="bower_components/bootstrap-map-js/dist/css/bootstrapmap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-sidebar/dist/css/sidebar.css">
     <link rel="stylesheet" href="bower_components/tablesorter/dist/css/theme.default.min.css">
     <!-- endbower -->
     <!-- endbuild -->
@@ -23,6 +23,7 @@
 
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/wim.global.min.css">
     <!-- endbuild -->
     <!-- <link rel="stylesheet" href="styles/base.css"> -->
     <!-- build:css styles/base.css -->
@@ -40,7 +41,7 @@
     <script type="text/javascript" src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
     <script type="text/javascript" src="bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="bower_components/highcharts/highcharts.js"></script>
-    <script type="text/javascript" src="bower_components/lobipanel/dist/js/lobipanel.min.js"></script>    
+    <script type="text/javascript" src="bower_components/lobipanel/dist/js/lobipanel.min.js"></script>
     <script type="text/javascript" src="bower_components/tabletoCSV/dist/jquery.tabletoCSV.js"></script>
     <script type="text/javascript" src="bower_components/tablesorter/dist/js/jquery.tablesorter.js"></script>
 
@@ -48,24 +49,24 @@
     <!-- endbuild -->
     <script type="text/javascript" src="http://js.arcgis.com/3.20/"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    
+
     <!-- build:js scripts/combined.js -->
     <script type="text/javascript" src="scripts/utilities.js"></script>
-    
+
     <!--<script type="text/javascript" src="scripts/sparrow-config-03-17-2017-update.js"></script>-->
     <script type="text/javascript" src="scripts/sparrow-config.js"></script>
     <script type="text/javascript" src="scripts/layers.js"></script>
     <script type="text/javascript" src="scripts/export-csv.js"></script>
     <!--<script type="text/javascript" src="scripts/chart-window.js"></script>-->
     <!--<script type="text/javascript" src="scripts/chart-window-2.js"></script>-->
-    
+
     <script type="text/javascript" src="scripts/core.js"></script>
     <script type="text/javascript" src="scripts/event-handlers.js"></script>
     <script type="text/javascript" src="scripts/select-logic.js"></script>
     <!-- endbuild -->
 
-    
-    
+
+
 
    <!-- analytics -->
    <script>
@@ -80,72 +81,71 @@
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
-            
+
         });
     </script>
 
 <!-- search_api 2.0 -->
     <link    rel="stylesheet" href="https://txpub.usgs.gov/DSS/search_api/2.0/api/search_api.css"/>
-    <script type="text/javascript" src="https://txpub.usgs.gov/DSS/search_api/2.0/api/search_api.min.js"></script>        
+    <script type="text/javascript" src="https://txpub.usgs.gov/DSS/search_api/2.0/api/search_api.min.js"></script>
 
 
 </head>
 <body>
 
-    <div id="navbar" class="navbar navbar-static navbar-default navbar-fixed-top navbar-dark">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle toggle-left hidden-md hidden-lg" data-toggle="sidebar" data-target=".sidebar-left">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="http://usgs.gov">
-                    <img alt="USGS logo" height="38px" src="images/USGS_ID_white.png">
-                    <span class='hidden-xs' style='font-size:20px;display:inline-block;'>&nbsp;&nbsp;SPARROW Great Lakes</span>
-                </a>
-                
-            </div>
 
-            <button id="geosearchNav" type="button" class="btn btn-primary navbar-btn pull-right">
-                <span class="glyphicon glyphicon-search"></span>
-                <span id="geosearchButtonText"> Geosearch</span>
-            </button>
-            <button id="userGuideNav" class="btn btn-default navbar-btn pull-right">
-                <i class="fa fa-book"></i><span class="hidden-xs">&nbsp;&nbsp;User Guide</span>
-            </button>
-            <button id="aboutNav" class="btn btn-default navbar-btn pull-right">
-                <i class="fa fa-question-circle"></i><span class="hidden-xs">&nbsp;&nbsp;About</span>
-            </button>
+  <!-- NavBar -->
+  <nav class="wim-nav">
+    <div class="container">
+        <button class="mobile-nav-toggle" data-toggle="sidebar" data-target=".sidebar-left"></button>
+        <a href="http://usgs.gov" class="nav-branding">
+            <img src="http://wim.usgs.gov/website-assets/usgs-logo.png"/>
+        </a>
+        <span class="nav-title">
+            National Stream Flow Statistics
+        </span>
+        <div class="nav-links">
+            <a id="geosearchNav"><span><i class="ion-search"></i> Geosearch</span></a>
+            <a id="userGuideNav"><span><i class="ion-ios-book"></i> User Guide</span></a>
+            <a id="aboutNav"><span><i class="ion-help"></i> About</span></a>
         </div>
-    </div> <!--END Navbar-->
+    </div>
+  </nav>
+
+
 
 
     <div class="modal fade overflow-y-hidden" id="geosearchModal" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                    <h4 class="modal-title">Geosearch</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="ion-close"></i></button>
+                    <h3 style="margin: 0;">Geosearch</h4>
                 </div>
                 <div class="modal-body">
 
-                    <div class="form-group">
-                        <div id="geosearch_usgs" class="search"></div>  
+                    <div id="geosearch_usgs" class="search"></div>
+
+                    <div class="banner">
+                      <div class="banner-body">
+                        <h5>Supported Search Strings:</h5>
+                          <br/>
+                          GNIS Locations
+                          <br/>
+                          USGS Sites
+                          <br/>
+                          Zip Codes
+                          <br/>
+                          States
+                          <br/>
+                          Lat/Long (ie. '43.9, -72.1')
+                          <br/>
+                          Street Address
+                          <br/><br/>
+                          Search provided by <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search JavaScript API</a>
+                      </div>
                     </div>
-                    <div class="wim-alert">
-                        <h6 class="wim-list-header">Supported search strings:</h6>
-                        <p>Use 'enter' key or "Go!" button to submit</p>
-                        <ul>
-                            <li>GNIS locations</li>
-                            <li>USGS Sites</li>
-                            <li>Zip Codes</li>
-                            <li>States</li>
-                            <li>Lat/Long (ie. '43.9,-72.1')</li>
-                            <li>Street Address</li>
-                        </ul>
-                        <p>Search provided by <a href="https://txpub.usgs.gov/dss/search_api/2.0/" target="_blank">USGS Search JavaScript API</a></p>
-                    </div>                
+
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -155,8 +155,8 @@
         <div class="modal-dialog  modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                    <h4 class="modal-title">About SPARROW Great Lakes v0.9.0</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="ion-close"></i></button>
+                  <h3 style="margin: 0;">About SPARROW Great Lakes v0.9.0</h3>
                 </div>
                 <div id="aboutModalBody" class="modal-body">
                     <ul class="nav nav-tabs" id="aboutModalTabs">
@@ -168,78 +168,141 @@
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
-                            <p style="color:black; font-size: larger">SPARROW Surface Water-Quality Modeling <a href="https://water.usgs.gov/nawqa/sparrow/" target="blank">https://water.usgs.gov/nawqa/sparrow/</a></p>
+                            <p class="p-meta p-light fullwidth">SPARROW Surface Water-Quality Modeling <a href="https://water.usgs.gov/nawqa/sparrow/" target="blank">https://water.usgs.gov/nawqa/sparrow/</a></p>
 
-                            <p style="color:black; font-size: larger">Documentation of the SPARROW model for Great Lakes</p>
-                            <p>Hoos, A.B., and Wang, S., 2017, Adapting a regional water-quality model for a statewide watershed management application – example for the southeastern U.S.: Journal TBD**</p>
-                            
-                            <p style="color:black; font-size: larger">Documentation of the modeling tool SPARROW (SPAtially Referenced Regression On Watershed attributes)</p>
-                            <p>Schwarz, G.E., A.B. Hoos, R.B. Alexander, and R.A. Smith, 2006. The SPARROW Surface Water-Quality Model: Theory, Application, and User Documentation. U.S. Geological Survey Techniques and Methods Report, Book 6, Chapter B3. <a href="https://pubs.usgs.gov/tm/2006/tm6b3/" target="blank">https://pubs.usgs.gov/tm/2006/tm6b3/</a>;</p> 
-                            <p>Preston, S.D., Alexander, R.B., Woodside, M.D., and Hamilton, P.A., 2009, SPARROW MODELING—Enhancing Understanding of the Nation’s Water Quality: U.S. Geological Survey Fact Sheet 2009–3019, 6 p. <a href="https://pubs.usgs.gov/fs/2009/3019/" target="blank">https://pubs.usgs.gov/fs/2009/3019/</a></p>
-                        
+                            <p class="p-meta p-light fullwidth">
+                              <b>Documentation of the SPARROW model for Great Lakes</b>
+                              <br/>
+                              Hoos, A.B., and Wang, S., 2017, Adapting a regional water-quality model for a statewide watershed management application – example for the southeastern U.S.: Journal TBD**
+                            </p>
+
+                            <p class="p-meta p-light fullwidth">
+                              <b>Documentation of the modeling tool SPARROW (SPAtially Referenced Regression On Watershed attributes)</b>
+                              <br/>
+                              Schwarz, G.E., A.B. Hoos, R.B. Alexander, and R.A. Smith, 2006. The SPARROW Surface Water-Quality Model: Theory, Application, and User Documentation. U.S. Geological Survey Techniques and Methods Report, Book 6, Chapter B3. <a href="https://pubs.usgs.gov/tm/2006/tm6b3/" target="blank">https://pubs.usgs.gov/tm/2006/tm6b3/</a>;
+                              <br/>
+                              Preston, S.D., Alexander, R.B., Woodside, M.D., and Hamilton, P.A., 2009, SPARROW MODELING—Enhancing Understanding of the Nation’s Water Quality: U.S. Geological Survey Fact Sheet 2009–3019, 6 p. <a href="https://pubs.usgs.gov/fs/2009/3019/" target="blank">https://pubs.usgs.gov/fs/2009/3019/</a>
+                            </p>
+
                         </div>
                         <div role="tabpanel" class="tab-pane active" id="dataLimitationsTabPane"></br>
-                            <p><b>The relationship between the scale of reporting of model results and uncertainty:</b>  Model results can be displayed at several watershed scales.  The smallest scale that could be used for reporting is the catchment scale at which model computations are made – for the Tennessee model these are RF1 catchments, typical watershed size is about 30 square miles.  Results can be aggregated up to larger scales for reporting:  HUC10 (typical watershed size is 200 square miles), HUC8 (typical watershed size is 1,200 square miles) or larger.  The SPARROW model is, in theory, “scale independent.” However, the uncertainty associated with SPARROW predictions is expected to increase for drainage basin sizes smaller than those of stream monitoring sites used to calibrate the model.</p> 
-                            
-                            <p>The HUC10 watershed scale is the smallest scale chosen for reporting for the Tennessee mapper application (that is, results at the model computation scale are not reported in the Tennessee mapper).  The HUC10 watershed scale is large enough to provide greater certainty of model results, because the typical HUC10 size (about 200 square miles on average for the Tennessee model domain) is larger than almost one-third of the stream monitoring sites/basins used to calibrate the model (Saad and others, 2011; Tables S1 and S3).</p>
+                          <p class="p-meta p-light fullwidth">
+                            <b>The relationship between the scale of reporting of model results and uncertainty:</b>
+                            <br/>
+                            Model results can be displayed at several watershed scales.  The smallest scale that could be used for reporting is the catchment scale at which model computations are made – for the Tennessee model these are RF1 catchments, typical watershed size is about 30 square miles.  Results can be aggregated up to larger scales for reporting:  HUC10 (typical watershed size is 200 square miles), HUC8 (typical watershed size is 1,200 square miles) or larger.  The SPARROW model is, in theory, “scale independent.” However, the uncertainty associated with SPARROW predictions is expected to increase for drainage basin sizes smaller than those of stream monitoring sites used to calibrate the model.
+                          </p>
 
-                            <p><b>Delineated HUC10 boundaries in this mapper may differ from the official boundaries for these units published in the Water Boundary Dataset:</b> A HUC10 unit is typically comprised of five or six RF1 catchments that lie completely or mostly within the HUC10 unit. Because parts of some of these catchments lie outside the official HUC10 boundary, the aggregate boundary of the group of catchments does not in all cases align with the official delineated boundary of the HUC10 from the Watershed Boundary Dataset (U.S. Department of Agriculture-Natural Resources Conservation Service, U.S. Geological Survey, and Environmental Protection Agency, 2016).  Hence the drainage area load reported for some of these aggregated HUC10 units departs from the official delineated unit.   In contrast, for the HUC8 aggregated units, which are typically comprised of about 40 RF1 catchments, the aggregate boundary of the group of RF1 catchments aligns well with the official delineated boundary of the HUC8. </p>
+                          <p class="p-meta p-light fullwidth">
+                            The HUC10 watershed scale is the smallest scale chosen for reporting for the Tennessee mapper application (that is, results at the model computation scale are not reported in the Tennessee mapper).  The HUC10 watershed scale is large enough to provide greater certainty of model results, because the typical HUC10 size (about 200 square miles on average for the Tennessee model domain) is larger than almost one-third of the stream monitoring sites/basins used to calibrate the model (Saad and others, 2011; Tables S1 and S3).
+                          </p>
 
-                            <p style="color:black; font-size: larger">References:</p>
-                            <p>Saad, D.A., G.E. Schwarz, D.M. Robertson, and N.L. Booth, 2011. A Multi-Agency Nutrient Dataset Used to Estimate Loads, Improve Monitoring Design, and Calibrate Regional Nutrient SPARROW Models. Journal of the American Water Resources Association 47(5):933–949, doi: 10.1111/j.1752-1688.2011.00575.x.
-                            U.S. Department of Agriculture-Natural Resources Conservation Service, U.S. Geological Survey, and Environmental Protection Agency, 2016, Watershed Boundary Dataset: <a href="http://datagateway.nrcs.usda.gov" target="blank">http://datagateway.nrcs.usda.gov [Accessed 2/2/2016].</a></p>
+                          <p class="p-meta p-light fullwidth">
+                            <b>Delineated HUC10 boundaries in this mapper may differ from the official boundaries for these units published in the Water Boundary Dataset:</b>
+                            <br/>
+                            A HUC10 unit is typically comprised of five or six RF1 catchments that lie completely or mostly within the HUC10 unit. Because parts of some of these catchments lie outside the official HUC10 boundary, the aggregate boundary of the group of catchments does not in all cases align with the official delineated boundary of the HUC10 from the Watershed Boundary Dataset (U.S. Department of Agriculture-Natural Resources Conservation Service, U.S. Geological Survey, and Environmental Protection Agency, 2016).  Hence the drainage area load reported for some of these aggregated HUC10 units departs from the official delineated unit.   In contrast, for the HUC8 aggregated units, which are typically comprised of about 40 RF1 catchments, the aggregate boundary of the group of RF1 catchments aligns well with the official delineated boundary of the HUC8.
+                          </p>
+                          <br/>
+                          <h5>References:</h5>
+                          <p class="p-meta p-light fullwidth">
+                              Saad, D.A., G.E. Schwarz, D.M. Robertson, and N.L. Booth, 2011. A Multi-Agency Nutrient Dataset Used to Estimate Loads, Improve Monitoring Design, and Calibrate Regional Nutrient SPARROW Models. Journal of the American Water Resources Association 47(5):933–949, doi: 10.1111/j.1752-1688.2011.00575.x.
+                              <br/>
+                              <br/>
+                              U.S. Department of Agriculture-Natural Resources Conservation Service, U.S. Geological Survey, and Environmental Protection Agency, 2016, Watershed Boundary Dataset: <a href="http://datagateway.nrcs.usda.gov" target="blank">http://datagateway.nrcs.usda.gov [Accessed 2/2/2016].</a>
+                            </p>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="contactTabPane"></br>
-                            <h3>Anne Hoos</h3>
-                            <p>Hydrologist<br/>615-837-4760<br/><a href="mailto:abhoos@usgs.gov">abhoos@usgs.gov</a><br/><a href="https://www.usgs.gov/staff-profiles/anne-b-hoos" target="blank">https://www.usgs.gov/staff-profiles/anne-b-hoos</a></p>
+                        <div role="tabpanel" class="tab-pane" id="contactTabPane">
 
-                            <h3>Victor Roland</h3>
-                            <p>Hydrologist<br/>615-837-4754<br/><a href="mailto:vroland@usgs.gov">vroland@usgs.gov</a><br/><a href="https://www.usgs.gov/staff-profiles/victor-l-roland" target="blank">https://www.usgs.gov/staff-profiles/victor-l-roland</a></p>
+                            <h4 style="margin: 0; padding: 0;">Anne Hoos</h4>
+                            <p class="p-light fullwidth">
+                              <b>Hydrologist</b>
+                              <br/>
+                              615-837-4760
+                              <br/>
+                              <a href="mailto:abhoos@usgs.gov">abhoos@usgs.gov</a>
+                              <br/>
+                              <a href="https://www.usgs.gov/staff-profiles/anne-b-hoos" target="blank">https://www.usgs.gov/staff-profiles/anne-b-hoos</a>
+                            </p>
 
-                            <h3>USGS Lower Mississippi Gulf Water Science Center</h3>
-                            <p>640 Grassmere Park, Suite 100<br/>Nashville, TN  37211<br/><a href="https://www.usgs.gov/centers/lmg-water" target="blank">https://www.usgs.gov/centers/lmg-water</a></p>
+                            <hr/>
 
-                            
+                            <h4 style="margin: 0; padding: 0;">Victor Roland</h4>
+                            <p class="p-light fullwidth">
+                              <b>Hydrologist</b>
+                              <br/>
+                              615-837-4754
+                              <br/>
+                              <a href="mailto:vroland@usgs.gov">vroland@usgs.gov</a>
+                              <br/>
+                              <a href="https://www.usgs.gov/staff-profiles/victor-l-roland" target="blank">https://www.usgs.gov/staff-profiles/victor-l-roland</a>
+                            </p>
+
+                            <hr/>
+
+                            <h4 style="margin: 0; padding: 0;">USGS Lower Mississippi Gulf Water Science Center</h4>
+                            <p class="p-light fullwidth">
+                              <b>
+                                640 Grassmere Park, Suite 100
+                                <br/>
+                                Nashville, TN 37211
+                              </b>
+                              <br/>
+                              <br/>
+                              <a href="https://www.usgs.gov/centers/lmg-water" target="blank">https://www.usgs.gov/centers/lmg-water</a>
+                            </p>
+
                         </div>
                         <div role="tabpanel" class="tab-pane" id="definitionsTabPane"></br>
 
-                            <p><b>Load from</b> (areal unit such as HUC8, HUC10, Independent Watershed, or State, or fragment of State that overlaps with the other three units) <b> delivered to</b> (target point on the stream network such as downstream model boundary, HUC8 outlet, HUC10 outlet) <b>(lb/yr)</b>: The predicted mean annual load of the constituent that originates within the areal unit and reaches the target point and thus is not attenuated or removed by natural processes during stream transport.</p>
-                            <p><b>Yield from</b> (areal unit such as HUC8, HUC10, Independent Watershed, or State, or fragment of State that overlaps with the other three units) <b>delivered to</b> (target point such as downstream model boundary, HUC8 outlet, HUC10 outlet) <b>(lb/yr/acre)</b>: The load (as defined above) divided by the area of the areal unit.</p>
-                            <p><b>Accumulated load at HUC10 outlet (lb/yr)</b>: The predicted mean annual load of the constituent at the outlet of the HUC10 that reflects the accumulated mass of the constituent contributed by all sources in the total drainage area upstream of the outlet (including all HUC10s upstream from this HUC10, if any). The accumulated load value includes the effects of in-stream attenuation processes in all upstream reaches.</p>
-                            <p><b>Accumulated yield at HUC10 outlet (lb/yr/acre)</b>: The Accumulated Load at HUC10 outlet divided by the total drainage area upstream of the HUC10 outlet.</p>
-                            <p><b>Load from</b> (areal unit defined by fragment of State within the model area, or the fragment of State within a HUC10, HUC8, or Independent Watershed) <b>within model area, lb/yr</b>: The sum of predicted mean annual load of the constituent from all model catchments that lie within the areal unit and also that lie within the model area boundary. The summed catchment values are the incremental load for the catchment, and includes the effects of in-stream attenuation processes associated with one half of the incremental reach length.</p>
-                            <p><b>Yield from</b> (areal unit defined by fragment of State within the model area, or the fragment of State within a HUC10, HUC8, or Independent Watershed) <b>within model area, lb/yr/acre</b>: The load (as defined above) divided by the area of the areal unit.</p>
-                            <p><b>Independent Watersheds</b> are the large (in most cases) subwatersheds that comprise the Tennessee model area. With one exception (the “smaller tributaries to the Mississippi River”), the Independent Watersheds are delineated as the upstream drainage for each of the flow paths that exit the Tennessee SPARROW model area. The Watershed “smaller tributaries to the Mississippi River” does not have a single exit point; rather, multiple exit points where each tributary to the Mississippi River in West Tennessee discharges to the Mississippi River.</p>
-                            <p><b>The downstream model boundary</b> is the point where the flow path exits the Tennessee SPARROW model area boundary.
-                                <ul class="text-list">
-                                    <li>For the Cumberland River and Tennessee River Basins this point is the confluence of the Cumberland River or Tennessee River, respectively, with the Ohio River.</li>
-                                    <li>For the Conasauga River basin it is the confluence of the Conasauga River with the Oostanaula River.</li>
-                                    <li>For the Barren River basin it is the confluence of the Barren River with the Green River.</li>
-                                    <li>For the Yellow River diversion to the Tombigbee River it is the point where the Tennessee-Tombigbee canal enters the Mackeys Creek watershed.</li>
-                                    <li>For the smaller tributaries to the Mississippi River it is the multiple points where the tributaries discharge to the Mississippi River.</li>
-                                </ul>
+                            <p class="p-meta p-light fullwidth">
+                              <b>Load from</b> (areal unit such as HUC8, HUC10, Independent Watershed, or State, or fragment of State that overlaps with the other three units) <b> delivered to</b> (target point on the stream network such as downstream model boundary, HUC8 outlet, HUC10 outlet) <b>(lb/yr)</b>: The predicted mean annual load of the constituent that originates within the areal unit and reaches the target point and thus is not attenuated or removed by natural processes during stream transport.
                             </p>
+                            <p class="p-meta p-light fullwidth">
+                              <b>Yield from</b> (areal unit such as HUC8, HUC10, Independent Watershed, or State, or fragment of State that overlaps with the other three units) <b>delivered to</b> (target point such as downstream model boundary, HUC8 outlet, HUC10 outlet) <b>(lb/yr/acre)</b>: The load (as defined above) divided by the area of the areal unit.
+                            </p>
+                            <p class="p-meta p-light fullwidth">
+                              <b>Accumulated load at HUC10 outlet (lb/yr)</b>: The predicted mean annual load of the constituent at the outlet of the HUC10 that reflects the accumulated mass of the constituent contributed by all sources in the total drainage area upstream of the outlet (including all HUC10s upstream from this HUC10, if any). The accumulated load value includes the effects of in-stream attenuation processes in all upstream reaches.
+                            </p>
+                            <p class="p-meta p-light fullwidth">
+                              <b>Accumulated yield at HUC10 outlet (lb/yr/acre)</b>: The Accumulated Load at HUC10 outlet divided by the total drainage area upstream of the HUC10 outlet.
+                            </p>
+                            <p class="p-meta p-light fullwidth">
+                              <b>Load from</b> (areal unit defined by fragment of State within the model area, or the fragment of State within a HUC10, HUC8, or Independent Watershed) <b>within model area, lb/yr</b>: The sum of predicted mean annual load of the constituent from all model catchments that lie within the areal unit and also that lie within the model area boundary. The summed catchment values are the incremental load for the catchment, and includes the effects of in-stream attenuation processes associated with one half of the incremental reach length.
+                            </p>
+                            <p class="p-meta p-light fullwidth">
+                              <b>Yield from</b> (areal unit defined by fragment of State within the model area, or the fragment of State within a HUC10, HUC8, or Independent Watershed) <b>within model area, lb/yr/acre</b>: The load (as defined above) divided by the area of the areal unit.
+                            </p>
+                            <p class="p-meta p-light fullwidth">
+                              <b>Independent Watersheds</b> are the large (in most cases) subwatersheds that comprise the Tennessee model area. With one exception (the “smaller tributaries to the Mississippi River”), the Independent Watersheds are delineated as the upstream drainage for each of the flow paths that exit the Tennessee SPARROW model area. The Watershed “smaller tributaries to the Mississippi River” does not have a single exit point; rather, multiple exit points where each tributary to the Mississippi River in West Tennessee discharges to the Mississippi River.
+                            </p>
+                            <p class="p-meta p-light fullwidth">
+                              <b>The downstream model boundary</b> is the point where the flow path exits the Tennessee SPARROW model area boundary.
+                            </p>
+                            <ul>
+                                <li>For the Cumberland River and Tennessee River Basins this point is the confluence of the Cumberland River or Tennessee River, respectively, with the Ohio River.</li>
+                                <li>For the Conasauga River basin it is the confluence of the Conasauga River with the Oostanaula River.</li>
+                                <li>For the Barren River basin it is the confluence of the Barren River with the Green River.</li>
+                                <li>For the Yellow River diversion to the Tombigbee River it is the point where the Tennessee-Tombigbee canal enters the Mackeys Creek watershed.</li>
+                                <li>For the smaller tributaries to the Mississippi River it is the multiple points where the tributaries discharge to the Mississippi River.</li>
+                            </ul>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="downloadTabPane"></br>
-                            <div class="btn">
-                                <button type="button" class="btn btn-primary"  id="phosphorusDownload">
-                                    <span class="glyphicon glyphicon-download"></span> Download Phosphorus Model Results
-                                </button>
-                            </div>
-                            <div class="btn">
-                                <button type="button" class="btn btn-primary"  id="nitrogenDownload">
-                                    <span class="glyphicon glyphicon-download"></span> Download Nitrogen Model Results
-                                </button>
-                            </div>                   
+                          <div style="display: flex; justify-content: space-around;">
+                            <button type="button" class="btn-blue"  id="phosphorusDownload">
+                                <span class="glyphicon glyphicon-download"></span> Download Phosphorus Model Results
+                            </button>
+                            <button type="button" class="btn-blue"  id="nitrogenDownload">
+                                <span class="glyphicon glyphicon-download"></span> Download Nitrogen Model Results
+                            </button>
+                          </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <p style="color:black; margin-left:35px;text-align:left">
+                    <p class="p-meta p-light fullwidth" style="color:black; text-align:center">
                         For more information about the SPARROW Great Lakes Web Interface please contact <a href="http://wim.usgs.gov/" target="_blank"><img src="images/wimvectorxs.png" id="wim_logo"></a>
                     </p>
-                    <button class=" btn btn-default close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;" class="btn btn-default">Close</button>
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="btn-black">Close</button>
                 </div>
             </div><!-- /.modal-content -->
         </div> <!-- /.modal-dialog -->
@@ -249,14 +312,14 @@
         <div class="modal-dialog  modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true" style="color:gray;">&times;</button>
-                    <h4 class="modal-title">Map Interface User Guide</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="ion-close"></i></button>
+                  <h3 style="margin: 0;">Map Interface User Guide</h3>
                 </div>
                 <div id="aboutModalBody" class="modal-body">
                     <ul class="nav nav-tabs" id="aboutModalTabs">
                         <li role="presentation" class="active"><a id="searchTab" href="#searchTabPane" data-toggle="tab"><i class="fa fa-search"></i>&nbsp;Search, Zoom</a></li>
                         <li role="presentation"><a id="iconTab" href="#iconTabPane" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;Explanation</a></li>
-                        <li role="presentation"><a id="layersTab" href="#layersTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;Map selection options</a></li>                    
+                        <li role="presentation"><a id="layersTab" href="#layersTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;Map selection options</a></li>
                         <li role="presentation"><a id="chartTab" href="#chartInfoTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;Data Display</a></li>
                     </ul>
                     <div class="tab-content">
@@ -277,7 +340,7 @@
                             <div class="user-guide-item">
                                 <div class="user-guide-item-image"><img src="images/userguide/mappoints.png"/></div>
                                 <p><b>Opening a chart</b>Clicking on a nutrient model feature will generate a chart showing the individual sources for the selected feature.  The chart also contains a button to switch to a chart of all features currently displayed. (For more on the Chart features, see Data Display)</p>
-                            </div>                        
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="iconTabPane">
                             <span class="user-guide-header">Explanation</span>
@@ -288,7 +351,7 @@
                             <div class="user-guide-item">
                                 <div class="user-guide-item-image"><img src="images/userguide/legendfull.png"/></div>
                                 <p><b>Using the Explanation</b>The expanded Explanation box contains a legend for the currently selected Nutrient Model Results.  The legend displays class breaks and values for the model results currently visible on the map, and updates dynamically with any change in mapped area.</p>
-                            </div>                        
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="layersTabPane">
                             <span class="user-guide-header">Map selection options</span>
@@ -311,7 +374,7 @@
                             <div class="user-guide-item">
                                 <div class="user-guide-item-image"><img src="images/userguide/metricgrouping.png"/></div>
                                 <p><b>Selecting a Displayed Metric and Group Results By</b>Yields and loads can be viewed by making changes to the Displayed Metric dropdown.  The area of aggregation is controlled by the Group Results dropdown.</p>
-                            </div>                       
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane active" id="chartInfoTabPane">
                             <span class="user-guide-header">Polygon selection capabilities, Chart, and Table</span>
@@ -322,34 +385,34 @@
                             <div class="user-guide-item">
                                 <div class="user-guide-item-image"><img src="images/userguide/singleSelecting.png"/></div>
                                 <p><b>+ Select</b>Clicking the Select button allows individual map feature selection. Multiple features can be selected. To unselect, hold the Shift key then Click the feature to unselect it.
-                                After all features of interest have been selected, click Stop Selecting. 
+                                After all features of interest have been selected, click Stop Selecting.
                                 </p>
                             </div>
                             <div class="user-guide-item">
                                 <div class="user-guide-item-image"><img src="images/userguide/chart.png"/></div>
                                 <p><b>Show Chart</b>Clicking the Show Chart button will show a window with two tabs; Chart and Table. The information in the Chart and Table will either represent the full feature layer
                                 visible on the map, or it will represent the selection chosen from individual selecting features. This window can be repositioned to view underlying map information.
-                                    The Chart tab shows a chart for the full layer visible in the map based on the filters chosen in the Data Filters section.  
+                                    The Chart tab shows a chart for the full layer visible in the map based on the filters chosen in the Data Filters section.
                                     Clicking on a the chart legend items will toggle individual sources on and off, as well as recalculating the y-axis range.
-                                    Mouse over a bar to see its corresponding map feature as well as the exact value for each source. 
+                                    Mouse over a bar to see its corresponding map feature as well as the exact value for each source.
                                 </p>
                             </div>
                             <div class="user-guide-item">
                                 <div class="user-guide-item-image"><img src="images/userguide/selectedChartSegment.png"/></div>
-                                <p><b>Selected Chart Segment</b>To see a magnified segment of the chart, click+drag over the chart bars. 
-                                The selected features are highlighted on the map. Moving the mouse over the chart bars will give the values for each source as well as show an 
+                                <p><b>Selected Chart Segment</b>To see a magnified segment of the chart, click+drag over the chart bars.
+                                The selected features are highlighted on the map. Moving the mouse over the chart bars will give the values for each source as well as show an
                                 additional highlight to the cooresponding map feature. To return to the previous chart view, click the Reset zoom button in the top right of the chart window.
                                 </p>
                             </div>
                             <div class="user-guide-item">
                                 <div class="user-guide-item-image"><img src="images/userguide/chartOptions.png"/></div>
-                                <p><b>Chart Options</b>The Chart Options button contains options to download the chart data as a csv file or xls file, and change background transparency. 
+                                <p><b>Chart Options</b>The Chart Options button contains options to download the chart data as a csv file or xls file, and change background transparency.
                                 Clicking Change background transparency will toggle the background transparency between transparent and not transparent.
                                 </p>
                             </div>
                             <div class="user-guide-item">
                                 <div class="user-guide-item-image"><img src="images/userguide/tabletab.png"/></div>
-                                <p><b>Table</b>The Table tab shows a tabular representation of the chart information on the Chart tab. The table can be sorted by any column. Moving the mouse over any table 
+                                <p><b>Table</b>The Table tab shows a tabular representation of the chart information on the Chart tab. The table can be sorted by any column. Moving the mouse over any table
                                 row will highlight that map feature on the map. Any zooming or resetting on the Chart tab will update the Table tab's contents.</p>
                             </div>
                         </div>
@@ -372,7 +435,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="tableModalTitle"></h4>
         </div>
-        <div class="modal-body">            
+        <div class="modal-body">
         </div>
         </div>
     </div>
@@ -381,7 +444,7 @@
     <!-- Begin page content -->
     <div class="container-fluid keepit100">
         <div class="row keepit100">
-            <div id="sidebar" class="col-xs-11 col-sm-10 col-md-3 col-lg-2 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding">
+            <div id="sidebar" class="col-xs-11 col-sm-10 col-md-3 col-lg-2 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding" style="padding: 0 !important;">
                 <div class="panel panel-default wim-sidebar-panel">
                     <div class="panel-heading" id="basemapsHeader">
                         <h4 class="panel-title">
@@ -428,12 +491,22 @@
                     </div>
                     <div id="filtersPanel" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="filtersPanelHeader">
                         <div class="panel-body collapse in">
-                        <div class="select-label">
-                                <p>Nutrient Model</p>
-                            </div> 
 
-                            <!--<div id="nutrientRadio" class="btn-gorup" data-toggle="buttons">-->
-                                <div class="radio radio-primary active" id="modelResultsRadio">
+                            <h6 class="alignc">Nutrient Model</h6>
+                            <!-- <div id="nutrientRadio" class="btn-gorup" data-toggle="buttons"> -->
+                            <div id="modelResultsRadio">
+                              <label for="radio1" class="rdo row radio active" >
+                                  <input type="radio" name="radio1" id="radio1" value="option1" checked />
+                                  <span>Phosphorus</span>
+                              </label>
+                              <label for="radio2" class="rdo row radio">
+                                  <input type="radio" name="radio1" id="radio2" value="option2" />
+                                  <span>Nitrogen</span>
+                              </label>
+                            </div>
+
+
+                                <!-- <div class="radio radio-primary active" id="modelResultsRadio">
                                     <input type="radio" name="radio1" id="radio1" value="option1" checked>
                                     <label for="radio1">
                                         Phosphorus
@@ -444,37 +517,35 @@
                                     <label for="radio2">
                                         Nitrogen
                                     </label>
-                                </div>
-                            <!--</div>--><!--END nutrientRadio div-->
+                                </div> -->
 
-                            <div class="select-label">
-                                <p>Area of Interest</p>
-                            </div>
+                            <hr/>
+
+                            <h6 class="alignc">Area of Interest</h6>
                             <select id="st-select" class="selectpicker 0 aoiSelect" title="State" ></select>
-                            
+
                             <select id="grp1-select" class="selectpicker 1 aoiSelect" title="Main River Basin"></select>
-                            
+
                             <select id="grp2-select" class="selectpicker 2 aoiSelect" title="Tributary" ></select>
 
                             <select id="grp3-select" class="selectpicker 3 aoiSelect" title="HUC8" ></select>
-                            
-                            <div id="clear_btn" class="btn">
-                                <button type="button" class="btn btn-primary" id="clearAOIButton"
+
+                                <button type="button" class="btn-blue" id="clearAOIButton"
                                     <span class="glyphicon glyphicon-remove"></span> Clear Area of Interest
                                 </button>
-                            </div>
-                                
-                                
 
-                            <div class="select-label">
-                                <p>Displayed Metric</p>
-                            </div>
-        
+
+
+                            <hr/>
+
+                            <h6 class="alignc">Displayed Metric</h6>
+
                             <select id="displayedMetricSelect" class="selectpicker nonAOISelect" data-width="280px"></select>
 
-                            <div class="select-label">
-                                <p>Group Results By</p>
-                            </div>
+
+                            <hr/>
+
+                            <h6 class="alignc">Group Results By</h6>
                             <select id="groupResultsSelect" class="selectpicker nonAOISelect" >
                                 <option>Catchment</option>
                                 <option>HUC8</option>
@@ -485,7 +556,7 @@
 
                         </div><!--END panel body-->
                     </div><!--END filters panel-->
-                </div> 
+                </div>
 
                 <div class="panel panel-default wim-sidebar-panel">
                     <div class="panel-heading" id="dataDisplayPanelHeader">
@@ -497,24 +568,16 @@
                     </div>
                     <div id="dataDisplayPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="dataDisplayPanelHeader">
                         <div class="panel-body collapse in">
-                            <div id="toggle" style="padding: 2px 2px;">                           
-                                <div id="customSelect">
-                                    <p>Select on map:</p>
-                                </div>
-                                <!--'Click' Button ( select polygon by polygon. all selected get highlighted) -->
-                                <div class="btn">
-                                    <button type="button" class="btn btn-primary" id="clickPolyButton">
-                                        <span class="glyphicon glyphicon-plus"></span> Click
-                                    </button> 
-                                </div>
-                                <br />                            
-                                
-                                <div class="btn">
-                                    <button type="button" class="btn btn-primary" id="chartButton">
-                                        <span class="glyphicon glyphicon-signal"></span> Show Chart
-                                    </button> 
-                                </div>
-                            </div>
+                          <h6 class="alignc">Select on Map</h6>
+                            <!--'Click' Button ( select polygon by polygon. all selected get highlighted) -->
+                              <button type="button" class="btn-blue" id="clickPolyButton">
+                                  <span class="glyphicon glyphicon-plus"></span> Click
+                              </button>
+                            <br />
+
+                              <button type="button" class="btn-blue" id="chartButton">
+                                  <span class="glyphicon glyphicon-signal"></span> Show Chart
+                              </button>
                         </div>
                     </div>
                 </div> <!--END layers Panel-->
@@ -532,7 +595,11 @@
                     <a href="https://www2.usgs.gov/laws/policies_notices.html" target="_blank">Policy & Notices</a>
                 </div>
             </div><!--end sidebar-->
-            <div class="col-md-9 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding keepit100">
+
+
+
+
+            <div class="col-md-10 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding keepit100" style="margin-top:20px;">
                 <div id="mapDiv">
                     <div id="legendElement" class="panel panel-default legendClass">
                         <div id="legendHeading" class=" legendHeading" role="tab">
@@ -570,14 +637,14 @@
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="tableTabPane">
                                     <table class="table tablesorter" id="resultsTable"></table>
-                                </div>        
-                            </div>     
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div><!--END mapDiv-->         
+                </div><!--END mapDiv-->
 
                 <div id="homeButton"></div>
-                <div id="locateButton"></div>            
+                <div id="locateButton"></div>
 
                 <div id="latLngScale" class="latLngScale">
                     <span class="hover-content"> <b>Map scale </b></span>
