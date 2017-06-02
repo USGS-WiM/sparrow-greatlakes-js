@@ -20,12 +20,12 @@ function loadEventHandlers() {
     //UPDATE: important! make sure the file name is updated_____________________________________________________
     $("#phosphorusDownload").click(function() {
         // hope the server sets Content-Disposition: attachment!
-        window.location = 'https://wim.usgs.gov/sparrowtennessee/downloads/tenn_shapefiles_phosphorus.zip';
+        window.location = 'https://test.wim.usgs.gov/SparrowGreatLakesV2/downloads/greatlakes_shapefiles_phosphorus.zip';
     });
     //UPDATE: important! make sure the file name is updated_____________________________________________________
     $("#nitrogenDownload").click(function() {
         // hope the server sets Content-Disposition: attachment!
-        window.location = 'https://wim.usgs.gov/sparrowtennessee/downloads/tenn_shapefiles_nitrogen.zip';
+        window.location = 'https://test.wim.usgs.gov/SparrowGreatLakesV2/downloads/greatlakes_shapefiles_nitrogen.zip';
     });
 
     //moved this out of exectureIdentifyTask()

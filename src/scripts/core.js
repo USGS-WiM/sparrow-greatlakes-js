@@ -1231,7 +1231,7 @@ require([
         }
         ] */
 
-        //TODO: DYNAMICALLY LABEL BASED ON DROPDOWN VALUES????
+        //TUPDATE IMPORTANT!  Match labels with #groupResultsSelect indicies
         function labelxSelect(){
             var dropdown = $('#groupResultsSelect')[0].selectedIndex;
             switch ( dropdown ){
@@ -1324,7 +1324,6 @@ require([
             $('#chartWindowDiv').css('visibility', 'hidden');
             $('#chartWindowContainer').empty();
             $('#chartWindowPanelTitle').empty();
-            app.mrbIDstorage = []; // TMR ADDED
         });
 
         //need listener to resize chart
