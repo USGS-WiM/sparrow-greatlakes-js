@@ -86,7 +86,7 @@ require([
     app.clickSelectionActive = false;   // used when they are in selection mode
     app.drawSelectionActive = false; // used when they are rectangle selection mode
     app.userSelectedDispFieldName = ""; // holder of which DisplayFieldName they are clicking
-    app.userSelectedShapes = []; 
+    app.userSelectedShapes = [];
     app.customChartClicked = false; // when custom chart button clicked, need to let the chart know to show 'Show Full Chart' button
     app.shiftKey = false; // store if they are selecting (click) or unselecting (shift+click)
     app.formattedHighlightString; // from custom defined chart click, store first view in case they zoom in and want to reset back to this
@@ -95,7 +95,7 @@ require([
     app.defaultMapCenter = mapCenter;
     app.defaultZoom = defaultZoomLevel;
 
-    //setup map 
+    //setup map
     app.map = Map('mapDiv', {
         basemap: 'gray',
         center: app.defaultMapCenter,
@@ -151,8 +151,8 @@ require([
                     new Point( o.result.properties.Lon, o.result.properties.Lat ),
                     12
                 );
-            }            
-            
+            }
+
             // open popup at location listing all properties
             app.map.infoWindow.setTitle('Search Result');
             app.map.infoWindow.setContent(
@@ -162,10 +162,10 @@ require([
             );
             // Close modal
             $('#geosearchModal').modal('hide');
-            
+
             app.map.infoWindow.show(
                 new Point( o.result.properties.Lon, o.result.properties.Lat )
-            );            
+            );
         },
         "include_usgs_sw" : true,
         "include_huc2" : true,
@@ -180,7 +180,7 @@ require([
     var AllAOIOptions = [];
     var Grp2NamDescArr = [];
     var tableArr = []; //global for table updating
-    var labelArr = []; //glocal for table updating    
+    var labelArr = []; //glocal for table updating
 
     loadEventHandlers();
     //setupQueryTask(serviceBaseURL + 1, [ 'GP2', 'GRP_2_DESC' ], '1=1');
@@ -194,10 +194,10 @@ require([
             setupQueryTask(serviceBaseURL + queryParameters[key].serviceId, ["ST", "GP3", "GP2", "GP1" ], "1=1");
         } else{
             setupQueryTask(serviceBaseURL + queryParameters[key].serviceId, queryParameters[key].nameField, "1=1");
-        }     
+        }
     }*/
 
-    app.setLayerDefObj = function(newObj){        
+    app.setLayerDefObj = function(newObj){
         //UPDATE NOTE: need 1 case for every AOI select
         switch(newObj.selectedId){
             case 'st-select':
@@ -262,7 +262,7 @@ require([
                 app.updateAOIs('grp2-select');
                 app.updateAOIs('st-select');
                 break;
-        }               
+        }
     };
     //return unique list of AOIs for dropdowns based on which property to filter by
     var getUniqueArray = function(originalArray, prop){
@@ -270,10 +270,10 @@ require([
         for(var i in originalArray) {
             if (uniqueArray.map(function (p) { return p; }).indexOf(originalArray[i][prop]) < 0){
                 uniqueArray.push(originalArray[i][prop]);
-            }      
+            }
         }
         return uniqueArray;
-    } 
+    }
 
     app.updateAOIs = function(selectedId){
         // for four AOI options
@@ -283,7 +283,7 @@ require([
         var grp2Options = [];
         var grp1Options = [];
         var stOptions = [];
-        
+
         switch(selectedId) {
             //ST SELECT CHANGED
             case 'st-select':
@@ -294,13 +294,13 @@ require([
                 }
                 else {
                     $('#grp1-select').empty(); $('#grp3-select').empty();
-                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.ST === layerDefObj.AOIST; });    
+                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.ST === layerDefObj.AOIST; });
                 }
                 if (filteredAOIOptions.length === 0) {
                     filteredAOIOptions = AllAOIOptions;
                 }
-                
-                /*______________________________________________________ 
+
+                /*______________________________________________________
                     filteredAOIOptions Array of Objects Example         ]
                 [{                                                      ]
                     GP1: "Conasauga River",                       ]
@@ -317,13 +317,13 @@ require([
                 ________________________________________________________]
                 */
 
-                //get unique group 1 values                
+                //get unique group 1 values
                 grp1Options = getUniqueArray(filteredAOIOptions, 'GP1');
                 grp3Options = getUniqueArray(filteredAOIOptions, 'GP3');
-                
+
                 //set other two AOI options and reselect if previously selected
                 appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', grp3Options, '#grp3-select', 'AOI3');
-                  
+
                 //filter the grp2- and grp3-select options using the selected ST__________________________________________________________________________________________________________________________________________
                 filteredAOIOptions = [];
                 //need to know if ST and grp1 have values
@@ -333,7 +333,7 @@ require([
                 }
                 else {
                     $('#grp2-select').empty(); $('#grp3-select').empty();
-                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.ST === layerDefObj.AOIST; });   
+                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.ST === layerDefObj.AOIST; });
                 }
                 if (filteredAOIOptions.length === 0) {
                     filteredAOIOptions = AllAOIOptions;
@@ -342,20 +342,20 @@ require([
                 //get unique group2 and group3 values
                 grp2Options = getUniqueArray(filteredAOIOptions, 'GP2');
                 grp3Options = getUniqueArray(filteredAOIOptions, 'GP3')
-                
+
                 //set other two AOI options and reselect if previously selected
                 appendSelectOptions(grp2Options, '#grp2-select', 'AOI2', grp3Options, '#grp3-select', 'AOI3');
-                  
+
                 //filter the grp1- and grp2-select options using the selected ST__________________________________________________________________________________________________________________________________________
                 filteredAOIOptions = [];
                 //need to know if ST and grp1 have values
-                if (layerDefObj.AOI3) {                   
+                if (layerDefObj.AOI3) {
                     $('#grp1-select').empty(); $('#grp2-select').empty();
                     filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.ST === layerDefObj.AOIST && s.GP3 === layerDefObj.AOI3; }); //ST and grp3 have selected vals
                 }
                 else {
                     $('#grp1-select').empty(); $('#grp2-select').empty();
-                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.ST === layerDefObj.AOIST; });   
+                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.ST === layerDefObj.AOIST; });
                 }
                 if (filteredAOIOptions.length === 0) {
                     filteredAOIOptions = AllAOIOptions;
@@ -364,11 +364,11 @@ require([
                 //get unique group2 and group3 values
                 grp1Options = getUniqueArray(filteredAOIOptions, 'GP1');
                 grp2Options = getUniqueArray(filteredAOIOptions, 'GP2');
-                
+
                 //set other two AOI options and reselect if previously selected
-                appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', grp2Options, '#grp2-select', 'AOI2');                  
+                appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', grp2Options, '#grp2-select', 'AOI2');
                 break;
-            
+
             //Group 1 SELECT CHANGED
             case 'grp1-select':
                 //filter the st- and grp3-select options using the selected GRP1__________________________________________________________________________________________________________________________________________
@@ -383,18 +383,18 @@ require([
                 if (filteredAOIOptions.length === 0) {
                     filteredAOIOptions = AllAOIOptions;
                 }
-                
+
                 //get unique states in the selected grp1
                 stOptions = getUniqueArray(filteredAOIOptions, 'ST');
                 grp3Options = getUniqueArray(filteredAOIOptions, 'GP3');
-                
+
                 //set other two AOI options and reselect if previously selected
                 appendSelectOptions(stOptions, '#st-select', 'AOIST', grp3Options, '#grp3-select', 'AOI3');
-                  
+
                 //filter the grp2- and grp3-select options using the selected GRP1__________________________________________________________________________________________________________________________________________
                 filteredAOIOptions = [];
                 //need to know if gr1 and st have values
-                if (layerDefObj.AOIST) {                    
+                if (layerDefObj.AOIST) {
                     $('#grp2-select').empty(); $('#grp3-select').empty();
                     filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP1 == layerDefObj.AOI1 && s.ST == layerDefObj.AOIST; }); //ST and Grp1 have selected vals
                 }
@@ -409,10 +409,10 @@ require([
                 //get unique group2 options from the grp1 selection
                 grp2Options = getUniqueArray(filteredAOIOptions, 'GP2');
                 grp3Options = getUniqueArray(filteredAOIOptions, 'GP3');
-                
+
                 //set other two AOI options and reselect if previously selected
                 appendSelectOptions(grp2Options, '#grp2-select', 'AOI2', grp3Options, '#grp3-select', 'AOI3');
-        
+
                 //filter the grp2- and st-select options using the selected GRP1__________________________________________________________________________________________________________________________________________
                 filteredAOIOptions = [];
                 //need to know if ST and grp1 have values
@@ -422,7 +422,7 @@ require([
                 }
                 else {
                     $('#grp2-select').empty(); $('#st-select').empty();
-                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP1 === layerDefObj.AOI1; });   
+                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP1 === layerDefObj.AOI1; });
                 }
                 if (filteredAOIOptions.length === 0) {
                     filteredAOIOptions = AllAOIOptions;
@@ -433,13 +433,13 @@ require([
                 stOptions = getUniqueArray(filteredAOIOptions, 'ST');
 
                 //set other two AOI options and reselect if previously selected
-                appendSelectOptions(grp2Options, '#grp2-select', 'AOI2', stOptions, '#st-select', 'AOIST');            
+                appendSelectOptions(grp2Options, '#grp2-select', 'AOI2', stOptions, '#st-select', 'AOIST');
                 break;
-            
+
             //Group 2 SELECT CHANGED
             case 'grp2-select':
                 //filter the grp1- and grp3-select options using the selected GRP2__________________________________________________________________________________________________________________________________________
-                if (layerDefObj.AOIST) {                    
+                if (layerDefObj.AOIST) {
                     $('#grp1-select').empty(); $('#grp3-select').empty();
                     filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP2 === layerDefObj.AOI2 && s.ST === layerDefObj.AOIST; });
                 }
@@ -450,13 +450,13 @@ require([
                 if (filteredAOIOptions.length === 0) {
                     filteredAOIOptions = AllAOIOptions;
                 }
-                                
+
                 grp1Options = getUniqueArray(filteredAOIOptions, 'GP1');
                 grp3Options = getUniqueArray(filteredAOIOptions, 'GP3');
-                
+
                 //set other two AOI options and reselect if previously selected
                 appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', grp3Options, '#grp3-select', 'AOI3');
-              
+
                 filteredAOIOptions= [];
                 //filter the st- and grp3-select options using the selected GRP2__________________________________________________________________________________________________________________________________________
                 if (layerDefObj.AOI1) {
@@ -470,7 +470,7 @@ require([
                 if (filteredAOIOptions.length == 0) {
                     filteredAOIOptions = AllAOIOptions;
                 }
-                
+
                 stOptions = getUniqueArray(filteredAOIOptions, 'ST');
                 grp3Options = getUniqueArray(filteredAOIOptions, 'GP3');
 
@@ -486,7 +486,7 @@ require([
                 }
                 else {
                     $('#st-select').empty(); $('#grp1-select').empty();
-                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP2 === layerDefObj.AOI2; });   
+                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP2 === layerDefObj.AOI2; });
                 }
                 if (filteredAOIOptions.length === 0) {
                     filteredAOIOptions = AllAOIOptions;
@@ -495,10 +495,10 @@ require([
                 //get unique group2 and group3 values
                 grp1Options = getUniqueArray(filteredAOIOptions, 'GP1');
                 stOptions = getUniqueArray(filteredAOIOptions, 'ST');
-                
+
                 //set other two AOI options and reselect if previously selected
-                appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', stOptions, '#st-select', 'AOIST');                  
-                break;            
+                appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', stOptions, '#st-select', 'AOIST');
+                break;
             // Group 3 SELECT CHANGED
             case 'grp3-select':
                 //filter the grp1- and grp2-select options using the selected GRP3__________________________________________________________________________________________________________________________________________
@@ -513,42 +513,42 @@ require([
                 if (filteredAOIOptions.length === 0) {
                     filteredAOIOptions = AllAOIOptions;
                 }
-                                
+
                 grp1Options = getUniqueArray(filteredAOIOptions, 'GP1');
                 grp2Options = getUniqueArray(filteredAOIOptions, 'GP2');
 
                 //set other two AOI options and reselect if previously selected
                 appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', grp2Options, '#grp2-select', 'AOI2');
-     
+
                 filteredAOIOptions= [];
-                //filter the st- and grp2-select options using the selected GRP3__________________________________________________________________________________________________________________________________________                
+                //filter the st- and grp2-select options using the selected GRP3__________________________________________________________________________________________________________________________________________
                 if (layerDefObj.AOI1) {
-                    $('#st-select').empty();  $('#grp2-select').empty();                    
+                    $('#st-select').empty();  $('#grp2-select').empty();
                     filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP3 === layerDefObj.AOI3 && s.GP1 === layerDefObj.AOI1; });
                 }
                 else {
-                    $('#st-select').empty();  $('#grp2-select').empty();                    
+                    $('#st-select').empty();  $('#grp2-select').empty();
                     filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP3 === layerDefObj.AOI3; });
                 }
                 if (filteredAOIOptions.length == 0) {
                     filteredAOIOptions = AllAOIOptions;
                 }
-                
+
                 stOptions = getUniqueArray(filteredAOIOptions, 'ST');
                 grp2Options = getUniqueArray(filteredAOIOptions, 'GP2');
                 //set other two AOI options and reselect if previously selected
                 appendSelectOptions(stOptions, '#st-select', 'AOIST', grp2Options, '#grp2-select', 'AOI2');
 
-                
+
                 filteredAOIOptions = [];
                 //filter the st- and grp1-select options using the selected GRP3__________________________________________________________________________________________________________________________________________
                 if (layerDefObj.AOI2) {
-                    $('#st-select').empty();  $('#grp1-select').empty();                    
+                    $('#st-select').empty();  $('#grp1-select').empty();
                     filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP3 === layerDefObj.AOI3 && s.GP2 === layerDefObj.AOI2; }); //ST and grp3 have selected vals
                 }
                 else {
-                    $('#st-select').empty();  $('#grp1-select').empty();                    
-                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP3 === layerDefObj.AOI3; });   
+                    $('#st-select').empty();  $('#grp1-select').empty();
+                    filteredAOIOptions = AllAOIOptions.filter(function(s){ return s.GP3 === layerDefObj.AOI3; });
                 }
                 if (filteredAOIOptions.length === 0) {
                     filteredAOIOptions = AllAOIOptions;
@@ -558,20 +558,20 @@ require([
                 grp1Options = getUniqueArray(filteredAOIOptions, 'GP1');
                 stOptions = getUniqueArray(filteredAOIOptions, 'ST');
                 //set other two AOI options and reselect if previously selected
-                appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', stOptions, '#st-select', 'AOIST');               
+                appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', stOptions, '#st-select', 'AOIST');
                 break;
-        } 
+        }
     };
     //function used several times in above switch case
     var appendSelectOptions = function(firstOptions, select1_ID, firstAOI, secondOptions, select2_ID, secondAOI){
-        //set the filtered state options 
+        //set the filtered state options
         $.each(firstOptions, function(index, option){
-            $(select1_ID).append(new Option(option));                     
+            $(select1_ID).append(new Option(option));
         });
         $(select1_ID).selectpicker('refresh');
         //set the filtered grp3 options
         $.each(secondOptions, function(index, option){
-                $(select2_ID).append(new Option(option));                     
+                $(select2_ID).append(new Option(option));
         });
         $(select2_ID).selectpicker('refresh');
 
@@ -626,7 +626,7 @@ require([
 
                 var arrowNode1 =  query('.pointer',app.map.infoWindow.domNode)[0];
                 domClass.add(arrowNode1, 'hidden');
-            }.bind(this));   
+            }.bind(this));
         }
     };
 
@@ -643,45 +643,45 @@ require([
         for (i in visLayers){
             if (visLayers[i].id === 'nitroCalibration' && app.map.getLayer('nitroCalibration').visible === true){
                 calibrationId = app.map.getLayer('nitroCalibration').visibleLayers[0];
-                app.identifyParams.layerIds.push(calibrationId);                
+                app.identifyParams.layerIds.push(calibrationId);
             }
             if (visLayers[i].id === 'phosCalibration' && app.map.getLayer('phosCalibration').visible === true){
                 calibrationId = app.map.getLayer('phosCalibration').visibleLayers[0];
                 app.identifyParams.layerIds.push(calibrationId);
             }
-        }        
+        }
 
         app.identifyParams.geometry = evt.mapPoint;
         app.identifyParams.mapExtent = app.map.extent;
-        
+
         //Deferred callback
         var deferred = app.identifyTask.execute(app.identifyParams).addCallback(function(response){
             //if in selection mode and not unselecting, highlight shape and add to array of chosen shapes
-            if (app.clickSelectionActive) {                
+            if (app.clickSelectionActive) {
                 $.each(response, function(i, respObj){
                     var feature = respObj.feature;
                     var respValue = respObj.displayFieldName == "MRB_ID" ? respObj.value : "'" + respObj.value + "'";
-                    
+
                     if (!app.shiftKey) {
                         //adding
                         var selectedSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,0]), 1);
                         selectedSymbol.id = respObj.value;
                         feature.setSymbol(selectedSymbol);
-                        app.map.graphics.add(feature); 
-                        
+                        app.map.graphics.add(feature);
+
                         //add this to an array of responses to pass to the chart
-                        app.userSelectedShapes.push(respValue); 
+                        app.userSelectedShapes.push(respValue);
                         //store which displayFieldName they are clicking on (only once)
-                        if (app.userSelectedDispFieldName == "") {                        
+                        if (app.userSelectedDispFieldName == "") {
                             app.userSelectedDispFieldName = respObj.displayFieldName;
-                        }                    
+                        }
                     } else {
                         //removing
                         var symbolToRemove = app.map.graphics.graphics.filter(function (g) { return g.symbol.id == respObj.value})[0];
                         app.map.graphics.remove(symbolToRemove);
                         //remove this from array of responses
-                        app.userSelectedShapes.splice(app.userSelectedShapes.indexOf(respValue), 1);                        
-                    }                    
+                        app.userSelectedShapes.splice(app.userSelectedShapes.indexOf(respValue), 1);
+                    }
                 });
             } else {
                 var calibrationInfoWindow = false;
@@ -693,7 +693,7 @@ require([
                     selectedSymbol.id = response[0].value;
                     response[0].feature.setSymbol(selectedSymbol);
                     app.map.graphics.add(response[0].feature);
-                    
+
                     $.each(response, function(index, responseObj){
                         //UPDATE important! -- make sure that layerIds in if statements below match calibration sites layers in the REST services.
                         //Phosphorus Calibration Site InfoWindow
@@ -706,7 +706,7 @@ require([
                                                             '<div><b>SPARROW Reach ID: </b>' + responseObj.feature.attributes.MRB_ID + '</div><br>'+
                                                             '<div><b>Fluxmaster Load' + chartUnits +': </b>' + responseObj.feature.attributes.FLUXMASTER + '</div><br>' +
                                                             '<div><b>SPARROW Estimated Load ' + chartUnits +': </b>' + responseObj.feature.attributes.SPARROW_ES + '</div><br>');
-                    
+
                             var graphic = new Graphic();
                             var feature = graphic;
                             responseObj.feature.setInfoTemplate(calibrationTemplate);
@@ -725,13 +725,13 @@ require([
                                                             '<div><b>SPARROW Reach ID: </b>' + responseObj.feature.attributes.MRB_ID + '</div><br>'+
                                                             '<div><b>Fluxmaster Load' + chartUnits +': </b>' + responseObj.feature.attributes.FLUXMASTER + '</div><br>' +
                                                             '<div><b>SPARROW Estimated Load ' + chartUnits +': </b>' + responseObj.feature.attributes.SPARROW_ES + '</div><br>');
-                    
+
                             var graphic = new Graphic();
                             var feature = graphic;
                             responseObj.feature.setInfoTemplate(calibrationTemplateN);
                             app.map.infoWindow.setFeatures([responseObj.feature]);
                             app.map.infoWindow.show(evt.mapPoint);
-                            calibrationInfoWindow = true;                        
+                            calibrationInfoWindow = true;
                         }
                     });
 
@@ -743,24 +743,24 @@ require([
 
                         //need to wrap value in single quotes for ESRI REST Service query.  BUT ONLY IF THE DISPLAY FIELD IS A STRING!
                         if (response[0].displayFieldName == "MRB_ID"){
-                            var chartQueryArg = response[0].displayFieldName + " = " + response[0].value; 
+                            var chartQueryArg = response[0].displayFieldName + " = " + response[0].value;
                         } else{
-                            var chartQueryArg = response[0].displayFieldName + " = " + "'" + response[0].value + "'"; 
+                            var chartQueryArg = response[0].displayFieldName + " = " + "'" + response[0].value + "'";
                         }
-                        
+
                         $.each(fields, function(index, obj){
                             console.log(obj.attribute);
                         });
                         //No infoWindow, just call the chart query
                         app.createChartQuery(chartQueryArg);
-                    }       
-                }       
-            }// end else  
+                    }
+                }
+            }// end else
         }); //END deferred callback
 
     } //END executeIdentifyTask();
 
-    
+
     app.clearFindGraphics = function clearFindGraphics() {
         app.map.infoWindow.hide();
         app.map.graphics.clear();
@@ -794,12 +794,12 @@ require([
 
     }//END createTableQuery()
 
-    app.createChartQuery = function(optionalWhereClause){        
+    app.createChartQuery = function(optionalWhereClause){
         $('#chartContainer').empty();
         console.log('creating chart query');
         var chartQueryTask;
         var sparrowLayerId = app.map.getLayer('SparrowRanking').visibleLayers[0];
-        
+
         if (optionalWhereClause == undefined){
             if (app.map.getLayer('SparrowRanking').layerDefinitions){
                 var whereClause = app.map.getLayer('SparrowRanking').layerDefinitions[sparrowLayerId];
@@ -808,7 +808,7 @@ require([
             }
         } else{
             var whereClause = optionalWhereClause;
-        }        
+        }
 
         //add map layer ID to query URL
         var SparrowRankingUrl = serviceBaseURL + sparrowLayerId;
@@ -816,9 +816,9 @@ require([
         //setup QueryTask
         chartQueryTask = new esri.tasks.QueryTask(SparrowRankingUrl);
 
-        //Returns chartOutfields Object form config --i.e. {attribute: "VALUE", label: "VALUE"} 
-        var chartFieldsObj = getChartOutfields(sparrowLayerId); 
-        
+        //Returns chartOutfields Object form config --i.e. {attribute: "VALUE", label: "VALUE"}
+        var chartFieldsObj = getChartOutfields(sparrowLayerId);
+
         //grab attributes from chartOutfields object
         var outfieldsArr = [];
         $.each(chartFieldsObj, function(index, obj){
@@ -834,7 +834,7 @@ require([
         chartQueryTask.execute(chartQuery, showChart);
     }//END app.createChartQuery
 
-   
+
     function setupQueryTask(url, outFieldsArr, whereClause){
         var queryTask;
         queryTask = new esri.tasks.QueryTask(url);
@@ -850,8 +850,8 @@ require([
             queryTask.execute(query, populateAOI);
         }*/
 
-         queryTask.execute(query, populateAOI);        
-        
+         queryTask.execute(query, populateAOI);
+
     }
 
     //WHEN UPDATING APP: check strings, especially ST
@@ -859,15 +859,15 @@ require([
     function populateGrp2Arr(response){
 
         $.each(response.features, function(index, feature){
-            Grp2NamDescArr.push(feature.attributes);  
+            Grp2NamDescArr.push(feature.attributes);
         });
     }
 
     function populateAOI(response){
 
         $.each(response.features, function(index, feature){
-            
-            AllAOIOptions.push(feature.attributes);  
+
+            AllAOIOptions.push(feature.attributes);
         });
 
         defaultAOIOptions();
@@ -876,7 +876,7 @@ require([
     function defaultAOIOptions(){
 
         //IF options already exist, be sure to REMOVE OLD OPTIONS before calling this function
-        
+
         // get UNIQUE options from AllAOIOptions global Object
         var grp3Options = getUniqueArray(AllAOIOptions, 'GP3');
         var grp2Options = getUniqueArray(AllAOIOptions, 'GP2');
@@ -886,7 +886,7 @@ require([
         $.each(grp3Options, function(index, option){
             if (option != " "){
                 $('#grp3-select').append(new Option(option));
-            }             
+            }
         });
         $.each(grp2Options, function(index, option){
             if (option != " "){
@@ -901,7 +901,7 @@ require([
         $.each(STOptions, function(index, option){
             $('#st-select').append(new Option(option));
         });
-        
+
         $('#grp3-select').selectpicker('refresh');
         $('#grp2-select').selectpicker('refresh');
         $('#grp1-select').selectpicker('refresh');
@@ -912,9 +912,9 @@ require([
     // Symbols
     var sym = createPictureSymbol('../images/purple-pin.png', 0, 12, 13, 24);
 
-    var selectionSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, 
+    var selectionSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
         new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
-        new Color([255, 0, 0]), 2), new Color([255,255, 0, 0.5])); 
+        new Color([255, 0, 0]), 2), new Color([255,255, 0, 0.5]));
 
 
     // Optionally confine search to map extent
@@ -1001,7 +1001,7 @@ require([
         if (obj instanceof Object) {
             copy = {};
             for (var attr in obj) {
-                if (obj.hasOwnProperty(attr)) 
+                if (obj.hasOwnProperty(attr))
                 {
                     copy[attr] = clone(obj[attr]);
                 }
@@ -1010,19 +1010,19 @@ require([
         }
     }
 
-    function showChart(response){               
+    function showChart(response){
         var columnLabels = [];
         var chartTitle;
         var categories = [];
         var chartArr = [];
         var series = [];
         var featureSort = [];
-        var tableFeatures = [];       
+        var tableFeatures = [];
 
         $.each(response.features, function(index, feature){
             // first push these into a separate array for table to use
             tableFeatures.push($.extend(true, {}, feature.attributes));
-            /***this function removes any fields ending with "AREA" from the response.features Object. (i.e. DEMIAREA, DEMTAREA, GP1_AREA, etc.)  
+            /***this function removes any fields ending with "AREA" from the response.features Object. (i.e. DEMIAREA, DEMTAREA, GP1_AREA, etc.)
             The chart was not built to accommodate the extra area fields, but they're necessary for display in the table.***/
             $.map(Object.keys(feature.attributes), function(val, i){
                 //find ANY INDEX that contains "AREA" in the key
@@ -1032,7 +1032,7 @@ require([
             });
 
             //push the feature attributes AFTER removing all the "AREA" atributes.
-            featureSort.push(feature.attributes);            
+            featureSort.push(feature.attributes);
         });
 
         var sum = 0;
@@ -1051,7 +1051,7 @@ require([
         featureSort.sort(function(a, b){
             return parseFloat(b.total) - parseFloat(a.total);
         });
-        
+
         console.log('featureSort', featureSort);
 
         //create array of field names
@@ -1063,7 +1063,7 @@ require([
 
 
         //create multidimensional array from query response
-        $.each(categories, function(index, value){  
+        $.each(categories, function(index, value){
             var data = [];
             $.each(featureSort, function(innerIndex, feature){
                 data.push( feature[value] );
@@ -1084,9 +1084,9 @@ require([
         $.each(chartLabelsObj, function(index, obj){
             chartLabelsArr.push( obj.label ); //get labels ONLY as arr
         });
-        
+
         // initial table for Table tab
-         tableArr = tableFeatures; // featureSort; 
+         tableArr = tableFeatures; // featureSort;
          labelArr = [];
          $.each(chartLabelsArr, function(index, value){
             labelArr.push(value);
@@ -1101,7 +1101,7 @@ require([
         //push label array into series
         $.each(chartLabelsArr, function(index, value){
             series.push( {name: value});
-        });  
+        });
 
 
         //chartArr is a multi-dimensional array.  Each item in chartArr is an array of series data.
@@ -1144,7 +1144,7 @@ require([
                     return 'Catchment ID';
                 case 1:
                     return 'HUC8';
-                case 2: 
+                case 2:
                     return 'Tributary';
                 case 3:
                     return 'Main River Basin';
@@ -1172,7 +1172,7 @@ require([
                         }
                    });
                     break;
-                case 2: 
+                case 2:
                     $.each(Group2, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
@@ -1193,14 +1193,14 @@ require([
                         }
                    });
                     break;
-                case 5: 
+                case 5:
                     $.each(Catchments_st, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
                         }
                    });
                     break;
-                case 6: 
+                case 6:
                     $.each(Group3_st, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
@@ -1228,7 +1228,7 @@ require([
                         }
                    });
                     break;
-                case 10: 
+                case 10:
                     $.each(Group3_tn, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
@@ -1249,7 +1249,7 @@ require([
                         }
                    });
                     break;
-                case 13: 
+                case 13:
                     $.each(ST_tn, function(index, object){
                         if (object.field == $('#displayedMetricSelect').val() ){
                             label = object.name;
@@ -1291,7 +1291,7 @@ require([
 
          /*function highlightMapFeature(category){
             var layerDefinitions = "GP3 = '" + category + "'";
-            var selectionSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, 
+            var selectionSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
                 new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
                 new Color([255, 0, 0]), 2), new Color([255,255, 0, 0.5]));
 
@@ -1318,7 +1318,7 @@ require([
             minWidth: 800,
             minHeight: 800,
             maxHeight: 1000
-        
+
         });
 
         $('#chartWindowDiv').addClass( 'chartWindowMaximize' );
@@ -1328,21 +1328,23 @@ require([
         //Important! UPDATE if nutrient Models change names.
         if( $('.radio input[type="radio"]:checked')[0].id == 'radio1'){
             $('#chartWindowPanelTitle').text('Phosphorus ' + labelySelect() );
+            console.log("Radio One");
         }   else{
             $('#chartWindowPanelTitle').text('Nitrogen ' + labelySelect() );
+            console.log("Radio Two");
         }
-        
+
         if (response.features.length <= 1 || app.customChartClicked){
             $('#chartWindowPanelTitle').append('<br/><div class="btn"><button type="button" class="btn btn-primary" id="popupChartButton"><span class="glyphicon glyphicon-signal"></span> Show Full Chart</button></div>');
             //if coming from custom chart button click
             if (app.customChartClicked) {
-                app.customChartClicked = false;                
+                app.customChartClicked = false;
             }
         }
 
         //$('#chartWindowPanelTitle').append('<br/><div class="btn"><button type="button" class="btn btn-primary" id="exportButton"><span class="glyphicon glyphicon-signal"></span> Export Chart Data</button></div>');
 
-        //only create close / minimize if they don't already exist        
+        //only create close / minimize if they don't already exist
         if ($('#chartClose').length == 0){
             $('#chartWindowDiv .dropdown').prepend('<div id="chartClose" title="close"><b>X</b></div>');
         }
@@ -1374,7 +1376,7 @@ require([
         });
 
         //need listener to resize chart
-        $('#chartWindowDiv').resize(function() {            
+        $('#chartWindowDiv').resize(function() {
             var height = $('#chartWindowDiv').height()
             var width = $('#chartWindowDiv').width()
             $('#chartWindowContainer').highcharts().setSize(width-50, height-105, true);//$('#chartWindowContainer').highcharts().setSize(width-50, height-75, true);
@@ -1384,7 +1386,7 @@ require([
         //END LOBIPANEL-------------------------------------------------------------------------------------------------------
         var colorArr = ( $('.radio input[type="radio"]:checked')[0].id == 'radio1' ? ['#0070C0', '#97DA7C', '#663100', '#FFEC99', '#FFCCFF', '#BF0000'] : ['#0070C0', '#663100', '#FFEC99', '#FFCCFF', '#BF0000'] );
 
-        var chart = $('#chartWindowContainer').highcharts(); 
+        var chart = $('#chartWindowContainer').highcharts();
 
         $(function () {
             Highcharts.setOptions({
@@ -1393,7 +1395,7 @@ require([
                 },
                 colors: colorArr
             });
-            
+
             $('#chartWindowContainer').highcharts({
                 chart: {
                     type: 'column',
@@ -1426,24 +1428,24 @@ require([
                                         }else{
                                             return 'GP2';
                                         }
-                                    case 3: 
+                                    case 3:
                                         if( $('#st-select')[0].selectedIndex > 0){
                                             return 'SG1';
                                         }else{
                                             return 'GP1';
                                         }
-                                        
+
                                     case 4:
                                         return 'ST';
                                 }
                             }
 
-                            var categoryArr = []        
+                            var categoryArr = []
 
                             if (e.xAxis){
                                 var xAxis = e.xAxis[0]
                                 var newArr = [];
-                                
+
                                 if(xAxis) {
                                     $.each(this.series, function (i, series) {
                                         $.each(series.points, function (j, point) {
@@ -1458,7 +1460,7 @@ require([
                                                 }
                                             }
                                         });
-                                    }); 
+                                    });
                                     filterTable(categoryArr);
                                 }
                                 console.log(categoryArr);
@@ -1476,12 +1478,12 @@ require([
                             graphicsQuery.outSpatialReference = app.map.spatialReference;  //important!
                             graphicsQuery.outFields = [fieldName];
 
-                            if (e.resetSelection != true) {                                 
+                            if (e.resetSelection != true) {
                                 var categoryStr = "";
                                 $.each(categoryArr, function(i, category){
                                     categoryStr += "'" + category + "', "
-                                });  
-                                var queryStr = categoryStr.slice(0, categoryStr.length - 2);                                
+                                });
+                                var queryStr = categoryStr.slice(0, categoryStr.length - 2);
                                 graphicsQuery.where = fieldName + " IN (" + queryStr + ")";
                                 queryTask.execute(graphicsQuery, responseHandler);
 
@@ -1491,21 +1493,21 @@ require([
                                             app.map.graphics.remove(obj);
                                         }
                                     });
-                                    //app.map.graphics.clear();   
+                                    //app.map.graphics.clear();
                                     //var feature, selectedSymbol;
                                     $.each(response.features, function(i, feature){
-                                        var feature = feature;                                       
+                                        var feature = feature;
                                         var selectedSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,0]), 1);
                                         selectedSymbol.id = 'zoomHighlight'
                                         feature.setSymbol(selectedSymbol);
                                         app.map.graphics.add(feature);
-                                    });                                   
-                                    
+                                    });
+
                                 }
                             } else {
                                 if (app.formattedHighlightString) {
-                                    // this is a reset from a zoom in on a custom defined chart view                                   
-                                    graphicsQuery.where = app.formattedHighlightString;     
+                                    // this is a reset from a zoom in on a custom defined chart view
+                                    graphicsQuery.where = app.formattedHighlightString;
                                     queryTask.execute(graphicsQuery, responseHandler);
 
                                     function responseHandler(response){
@@ -1516,12 +1518,12 @@ require([
                                         });
                                         //var feature, selectedSymbol;
                                         $.each(response.features, function(i, feature){
-                                            var feature = feature;                                       
+                                            var feature = feature;
                                             var selectedSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,0]), 1);
                                             selectedSymbol.id = 'zoomHighlight'
                                             feature.setSymbol(selectedSymbol);
                                             app.map.graphics.add(feature);
-                                        });                                        
+                                        });
                                     }
                                 }
                                 filterTable();
@@ -1549,7 +1551,7 @@ require([
                                     onclick: function(){
                                         this.downloadCSV();
                                     }
-                                },                                                                                                                                                                                       
+                                },
                                 {
                                     text: 'Download Excel',
                                     onclick: function(){
@@ -1569,7 +1571,7 @@ require([
                                             });
                                         }
                                     }
-                                }  
+                                }
                             ]
                         }
                     }
@@ -1603,7 +1605,7 @@ require([
                     backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
                     borderColor: '#CCC',
                     borderWidth: 1,
-                    shadow: false,                    
+                    shadow: false,
                     labelFormatter: function () {
                         var yI = this.name.indexOf(")");//yield");
                         var shortName = "";
@@ -1614,12 +1616,12 @@ require([
                 },
                 tooltip: {
                     formatter: function(){
-                        var rank = this.point.index + 1; 
+                        var rank = this.point.index + 1;
                         var percentOfTotal = (this.point.y / this.point.stackTotal) * 100;
-                        return '<b>' + labelxSelect() + ': ' + '<b>' + this.point.category  + '</b></b><br/>' 
-                                + this.series.name + ': ' + '<b>' + this.point.y.toFixed(2) + ' (' + percentOfTotal.toFixed(2) + '%)' + '</b></b><br/>' 
-                                + labelySelect() + ' Total: ' + '<b>' + this.point.stackTotal.toFixed(2) + '</b></b><br/>' 
-                                + 'Rank: ' + '<b>' + rank + '</b>';  
+                        return '<b>' + labelxSelect() + ': ' + '<b>' + this.point.category  + '</b></b><br/>'
+                                + this.series.name + ': ' + '<b>' + this.point.y.toFixed(2) + ' (' + percentOfTotal.toFixed(2) + '%)' + '</b></b><br/>'
+                                + labelySelect() + ' Total: ' + '<b>' + this.point.stackTotal.toFixed(2) + '</b></b><br/>'
+                                + 'Rank: ' + '<b>' + rank + '</b>';
                     },
                 },
                 plotOptions: {
@@ -1655,13 +1657,13 @@ require([
                                                 }else{
                                                     return 'GP2';
                                                 }
-                                            case 3: 
+                                            case 3:
                                                 if( $('#st-select')[0].selectedIndex > 0){
                                                     return 'SG1';
                                                 }else{
                                                     return 'GP1';
                                                 }
-                                                
+
                                             case 4:
                                                 return 'ST';
                                         }
@@ -1680,14 +1682,14 @@ require([
                                     graphicsQuery.returnGeometry = true; //important!
                                     graphicsQuery.outSpatialReference = app.map.spatialReference;  //important!
                                     graphicsQuery.outFields = [fieldName];
-                                    
+
                                     if (fieldName != "MRB_ID"){
                                         graphicsQuery.where = fieldName + "= '" + category + "'";
                                     }else {
                                         //MRB_ID field is NOT a string!!!
                                         graphicsQuery.where = fieldName + " = " + category;
                                     }
-                                                                
+
                                     queryTask.execute(graphicsQuery, responseHandler);
 
                                     function responseHandler(response){
@@ -1697,8 +1699,8 @@ require([
                                                 app.map.graphics.remove(graphic);
                                             }
                                         });
-                                                  
-                                        var feature = response.features[0];                                       
+
+                                        var feature = response.features[0];
                                         var selectedSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([150,49,37]), 2), new Color([150,49,37, 0.33]) );
                                         feature.setSymbol(selectedSymbol);
                                         app.map.graphics.add(feature);
@@ -1725,13 +1727,13 @@ require([
                                                 }else{
                                                     return 'GP2';
                                                 }
-                                            case 3: 
+                                            case 3:
                                                 if( $('#st-select')[0].selectedIndex > 0){
                                                     return 'SG1';
                                                 }else{
                                                     return 'GP1';
                                                 }
-                                                
+
                                             case 4:
                                                 return 'ST';
                                         }
@@ -1754,7 +1756,7 @@ require([
                                                 app.map.graphics.remove(graphic);
                                             }
                                         }
-                                            
+
                                     });*/
                                     app.map.graphics.clear();
 
@@ -1764,7 +1766,7 @@ require([
                                 }
                             }
                         }
-                       
+
                     }
                 },
                 credits: {
@@ -1779,12 +1781,12 @@ require([
                     }
                 });
             });
-        
+
         }); //END self-invoking highcharts function
         var height = $('#chartWindowDiv').height()
         var width = $('#chartWindowDiv').width()
-        $('#chartWindowContainer').highcharts().setSize(width-50, height-105, true);         
-        
+        $('#chartWindowContainer').highcharts().setSize(width-50, height-105, true);
+
     } //END ShowChart()
 
     $('#tableResizable').resizable({
@@ -1809,9 +1811,9 @@ require([
                     if( $('#st-select')[0].selectedIndex > 0) whichName = 'SG2';
                     else whichName = 'GP2';
                     break;
-                case 3: 
+                case 3:
                     if( $('#st-select')[0].selectedIndex > 0) whichName = 'SG1';
-                    else whichName = 'GP1';                
+                    else whichName = 'GP1';
                     break;
                 case 4:
                     whichName = 'ST';
@@ -1822,30 +1824,30 @@ require([
                 newResponse.push(tableArr.filter(function(t){return t[whichName] == c;})[0]);
             });
             buildTable(newResponse, labelArr);
-        } else 
+        } else
             buildTable(tableArr, labelArr);
     }
     //table in lobipanel Table tab (updates everytime chart changes)
-    function buildTable(response, headers){    
+    function buildTable(response, headers){
         $("#resultsTable").empty();
         var headerKeyArr = [];
         $('#resultsTable').addClass('hover-highlight');
         $('#resultsTable').append('<thead></thead>');
-        
+
         $.each(headers, function(h,head){
             var yI = head.indexOf(")");//yield");
             var shortHeader = "";
             if (yI > -1) shortHeader = head.substring(yI+1);//0,yI-1);
             else shortHeader = head;
             headerKeyArr.push(shortHeader);
-        });        
-        
+        });
+
         // if not sparrowLayer 0 or 8, only add Area, else add other 2 DEM fields headers too
         if (app.map.getLayer('SparrowRanking').visibleLayers[0] == 0 || app.map.getLayer('SparrowRanking').visibleLayers[0] == 8) {
             //add Basin Area, Upstream Area, and Total
             headerKeyArr.push("Basin Area");
             headerKeyArr.push("Upstream Area");
-            headerKeyArr.push("Total");          
+            headerKeyArr.push("Total");
         } else {
             headerKeyArr.push("Area");
             headerKeyArr.push("Total");
@@ -1863,18 +1865,18 @@ require([
         $('#resultsTable').find( 'thead' ).html(htmlHeaderArr.join(''));
 
         var htmlArr =[];
-        
+
         $('#resultsTable').append('<tbody id="tableBody"></tbody>');
         $.each(response, function(rowIndex, feature) {
             var rowI = rowIndex;
 
             htmlArr.push("<tr id='row"+rowIndex+"'>");
             $.each(feature, function(key, value){
-                htmlArr.push('<td>'+ value +'</td>'); 
+                htmlArr.push('<td>'+ value +'</td>');
             });
 
             htmlArr.push("</tr>");
-        });  
+        });
         $('#tableBody').html(htmlArr.join(''));
         $('.tablesorter').trigger("updateAll");
         $('.tablesorter').tablesorter({
@@ -1911,13 +1913,13 @@ require([
                 if( $('#st-select')[0].selectedIndex > 0) fieldName = 'SG2';
                 else fieldName = 'GP2';
                 break;
-            case 3: 
+            case 3:
                 if( $('#st-select')[0].selectedIndex > 0) fieldName = 'SG1';
-                else fieldName = 'GP1';                
+                else fieldName = 'GP1';
                 break;
             case 4:
                 fieldName = 'ST';
-                break;        
+                break;
         }
 
         var queryTask;
@@ -1929,22 +1931,22 @@ require([
         graphicsQuery.outFields = [fieldName];
 
         if (fieldName == "MRB_ID"){
-            graphicsQuery.where = fieldName + " = " + category; 
+            graphicsQuery.where = fieldName + " = " + category;
         } else{
             graphicsQuery.where = fieldName + "= '" + category + "'";
-        }       
-                                    
+        }
+
         queryTask.execute(graphicsQuery, responseHandler);
 
         function responseHandler(response){
             //remove only the mouseover graphic
             $.each(app.map.graphics.graphics, function(i, graphic){
-                if (graphic.symbol.id == undefined) { 
+                if (graphic.symbol.id == undefined) {
                     app.map.graphics.remove(graphic);
                 }
             });
-                      
-            var feature = response.features[0];                                       
+
+            var feature = response.features[0];
             var selectedSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([150,49,37]), 2), new Color([150,49,37, 0.33]) );
             feature.setSymbol(selectedSymbol);
             app.map.graphics.add(feature);
@@ -1982,7 +1984,7 @@ require([
     function showTableResizeable(){
         app.createTableQuery();
     }
-        
+
     $('#legendDiv').niceScroll();
 
     app.maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
@@ -1997,7 +1999,7 @@ require([
 
     $('#legendCollapse').on('hide.bs.collapse', function () {
         $('#legendElement').css('height', 'initial');
-    });    
+    });
 
     require([
         'dijit/form/CheckBox'
@@ -2033,11 +2035,11 @@ require([
             } else if (layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true && wimOptions.hasZoomto !== undefined && wimOptions.hasZoomto == false){
                 //opacity icon, NO zoomTo icon
                 var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" > <button id="' + layer.id + '"type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right opacity"></span></button></div>');
-            } 
+            }
             else if (!layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true && wimOptions.hasZoomto !== undefined && wimOptions.hasZoomto == false){
                 //opacity icon, NO zoomTo icon
                 var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" > <button id="' + layer.id + '"type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right opacity"></span></button></div>');
-            } 
+            }
             //click listener for regular
             button.click(function(e) {
                 //toggle checkmark
@@ -2055,7 +2057,7 @@ require([
                 } else {
                     layer.setVisibility(true);
                 }
-            });            
+            });
 
             //group heading logic
             if (showGroupHeading) {
@@ -2152,7 +2154,7 @@ require([
                                 map.setExtent(projectedExtent, new SpatialReference({wkid: 102100}));
                             });
                         });
-                    }                    
+                    }
                 });
                 //end zoomto logic
             }
