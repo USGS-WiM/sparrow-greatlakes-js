@@ -184,20 +184,12 @@ require([
     var tableArr = []; //global for table updating
     var labelArr = []; //glocal for table updating    
 
+    // in event-handlers.js
     loadEventHandlers();
-    //setupQueryTask(serviceBaseURL + 1, [ 'GP2', 'GRP_2_DESC' ], '1=1');
-    //TODO: FIGURE OUT HOW TO USE THE QUERY WHERECLAUSE     Call setupQueryTask for every layer inqueryParameters
-    //setupQueryTask(serviceBaseURL + 4, ['ST', 'GP3', 'GP', 'GP1' ], '1=1');
 
+    //fire initial query to populate AOIs
+    //UPDATE IMPORTANT!  check layer and field names to make sure the fields exist in the service layers
     setupQueryTask(serviceBaseURL + 5, ['ST', 'GP3', 'GP2', 'GP1' ], '1=1');
-
-    /*for (var key in queryParameters){
-        if (key == 'grp3'){
-            setupQueryTask(serviceBaseURL + queryParameters[key].serviceId, ["ST", "GP3", "GP2", "GP1" ], "1=1");
-        } else{
-            setupQueryTask(serviceBaseURL + queryParameters[key].serviceId, queryParameters[key].nameField, "1=1");
-        }     
-    }*/
 
     app.setLayerDefObj = function(newObj){        
         //UPDATE NOTE: need 1 case for every AOI select
@@ -563,7 +555,8 @@ require([
                 appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', stOptions, '#st-select', 'AOIST');               
                 break;
         } 
-    };
+    }
+
     //function used several times in above switch case
     var appendSelectOptions = function(firstOptions, select1_ID, firstAOI, secondOptions, select2_ID, secondAOI){
         //set the filtered state options 
@@ -697,12 +690,13 @@ require([
                     app.map.graphics.add(response[0].feature);
                     
                     $.each(response, function(index, responseObj){
-                        //UPDATE important! -- make sure that layerIds in if statements below match calibration sites layers in the REST services.
+                        //UPDATE important! -- make sure that layerIds in 'if' statements below match calibration sites layers in the REST services.
                         //Phosphorus Calibration Site InfoWindow
                         if (responseObj.layerId === 18){
                             var model = 'Phosphorus';
                             var calibrationTemplate = new esri.InfoTemplate();
                             calibrationTemplate.setTitle('SPARROW ' + model + ' Calibration Site');
+                            //UPDATE important! make sure the field names match what is in the REST layer
                             calibrationTemplate.setContent('<div><b>Station Name:</b> ' + responseObj.feature.attributes.NAME + '</div><br>' +
                                                             '<div><b>Station ID:</b> </b>' + responseObj.feature.attributes.STATION_ID + '</div><br>' +
                                                             '<div><b>SPARROW Reach ID: </b>' + responseObj.feature.attributes.MRB_ID + '</div><br>'+
@@ -717,11 +711,13 @@ require([
                             calibrationInfoWindow = true;
                         }
 
-                        //Phosphorus Calibration Site InfoWindow
+                        //UPDATE important! -- make sure that layerIds in 'if' statements below match calibration sites layers in the REST services
+                        //Nitrogen Calibration Site InfoWindow
                         if (responseObj.layerId === 19){
                             var modelN = 'Nitrogen';
                             var calibrationTemplateN = new esri.InfoTemplate();
                             calibrationTemplateN.setTitle('SPARROW ' + modelN + ' Calibration Site');
+                            //UPDATE important! make sure the field names below match what is in the REST layer
                             calibrationTemplateN.setContent('<div><b>Station Name:</b> ' + responseObj.feature.attributes.NAME + '</div><br>' +
                                                             '<div><b>Station ID:</b> </b>' + responseObj.feature.attributes.STATION_ID + '</div><br>' +
                                                             '<div><b>SPARROW Reach ID: </b>' + responseObj.feature.attributes.MRB_ID + '</div><br>'+
@@ -737,7 +733,7 @@ require([
                         }
                     });
 
-
+                    //handle map click for Sparrow Data layer
                     if (calibrationInfoWindow != true){
                         var fields = getChartOutfields( app.map.getLayer('SparrowRanking').visibleLayers[0] );
                         var attributes = response[0].feature.attributes;
@@ -759,7 +755,6 @@ require([
                 }       
             }// end else  
         }); //END deferred callback
-
     } //END executeIdentifyTask();
 
     
@@ -1044,6 +1039,7 @@ require([
     }
 
     // called 3 times from highcharts mouseover, selection, and click
+    //UPDATE IMPORTANT! 
     function switchWhereField(selectedIndex){
         switch (selectedIndex){
             case 0:
@@ -1070,7 +1066,6 @@ require([
                 }else{
                     return 'GP1';
                 }
-                
             case 4:
                 return 'ST';
         }
