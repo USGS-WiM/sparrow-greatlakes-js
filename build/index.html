@@ -296,7 +296,8 @@
                             </div>
                             <div class="user-guide-item">
                                 <div class="user-guide-item-image"><img src="images/userguide/mappoints.png"/></div>
-                                <p><b>Opening a chart</b>Clicking on a nutrient model feature will generate a chart showing the individual sources for the selected feature.  The chart also contains a button to switch to a chart of all features currently displayed. (For more on the Chart features, see Data Display)</p>
+                                <p><b>Opening a chart</b>Clicking on a nutrient model feature will generate a chart showing the individual sources for the selected feature.  
+                                The chart also contains a button to switch to a chart of all features currently displayed. (For more on the Chart features, see Data Display)</p>
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="iconTabPane">
@@ -479,13 +480,13 @@
                             <hr/>
 
                             <h6 class="alignc">Area of Interest</h6>
-                            <select id="st-select" class="selectpicker 0 aoiSelect" title="State" ></select>
+                            <select id="st-select" class="selectpicker 0 aoiSelect" title="State" data-size="10" ></select>
 
-                            <select id="grp1-select" class="selectpicker 1 aoiSelect" title="Main River Basin"></select>
+                            <select id="grp1-select" class="selectpicker 1 aoiSelect" title="Main River Basin" data-size="10"></select>
 
-                            <select id="grp2-select" class="selectpicker 2 aoiSelect" title="Tributary" ></select>
+                            <select id="grp2-select" class="selectpicker 2 aoiSelect" title="Tributary" data-size="10" ></select>
 
-                            <select id="grp3-select" class="selectpicker 3 aoiSelect" title="HUC8" ></select>
+                            <select id="grp3-select" class="selectpicker 3 aoiSelect" title="HUC8" data-size="10"></select>
 
                                 <button type="button" class="btn-blue" id="clearAOIButton"
                                     <span class="glyphicon glyphicon-remove"></span> Clear Area of Interest
