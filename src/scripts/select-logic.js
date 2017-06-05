@@ -488,13 +488,15 @@ function generateRenderer(){
         classDef.classificationMethod = "quantile";
         classDef.breakCount = 5;
 
-        classDef.baseSymbol = new SimpleFillSymbol("solid", null, null);
-        //not sure about this one, needs a little work to get the borders right.
-        /*classDef.baseSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+        //symbol WITHOUT borders
+        //classDef.baseSymbol = new SimpleFillSymbol("solid", null, null);
+        
+        //symbol WITH borders
+        classDef.baseSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
                 new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                new Color([168,168,168, 0.1]))
+                new Color([168,168,168]), 0.1)
                 );
-        */
+        
           
         var colorRamp = new AlgorithmicColorRamp();
         //different ramps for phos/nitro
