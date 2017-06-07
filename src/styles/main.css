@@ -491,17 +491,6 @@ table.hover-highlight tbody > tr.even:hover > td {
     font-size: 12px;
 }
 
-
-/*jquery resizeable*/
-#tableResizable {
-    width: 100%;
-    height: 400px;
-    /*overflow-y:auto;
-    overflow-x: scroll;*/
-
-}
-#tableResizable h3 { text-align: left; padding-left: 20px; }
-
 .ui-widget-header{
     border: none;
     background: rgb(30,39,50);
@@ -687,7 +676,7 @@ table.hover-highlight tbody > tr.even:hover > td {
 .search-api-container span{
   -webkit-flex-grow: 2;
   flex-grow: 2;
-  width: 100% !important;
+  /*width: 100% !important;*/
   display: block;
 }
 .search-api-container input{
@@ -702,6 +691,7 @@ table.hover-highlight tbody > tr.even:hover > td {
   border-radius: 0px !important;
   padding: 0 15px !important;
   margin-top: 15px !important;
+  margin-bottom: 15px !important;
   border-radius: 3px !important;
 }
 .search-api-container input:focus{
