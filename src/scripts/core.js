@@ -4,6 +4,15 @@
 
 var app = {};
 
+
+// Get toast and page loader ready
+$( document ).ready(function() {
+  $("#page-loader").fadeOut();
+  $("#toast-fixed").fadeOut();
+});
+
+
+
 require([
     'esri/arcgis/utils',
     'esri/map',

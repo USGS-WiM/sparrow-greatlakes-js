@@ -712,3 +712,31 @@ table.hover-highlight tbody > tr.even:hover > td {
 .search-api-button{
   display: none !important;
 }
+
+
+/*Toast message*/
+#toast-fixed{
+  position: fixed;
+  bottom: 0px;
+  right: 15px;
+  z-index: 1000000;
+  max-width: 280px;
+  width: auto;
+}
+
+#page-loader{
+  width: 83.33333333%;
+  position: fixed !important;
+  left: auto;
+  right: 0 !important;
+}
+@media (max-width: 1200px) {
+  #page-loader{
+    width: 75%;
+  }
+}
+@media (max-width: 992px) {
+  #page-loader{
+    width: 100%;
+  }
+}
