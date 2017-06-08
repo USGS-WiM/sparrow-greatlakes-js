@@ -107,6 +107,15 @@ var nitrogenSourceDefinitions = {
 }
 
 
+
+/***TODO -- 
+    WE DON"T HAVE ALL THE CORRECT COLORS FOR Great Lakes AT THIS TIME -- double check before release. 
+***/
+//get these HEX values from project Google Doc and make sure they correspond with the order of SourceDefinitions objects above
+var phosColors = [ '#FFCCFF', '#BF0000', '#663100', '#FFEC99', '#97DA7C', '#0070C0' ];     
+var nitroColors = ['#BF0000', '#663100', '#FFEC99', '#97DA7C', '#0070C0' ];  
+
+
 /***-----BEGIN PHOSPHORUS LAYER GROUPS --------***/
 /* PHOSPHORUS CATCHMENTS */
     
