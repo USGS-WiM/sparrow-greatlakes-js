@@ -119,17 +119,21 @@ body {
 }
 
 #homeButton {
-    position: absolute;
-    top: 75px;
-    left: 5px;
+    position: fixed !important;
+    top: 175px;
+    left: 15px;
     z-index: 50;
+    margin: 0 !important;
+    border-radius: 3px !important;
 }
 
 #locateButton {
-    position: absolute;
-    top: 115px;
-    left: 5px;
+    position: fixed;
+    border-radius: 3px !important;
+    top: 215px;
+    left: 15px;
     z-index: 50;
+    margin: 0 !important;
 }
 
 .hover-content {
@@ -841,4 +845,32 @@ ul.nav-tabs li.active a{
   background-color: transparent !important;
   color: black !important;
   font-weight: 500 !important;
+}
+
+
+/*Map Zoom Controls*/
+#mapDiv{
+  padding-top: 30px;
+}
+@media (min-width: 992px) {
+  #mapDiv_zoom_slider{
+    left: 27% !important;
+    left: calc(25% + 13px) !important;
+  }
+  #homeButton,
+  #locateButton {
+      left: 27%;
+      left: calc(25% + 15px);
+  }
+}
+@media (min-width: 1200px) {
+  #mapDiv_zoom_slider{
+    left: 16.6666666% !important;
+    left: calc(16.66666% + 13px) !important;
+  }
+  #homeButton,
+  #locateButton {
+      left: 16.666666%;
+      left: calc(16.666666% + 15px);
+  }
 }
