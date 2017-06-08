@@ -1345,7 +1345,7 @@ require([
 
 
         //END LOBIPANEL-------------------------------------------------------------------------------------------------------
-        var colorArr = ( $('.radio input[type="radio"]:checked')[0].id == 'radio1' ? ['#0070C0', '#97DA7C', '#663100', '#FFEC99', '#FFCCFF', '#BF0000'] : ['#0070C0', '#663100', '#FFEC99', '#FFCCFF', '#BF0000'] );
+        var colorArr = ( $('.radio input[type="radio"]:checked')[0].id == 'radio1' ? phosColors  : nitroColors );
 
         var chart = $('#chartWindowContainer').highcharts();
 
@@ -1728,7 +1728,7 @@ require([
         $('.tablesorter').tablesorter({
             widthFixed: true,
             onRenderHeader: function(){
-                var colorArr = ( $('.radio input[type="radio"]:checked')[0].id == 'radio1' ? ['#0070C0', '#97DA7C', '#663100', '#FFEC99', '#FFCCFF', '#BF0000'] : ['#0070C0', '#663100', '#FFEC99', '#FFCCFF', '#BF0000'] );
+                var colorArr = ( $('.radio input[type="radio"]:checked')[0].id == 'radio1' ? phosColors : nitroColors );
                 if (this.context.cellIndex > 0){
                     //dont want the label column
                     var index = this.context.cellIndex -1;
