@@ -200,7 +200,7 @@ require([
     //UPDATE IMPORTANT!  check layer and field names to make sure the fields exist in the service layers
     setupQueryTask(serviceBaseURL + 5, ['ST', 'GP3', 'GP2', 'GP1' ], '1=1');
 
-    app.setLayerDefObj = function(newObj){        
+    app.setLayerDefObj = function(newObj){
 
         //UPDATE NOTE: need 1 case for every AOI select
         switch(newObj.selectedId){
@@ -566,7 +566,7 @@ require([
                 appendSelectOptions(grp1Options, '#grp1-select', 'AOI1', stOptions, '#st-select', 'AOIST');
                 break;
 
-        } 
+        }
     }
 
     //function used several times in above switch case
@@ -579,7 +579,7 @@ require([
         //set the filtered grp3 options
         $.each(secondOptions, function(index, option){
 
-            $(select2_ID).append(new Option(option));                     
+            $(select2_ID).append(new Option(option));
 
         });
         $(select2_ID).selectpicker('refresh');
@@ -1056,7 +1056,7 @@ require([
 
 
     // called 3 times from highcharts mouseover, selection, and click
-    //UPDATE IMPORTANT! 
+    //UPDATE IMPORTANT!
     function switchWhereField(selectedIndex){
         switch (selectedIndex){
             case 0:
@@ -1077,7 +1077,7 @@ require([
                 }else{
                     return 'GP2';
                 }
-            case 3: 
+            case 3:
                 if( $('#st-select')[0].selectedIndex > 0){
                     return 'SG1';
                 }else{
@@ -1088,7 +1088,7 @@ require([
         }
     }
 
-    function showChart(response){               
+    function showChart(response){
 
         var columnLabels = [];
         var chartTitle;
@@ -1128,7 +1128,7 @@ require([
                 //UPDATE important! -- if catchments ID field is returned make sure the correctly named field is in the catch below.
                 if(jQuery.type(attribute) !== 'string' && i !== "MRB_ID") { // (dont need this because ST_MRB_ID is a string) || i !== "ST_MRB_ID") ){
                     sum += attribute;
-                }                
+                }
             });
             obj.total = sum;
             tableFeatures[index].total = sum;
@@ -1144,7 +1144,7 @@ require([
                 delete obj.total;
             });
         }*/
-        
+
 
         console.log('featureSort', featureSort);
 
@@ -1205,7 +1205,7 @@ require([
         $.each(chartLabelsArr, function(index, value){
 
             series.push( {name: value, turboThreshold: 3000});
-        });  
+        });
 
 
 
@@ -1263,13 +1263,13 @@ require([
             var layerId = app.map.getLayer('SparrowRanking').visibleLayers[0];
             var label;
 
-            var configObject = app.getLayerConfigObject(layerId);           
+            var configObject = app.getLayerConfigObject(layerId);
             $.each(configObject, function(index, object){
                 if (object.field == $('#displayedMetricSelect').val() ){
                     label = object.name;
                 }
             });
-                
+
             return label;
         }
 
@@ -1303,7 +1303,7 @@ require([
         }
 
         if (response.features.length <= 1 || app.customChartClicked){
-            $('#chartWindowPanelTitle').append('<br/><div class="btn"><button type="button" class="btn btn-primary" id="popupChartButton"><span class="glyphicon glyphicon-signal"></span> Show Full Chart</button></div>');
+            $('#chartWindowPanelTitle').append('<br/><div class=""><button type="button" class="btn-blue" id="popupChartButton"><span class="glyphicon glyphicon-signal"></span> Show Full Chart</button></div>');
             //if coming from custom chart button click
             if (app.customChartClicked) {
                 app.customChartClicked = false;
@@ -1311,7 +1311,7 @@ require([
         }
 
 
-        //only create close / minimize if they don't already exist        
+        //only create close / minimize if they don't already exist
         if ($('#chartClose').length == 0){
             $('#chartWindowDiv .dropdown').prepend('<div id="chartClose" title="close"><b>X</b></div>');
         }
@@ -1326,7 +1326,7 @@ require([
         instance.unpin();
         //getPosition and setPosition will ensure the x is the same as it should be and the y is higher up (not cut off at bottom)
         var xPos =  instance.getPosition().x;
-        instance.setPosition(xPos,50);        
+        instance.setPosition(xPos,50);
 
         $('#chartClose').on('click', function(){
             app.map.graphics.clear();
@@ -1370,7 +1370,7 @@ require([
                     events: {
                         selection: function (e) {
 
-                            var categoryArr = []        
+                            var categoryArr = []
 
                             if (e.xAxis){
                                 var xAxis = e.xAxis[0]
@@ -1412,9 +1412,9 @@ require([
                                 $.each(categoryArr, function(i, category){
 
                                     // only MRB_ID is a number, ST_MRB_ID is a string
-                                    categoryStr += fieldName == "MRB_ID" ?  + category + ", " : "'" + category + "', "; 
-                                });  
-                                var queryStr = categoryStr.slice(0, categoryStr.length - 2);                                
+                                    categoryStr += fieldName == "MRB_ID" ?  + category + ", " : "'" + category + "', ";
+                                });
+                                var queryStr = categoryStr.slice(0, categoryStr.length - 2);
 
                                 graphicsQuery.where = fieldName + " IN (" + queryStr + ")";
                                 queryTask.execute(graphicsQuery, responseHandler);
@@ -1425,7 +1425,7 @@ require([
                                             app.map.graphics.remove(obj);
                                         }
 
-                                    });                                    
+                                    });
 
                                     $.each(response.features, function(i, feature){
                                         var feature = feature;
@@ -1610,13 +1610,13 @@ require([
                                 click: function(evt){
 
                                     var queryField = switchWhereField( $('#groupResultsSelect')[0].selectedIndex );
-                                    var thisCategory;                                    
+                                    var thisCategory;
                                     if ($('#groupResultsSelect')[0].selectedIndex == 0) {
                                         thisCategory = this.id;
                                     } else {
                                         thisCategory = this.category;
                                     }
-                                        
+
                                     if (queryField != "MRB_ID"){
                                         var queryString = queryField + " = " + "'" + thisCategory + "'";
                                     } else {
@@ -1629,8 +1629,8 @@ require([
                                 }
                             }
 
-                        }                       
-                      
+                        }
+
                     }
                 },
                 credits: {
@@ -1716,7 +1716,7 @@ require([
             $.each(feature, function(key, value){
 
                 if (key !== "MRB_ID" && key !== "ST_MRB_ID") {
-                    htmlArr.push('<td>'+ value +'</td>'); 
+                    htmlArr.push('<td>'+ value +'</td>');
                 }
 
             });
@@ -1845,7 +1845,7 @@ require([
                     }
                     //map.addLayer(layer);
                     addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, layerDetails.options, layerDetails.wimOptions);
-                    //addMapServerLegend(layerName, layerDetails); 
+                    //addMapServerLegend(layerName, layerDetails);
                 } else{
                     var layer = new ArcGISDynamicMapServiceLayer(layerDetails.url, layerDetails.options);
                     if (layerDetails.visibleLayers) {
@@ -1854,7 +1854,7 @@ require([
                     addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, layerDetails.options, layerDetails.wimOptions);
                 }
 
-                
+
             });
         });
 
@@ -1992,7 +1992,7 @@ require([
                             });
                         });
 
-                    }                    
+                    }
                 });//end zoomto logic
             }
         } //get visible and non visible layer lists

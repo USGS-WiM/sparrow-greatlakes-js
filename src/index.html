@@ -131,7 +131,7 @@
                     <div id="geosearch_usgs" class="search"></div>
 
                     <div class="banner">
-                      <div class="banner-body">
+                      <div class="banner-body geosearch-body">
                         <h5>Supported Search Strings:</h5>
                           <br/>
                           GNIS Locations
@@ -172,7 +172,7 @@
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
-                            
+
                             <p class="p-meta p-light fullwidth">
                                 <b>SPARROW Surface Water-Quality Modeling Web Pages</b>
                                 <br/>
@@ -254,31 +254,31 @@
                         <div role="tabpanel" class="tab-pane" id="definitionsTabPane"></br>
 
                             <p class="p-meta p-light fullwidth">
-                                <b>Incremental Load</b><br/> 
+                                <b>Incremental Load</b><br/>
                                 The predicted mean annual load of the constituent (kilograms per year) leaving a stream reach that reflects only those sources contributed from within the incremental drainage area of that reach. The incremental load value includes the effects of in-stream attenuation processes associated with one half of the incremental reach length. Incremental drainage areas are represented here as “catchments”.
                             </p>
                             <p class="p-meta p-light fullwidth">
-                                <b>Accumulated Load (often referred to as "Total Load")</b><br/> 
+                                <b>Accumulated Load (often referred to as "Total Load")</b><br/>
                                 The predicted mean annual load of the constituent (kilograms per year) leaving a stream reach that reflects the accumulated mass of the constituent contributed by all sources in the total drainage area upstream of the reach outlet. The accumulated load value includes the effects of in-stream attenuation processes in all upstream reaches.
                             </p>
                             <p class="p-meta p-light fullwidth">
-                                <b>Aggregated Load</b><br/> 
+                                <b>Aggregated Load</b><br/>
                                 For results grouped by 8-digit HUC, tributary outlet, main watershed or state, aggregated load represents the sum of incremental loads for those selected areas.
                             </p>
                             <p class="p-meta p-light fullwidth">
-                                <b>Incremental Yield</b><br/> 
+                                <b>Incremental Yield</b><br/>
                                 The Incremental Load divided by the incremental drainage area of the reach. Units are kilograms per square kilometer per year.
                             </p>
                             <p class="p-meta p-light fullwidth">
-                                <b>Accumulated Yield</b><br/> 
+                                <b>Accumulated Yield</b><br/>
                                 The Accumulated Load divided by the total drainage area upstream of the reach outlet. Units are kilograms per square kilometer per year.
                             </p>
                             <p class="p-meta p-light fullwidth">
-                                <b>Aggregated Yield</b><br/> 
+                                <b>Aggregated Yield</b><br/>
                                 The Aggregated Load divided by the sum of the “grouped by” incremental drainage areas. Units are kilograms per square kilometer per year.
                             </p>
                             <p class="p-meta p-light fullwidth">
-                                <b>Delivered Incremental Load</b><br/> 
+                                <b>Delivered Incremental Load</b><br/>
                                 Incremental load multiplied by the delivery fraction. Delivery fraction is defined below.
                             </p>
                             <p class="p-meta p-light fullwidth">
@@ -323,8 +323,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <p class="p-meta p-light fullwidth" style="color:black; text-align:center">
-                        For more information about the SPARROW Great Lakes Web Interface please contact <a href="http://wim.usgs.gov/" target="_blank"><img src="images/wimvectorxs.png" id="wim_logo"></a>
+                    <p class="p-meta fullwidth" style="color:black; text-align:center">
+                        For more information about the SPARROW Great Lakes Web Interface please contact <a href="http://wim.usgs.gov/" target="_blank"><img src="images/wim_abbr.png" id="wim_logo"></a>
                     </p>
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="btn-black">Close</button>
                 </div>
@@ -363,7 +363,7 @@
                             </div>
                             <div class="user-guide-item">
                                 <div class="user-guide-item-image"><img src="images/userguide/mappoints.png"/></div>
-                                <p><b>Opening a chart</b>Clicking on a nutrient model feature will generate a chart showing the individual sources for the selected feature.  
+                                <p><b>Opening a chart</b>Clicking on a nutrient model feature will generate a chart showing the individual sources for the selected feature.
                                 The chart also contains a button to switch to a chart of all features currently displayed. (For more on the Chart features, see Data Display)</p>
                             </div>
                         </div>
@@ -445,7 +445,7 @@
                 </div>
 
                 <form id="disclaimerButtons" id="disclaimer-form" class="form-inline" style="text-align:center;">
-                    <button id="enterMapper" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button id="enterMapper" type="button" class="btn-blue" data-dismiss="modal">Close</button>
                 </form>
 
             </div><!-- /.modal-content -->
@@ -473,7 +473,7 @@
                 <div class="panel panel-default wim-sidebar-panel">
                     <div class="panel-heading" id="basemapsHeader">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse"  href="#basemapsPanel" aria-expanded="false" aria-controls="basemapsPanel">
+                            <a data-toggle="collapse" class="collapsed" href="#basemapsPanel" aria-expanded="false" aria-controls="basemapsPanel">
                                 Basemaps
                             </a>
                         </h4>
@@ -509,7 +509,7 @@
                 <div class="panel panel-default wim-sidebar-panel">
                     <div class="panel-heading" id="filtersPanelHeader">
                         <h4 class="panel-title">
-                            <a class="collapsed" data-toggle="collapse" href="#filtersPanel" aria-expanded="false" aria-controls="filtersPanel">
+                            <a class="" data-toggle="collapse" href="#filtersPanel" aria-expanded="false" aria-controls="filtersPanel">
                                 Data Filters
                             </a>
                         </h4>
@@ -623,8 +623,7 @@
 
 
 
-
-            <div class="col-md-10 col-lg-10 col-md-offset-3 col-lg-offset-2 no-col-padding keepit100" style="margin-top:20px;">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-lg-offset-2 col-md-offset-3 no-col-padding keepit100" style="margin-top:20px;">
                 <div id="mapDiv">
                     <div id="legendElement" class="panel panel-default legendClass">
                         <div id="legendHeading" class=" legendHeading" role="tab">
