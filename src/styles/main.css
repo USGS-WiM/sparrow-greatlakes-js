@@ -15,9 +15,11 @@ body {
 .user-guide-header {
     display: block;
     text-align: center;
-    font-size: 16pt;
+    font-size: 18pt;
     box-sizing: border-box;
     padding: 10px 0 25px;
+    color: black !important;
+    opacity: 1 !important;
 }
 .user-guide-item:nth-child(even) {
     background-color: rgba(0,0,0,.04);
@@ -31,14 +33,14 @@ body {
 .user-guide-item .user-guide-item-image {
     display: inline-block;
     width: 100%;
-    height: 100px;
+    height: auto;
+    /*max-height: 150px;*/
 }
 .user-guide-item img {
     display: block;
-    height: 100%;
     margin: 0 auto;
     width: auto;
-    max-height: 100%;
+    max-height: 220px;
     max-width: 100%;
     border: 4px solid rgba(0,0,0,.15);
 }
@@ -54,16 +56,22 @@ body {
     padding-left: 15px!important;
     padding-right: 20px!important;
     font-size: 12pt;
+    max-width: none;
 }
 .user-guide-item p b {
-    color: rgba(0,0,0,.6);
+    color: rgba(0,0,0,1);
     display: block;
     font-weight: bolder;
-    padding-bottom: 10px;
+    font-size: 18px;
+    padding-bottom: 6px;
 }
 
 .keepit100 {
     height: 100%;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 @media (max-width: 767px) {
@@ -111,17 +119,21 @@ body {
 }
 
 #homeButton {
-    position: absolute;
-    top: 75px;
-    left: 5px;
+    position: fixed !important;
+    top: 175px;
+    left: 15px;
     z-index: 50;
+    margin: 0 !important;
+    border-radius: 3px !important;
 }
 
 #locateButton {
-    position: absolute;
-    top: 115px;
-    left: 5px;
+    position: fixed;
+    border-radius: 3px !important;
+    top: 215px;
+    left: 15px;
     z-index: 50;
+    margin: 0 !important;
 }
 
 .hover-content {
@@ -346,14 +358,18 @@ a.lgi-zoom:hover {
 }
 
 #wim_logo {
-    background: #000 0 0;
-    border-radius: 5px;
-    width: 45px;
+    width: 75px;
+    height: auto;
+    margin: 0;
+    transition: 0.15s;
+    padding: 0;
 }
 
 #wim_logo:hover{
-    background: blue none repeat scroll 0 0;
     cursor: pointer;
+    transition: 0.15s;
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .wim-sidebar-panel {
@@ -582,6 +598,8 @@ table.hover-highlight tbody > tr.even:hover > td {
     height: auto !important;
     overflow: auto;  /*Erik Edited from scroll to auto 3/17/17*/
     max-height: 400px;
+    position: fixed !important;
+    top: 80px !important;
 }
 #chartWindowPanelTitle{
     font-size: 14px;
@@ -692,13 +710,167 @@ table.hover-highlight tbody > tr.even:hover > td {
   padding: 0 15px !important;
   margin-top: 15px !important;
   margin-bottom: 15px !important;
-  border-radius: 3px !important;
+  border-top-right-radius: 3px !important;
+  border-bottom-right-radius: 3px !important;
+  border-left: 0px solid black !important;
 }
 .search-api-container input:focus{
   border: none !important;
   border: 1px solid #0F8AFF !important;
+  border-left: 0px solid black !important;
   outline: none !important;
+}
+.search-api-icon{
+  border: 1px solid rgba(0,0,0,0.25) !important;
+  border-right: 0px solid black !important;
 }
 .search-api-button{
   display: none !important;
+}
+.geosearch-body{
+  font-size: 12px;
+}
+
+
+/*Toast message*/
+#toast-fixed{
+  position: fixed;
+  bottom: 0px;
+  right: 15px;
+  z-index: 1000000;
+  max-width: 280px;
+  width: auto;
+}
+
+#page-loader{
+  width: 83.33333333%;
+  position: fixed !important;
+  left: auto;
+  right: 0 !important;
+}
+@media (max-width: 1200px) {
+  #page-loader{
+    width: 75%;
+  }
+}
+@media (max-width: 992px) {
+  #page-loader{
+    width: 100%;
+  }
+}
+
+
+
+/*Sidebar Tweaks*/
+#sidebar .wim-sidebar-panel .panel-heading h4 a{
+  font-style: normal !important;
+}
+/*Sidebar Carrots*/
+/*Right*/
+#sidebar .wim-sidebar-panel .panel-heading h4 a.collapsed:after{
+  content: '\f3d3' !important;
+}
+/*Down*/
+#sidebar .wim-sidebar-panel .panel-heading h4 a:after{
+  content: '\f3d0' !important;
+}
+
+/*Lobipanel tweaks*/
+.lobipanel.panel-unpin{
+  margin-left: -50px;
+  max-height: 90vh;
+}
+
+/*New close button*/
+#chartClose b{
+  /*font-size: 0;
+  color: rgba(0,0,0,0);*/
+  width: 30px;
+  height: 22px;
+  display: block;
+  font-size: 0px;
+  position: relative;
+  top: -14px;
+}
+#chartClose b:before{
+  content: '\f12a';
+  font-family: 'Ionicons';
+  display: block;
+  color: rgba(0,0,0,0.5);
+  text-align: center;
+  font-size: 16px;
+}
+
+ul.nav-tabs{
+  background-color: white !important;
+  /*border-radius: 4px !important;*/
+  padding: 0 !important;
+  margin-bottom: 5px;
+  border: 4px solid rgba(0,0,0,0.15);
+}
+ul.nav-tabs li{
+  padding: 0 !important;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 0px !important;
+}
+ul.nav-tabs li a{
+  border-radius: 0px !important;
+  margin: 0 !important;
+  border: none !important;
+  box-sizing: border-box;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid transparent;
+  padding-top: 11px !important;
+}
+ul.nav-tabs li a:hover,
+ul.nav-tabs li a:focus,
+ul.nav-tabs li a:active{
+  cursor: pointer;
+  color: #10152C !important;
+}
+ul.nav-tabs li.active a{
+  color: #10152C;
+  border-bottom: 3px solid #0F8AFF !important;
+}
+
+
+/*Modal tab tweaks*/
+.modal-content #aboutModalBody ul li a {
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  letter-spacing: 0px !important;
+}
+.modal-content #aboutModalBody ul li.active a {
+  background-color: transparent !important;
+  color: black !important;
+  font-weight: 500 !important;
+}
+
+
+/*Map Zoom Controls*/
+#mapDiv{
+  padding-top: 30px;
+}
+@media (min-width: 992px) {
+  #mapDiv_zoom_slider{
+    left: 27% !important;
+    left: calc(25% + 13px) !important;
+  }
+  #homeButton,
+  #locateButton {
+      left: 27%;
+      left: calc(25% + 15px);
+  }
+}
+@media (min-width: 1200px) {
+  #mapDiv_zoom_slider{
+    left: 16.6666666% !important;
+    left: calc(16.66666% + 13px) !important;
+  }
+  #homeButton,
+  #locateButton {
+      left: 16.666666%;
+      left: calc(16.666666% + 15px);
+  }
 }
