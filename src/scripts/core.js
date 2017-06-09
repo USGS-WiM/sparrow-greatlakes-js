@@ -1356,7 +1356,8 @@ require([
                 },
                 colors: colorArr
             });
-
+            var buttons = Highcharts.getOptions().exporting.buttons.contextButton.menuItems;
+            
             $('#chartWindowContainer').highcharts({
                 chart: {
                     type: 'column',
@@ -1471,6 +1472,17 @@ require([
                 },
                 exporting:{
                     enabled: true,
+                    chartOptions:{
+                        chart:{
+                            events:{
+                                load:function(){
+                                    this.chartBackground.attr({ fill: 'rgba(255, 255, 255, 1.0)' });
+                                  // this.plotBackground.attr({ fill: 'rgba(255, 255, 255, 1.0)'  });
+                                    this.renderer.image('http://wim.usgs.gov/visuals/usgs/usgslogo1.jpg', 2, 2, 50, 30).add();
+                                }
+                            }
+                        }
+                    },
                     buttons:{
                         contextButton:{
                             text: "Chart Options",
@@ -1478,6 +1490,14 @@ require([
                             symbol: null,
                             align: 'right',
                             menuItems:[
+                                {
+                                    text: 'Download PNG',
+                                    onclick: function() {
+                                        this.exportChart({
+                                            type: 'PNG'                                            
+                                        });
+                                    }
+                                },                                
                                 {
                                     text: 'Download CSV',
                                     onclick: function(){
@@ -1646,6 +1666,7 @@ require([
                 });
             });
 
+            
         }); //END self-invoking highcharts function
         var height = $('#chartWindowDiv').height()
         var width = $('#chartWindowDiv').width()
