@@ -1915,12 +1915,22 @@ require([
                 //layer toggle
                 if (layer.visible) {
                     layer.setVisibility(false);
-                    app.legend.layerInfos.pop();
+                    var ids = [];
+                    $.each(app.legend.layerInfos, function(i, infos){
+                        ids.push(infos.layer.id);
+                    });
+                    console.log(ids);
+                    var index = ids.indexOf(layer.id);
+                    
+                    if (index > -1){
+                        app.legend.layerInfos.splice(index, 1);
+                    }
+                    app.legend.refresh();
                 } else {
                     layer.setVisibility(true);
                     app.legend.layerInfos.push({layer: layer, title: "Land Use"});
                     app.legend.refresh();
-                    //app.legend.refresh([{layer: layer, title: "Land Use"}]);
+
                 }
             });
 
