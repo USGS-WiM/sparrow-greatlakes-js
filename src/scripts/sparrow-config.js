@@ -959,7 +959,7 @@ var Catchments_st_tn = [
         field: "ACCL", 
         name: catchmentDefinitions_tn.mrb_id + " " + catchmentDefinitions_tn.accl, 
         chartOutfields: [
-            { attribute: "MRB_ID", label: catchmentDefinitions.pname },
+            { attribute: "PNAME", label: catchmentDefinitions.pname },
             { attribute: "ACCL_S1", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s1},
             { attribute: "ACCL_S2", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s2},
             { attribute: "ACCL_S3", label: catchmentDefinitions_tn.mrb_id + ' ' + catchmentDefinitions_tn.accl + ' ' + nitrogenSourceDefinitions.s3},

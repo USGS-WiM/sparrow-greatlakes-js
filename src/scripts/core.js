@@ -697,11 +697,6 @@ require([
                 app.map.graphics.clear();
                 //check response length to make sure a feature was clicked  (handles Layerdefs automatically)
                 if (response.length >= 1) {
-                    // highlight the first one clicked
-                    var selectedSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,0]), 1);
-                    selectedSymbol.id = response[0].value;
-                    response[0].feature.setSymbol(selectedSymbol);
-                    app.map.graphics.add(response[0].feature);
 
                     $.each(response, function(index, responseObj){
                         //UPDATE important! -- make sure that layerIds in 'if' statements below match calibration sites layers in the REST services.
@@ -749,6 +744,13 @@ require([
 
                     //handle map click for Sparrow Data layer
                     if (calibrationInfoWindow != true){
+
+                        // highlight the first poly clicked
+                        var selectedSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,0]), 1);
+                        selectedSymbol.id = response[0].value;
+                        response[0].feature.setSymbol(selectedSymbol);
+                        app.map.graphics.add(response[0].feature);
+
                         var fields = getChartOutfields( app.map.getLayer('SparrowRanking').visibleLayers[0] );
                         var attributes = response[0].feature.attributes;
                         var valuePairs = {};
@@ -1919,8 +1921,12 @@ require([
                 //layer toggle
                 if (layer.visible) {
                     layer.setVisibility(false);
+                    app.legend.layerInfos.pop();
                 } else {
                     layer.setVisibility(true);
+                    app.legend.layerInfos.push({layer: layer, title: "Land Use"});
+                    app.legend.refresh();
+                    //app.legend.refresh([{layer: layer, title: "Land Use"}]);
                 }
             });
 
