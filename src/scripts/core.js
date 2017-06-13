@@ -1915,8 +1915,12 @@ require([
                 //layer toggle
                 if (layer.visible) {
                     layer.setVisibility(false);
+                    app.legend.layerInfos.pop();
                 } else {
                     layer.setVisibility(true);
+                    app.legend.layerInfos.push({layer: layer, title: "Land Use"});
+                    app.legend.refresh();
+                    //app.legend.refresh([{layer: layer, title: "Land Use"}]);
                 }
             });
 
