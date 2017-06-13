@@ -16,6 +16,7 @@ var mapCenter = [-87, 42];
 //app.defaultMapCenter = [-87, 42];
 defaultZoomLevel = 6
 
+
 var tableOutFields = [
     { field: "FID", name: "Unique Feature Id"},
     { field: "GRP1", name: "Main River Basin"},

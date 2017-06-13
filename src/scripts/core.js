@@ -1921,12 +1921,23 @@ require([
                 //layer toggle
                 if (layer.visible) {
                     layer.setVisibility(false);
-                    app.legend.layerInfos.pop();
+                    //find id, remove from legend
+                    var ids = [];
+                    $.each(app.legend.layerInfos, function(i, infos){
+                        ids.push(infos.layer.id);
+                    });
+
+                    var index = ids.indexOf(layer.id);
+                    if (index > -1){
+                        app.legend.layerInfos.splice(index, 1);
+                    }
+                    app.legend.refresh();
                 } else {
                     layer.setVisibility(true);
-                    app.legend.layerInfos.push({layer: layer, title: "Land Use"});
+                    //add to legend.
+                    app.legend.layerInfos.push({layer: layer, title: e.currentTarget.innerText});
                     app.legend.refresh();
-                    //app.legend.refresh([{layer: layer, title: "Land Use"}]);
+
                 }
             });
 
