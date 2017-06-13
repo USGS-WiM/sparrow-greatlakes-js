@@ -194,11 +194,10 @@ function setAggregateGroup(groupBySelectedIndex, selectedRadio){
 } //END setAggregateGroup()
 
 function AOIChange(e){
-    
+    $("#page-loader").fadeIn();
     var selectId = e.currentTarget.id;
     var selectValue = e.currentTarget.value;
     var groupResultsIndex = $("#groupResultsSelect")[0].selectedIndex;
-    
 
     var newObj = {
         selectedId: selectId,
@@ -223,6 +222,9 @@ function AOIChange(e){
     generateRenderer();
 
     if( $("#chartWindowDiv").css("visibility") == "visible" ) {
+        $("#toast_body").html("Chart updating");  
+        $("#toast-fixed").fadeIn();
+        
         app.map.graphics.clear();
         app.createChartQuery();
     }   
@@ -544,12 +546,14 @@ function generateRenderer(){
                 }]);
             }
             if(layer.visible == false){
-                layer.show();
+                layer.show();                
             }
+            $("#page-loader").fadeOut(); 
         }
 
         function errorHandler(err){
             console.log('generateRenderer Err ', err);
+            $("#page-loader").fadeOut(); 
         }
 
         function createLegend(){
@@ -560,7 +564,8 @@ function generateRenderer(){
                     title: getLegendLabels( app.map.getLayer('SparrowRanking').visibleLayers[0] )
                 }]
             }, dom.byId("legendDiv"));
-            app.legend.startup();            
+            app.legend.startup();                        
         }
+        
     }); // END Dojo
 } //END generateRenderer()

@@ -805,7 +805,11 @@ require([
 
     }//END createTableQuery()
 
-    app.createChartQuery = function(optionalWhereClause){
+    app.createChartQuery = function(optionalWhereClause){   
+        $("#toast_body").html("Chart is loading");        
+        $("#toast-fixed").fadeIn();
+        $("#toast-fixed").css('opacity', '1');
+ 
         $('#chartContainer').empty();
         console.log('creating chart query');
         var chartQueryTask;
@@ -1292,6 +1296,8 @@ require([
         $('#chartWindowDiv').addClass( 'chartWindowMaximize' );
         $('#chartWindowDiv').removeClass( 'chartWindowMinimize' );
         $('#chartWindowDiv').css('visibility', 'visible');
+        $("#toast-fixed").fadeOut();        
+        $("#toast-fixed").css('opacity', '0');
 
         //Important! UPDATE if nutrient Models change names.
         if( $('.radio input[type="radio"]:checked')[0].id == 'radio1'){

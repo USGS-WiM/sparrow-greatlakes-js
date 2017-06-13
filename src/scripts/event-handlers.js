@@ -2,6 +2,8 @@ function loadEventHandlers() {
 
      /*RADIO EVENTS*/
     $('.radio').on('change', function(e){
+        $("#page-loader").fadeIn();
+
         var groupBySelectedIndex = $("#groupResultsSelect")[0].selectedIndex;
         var selectedRadio = this.firstElementChild.id;
 
@@ -11,6 +13,9 @@ function loadEventHandlers() {
 
         //reflow the chart if it's open
         if( $("#chartWindowDiv").css("visibility") == "visible" ) {
+            $("#toast_body").html("Chart updating");  
+            $("#toast-fixed").fadeIn();  
+ 
             app.createChartQuery();
         }
 
@@ -79,9 +84,12 @@ function loadEventHandlers() {
 
     /*METRIC EVENTS*/
     $("#displayedMetricSelect").on('changed.bs.select', function(e){
+        $("#page-loader").fadeIn();
         generateRenderer();
 
         if( $("#chartWindowDiv").css("visibility") == "visible" ) {
+            $("#toast_body").html("Chart updating");  
+            $("#toast-fixed").fadeIn();
             app.createChartQuery();
         }
     });
@@ -89,6 +97,7 @@ function loadEventHandlers() {
 
     /* CLEAR AOI BUTTON EVENT */
     $("#clearAOIButton").on('click', function(){
+        $("#page-loader").fadeIn();
         var sparrowId = app.map.getLayer('SparrowRanking').visibleLayers[0];
 
         //revert to default layer from split layer
@@ -112,6 +121,8 @@ function loadEventHandlers() {
         generateRenderer();
 
         if( $("#chartWindowDiv").css("visibility") == "visible" ) {
+            $("#toast_body").html("Chart updating");  
+            $("#toast-fixed").fadeIn();
             app.createChartQuery();
         }        
     });
@@ -130,6 +141,7 @@ function loadEventHandlers() {
     }
     /***TODO UPDATE IMPORTANT! -- THE CASES IN MRB3 ARE CORRECT, BUT THE LOGIC NEEDS TO BE REVISITED TO DETERMINE WHICH AOI COMBINATIONS NEED TO BE DISABLED****/
     $('.nonAOISelect').on('change', function(){
+        $("#page-loader").fadeIn();
         //first clear all disabled's and warnings
         $("#grp1-select").removeClass('disabled'); //Main River Basin
         $("#grp1-select").removeAttr('disabled');
@@ -226,7 +238,7 @@ function loadEventHandlers() {
     });
 
     /* SHOW CHART BUTTON CLICK */
-   $("#chartButton").on("click", function(){
+   $("#chartButton").on("click", function(){     
         //set up the Chart chain of events
         //check to see if custom click was performed
         if (app.userSelectedDispFieldName != "") {
@@ -257,7 +269,6 @@ function loadEventHandlers() {
 
     //displays map scale on map load
     app.map.on('load', function (){
-
         app.initMapScale();
         app.map.infoWindow.set('highlight', false);
         app.map.infoWindow.set('titleInBody', false);
@@ -266,6 +277,7 @@ function loadEventHandlers() {
         app.map.disableClickRecenter();
     });
 
+   
     //displays map scale on scale change (i.e. zoom level)
     app.map.on('zoom-end', function (){
         var scale = app.map.getScale().toFixed(0);
@@ -286,6 +298,7 @@ function loadEventHandlers() {
 
     //map click w/ identifyParams  -- more params set in executeIdentifyTask();
     app.map.on("click", function(evt) {
+
         app.identifyParams = new esri.tasks.IdentifyParameters();
         app.identifyParams.tolerance = 8;
         app.identifyParams.returnGeometry = true;
