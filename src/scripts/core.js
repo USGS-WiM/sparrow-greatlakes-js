@@ -1915,20 +1915,21 @@ require([
                 //layer toggle
                 if (layer.visible) {
                     layer.setVisibility(false);
+                    //find id, remove from legend
                     var ids = [];
                     $.each(app.legend.layerInfos, function(i, infos){
                         ids.push(infos.layer.id);
                     });
-                    console.log(ids);
+
                     var index = ids.indexOf(layer.id);
-                    
                     if (index > -1){
                         app.legend.layerInfos.splice(index, 1);
                     }
                     app.legend.refresh();
                 } else {
                     layer.setVisibility(true);
-                    app.legend.layerInfos.push({layer: layer, title: "Land Use"});
+                    //add to legend.
+                    app.legend.layerInfos.push({layer: layer, title: e.currentTarget.innerText});
                     app.legend.refresh();
 
                 }
