@@ -874,3 +874,8 @@ ul.nav-tabs li.active a{
       left: calc(16.666666% + 15px);
   }
 }
+
+
+.wim-nav .container .nav-title{
+    width: 270px !important;
+}

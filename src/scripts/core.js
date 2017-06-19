@@ -1303,10 +1303,10 @@ require([
 
         //Important! UPDATE if nutrient Models change names.
         if( $('.radio input[type="radio"]:checked')[0].id == 'radio1'){
-            $('#chartWindowPanelTitle').text('Phosphorus ' + labelySelect() );
+            $('#chartWindowPanelTitle').text('Total Phosphorus ' + labelySelect() );
             console.log("Radio One");
         }   else{
-            $('#chartWindowPanelTitle').text('Nitrogen ' + labelySelect() );
+            $('#chartWindowPanelTitle').text('Total Nitrogen ' + labelySelect() );
             console.log("Radio Two");
         }
 
@@ -1521,13 +1521,15 @@ require([
                                 {
                                     text: 'Change Background Transparency',
                                     onclick: function(){
-                                        if(this.chartBackground.element.attributes.fill.value != 'rgba(255, 255, 255, .9)'){
+                                        //check for rgba vs. rgb
+                                        if(this.chartBackground.element.attributes.fill.value.substring(0,4) != 'rgba'){
+                                            //this value should match the default value set above in Chart.BackgroundColor 
                                             this.chartBackground.attr({
-                                                fill: 'rgba(255, 255, 255, .9)'
+                                                fill: 'rgba(255, 255, 255, .45)'
                                             });
                                         }else{
                                             this.chartBackground.attr({
-                                                fill: 'rgba(255, 255, 255, .1)'
+                                                fill: 'rgb(255, 255, 255)'
                                             });
                                         }
                                     }
@@ -1676,7 +1678,7 @@ require([
 
             
         }); //END self-invoking highcharts function
-        var height = $('#chartWindowDiv').height()
+        var height = $('#chartWindowDiv').height() - 65;
         var width = $('#chartWindowDiv').width()
         $('#chartWindowContainer').highcharts().setSize(width-50, height-105, true);
 
