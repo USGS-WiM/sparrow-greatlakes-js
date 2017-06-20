@@ -1199,9 +1199,9 @@ require([
             labelArr.push(value);
         });
      //   labelArr.push("Area"); // for all but catchments
-        if (sparrowLayerId == 0 || sparrowLayerId == 8) {
+        /*if (sparrowLayerId == 0 || sparrowLayerId == 8) {
             labelArr[0] = "Name";
-        }
+        }*/
         buildTable(tableArr, labelArr);
 
         //removes 'group by' from labels  (MUST MATCH CATEGORIES)
@@ -1746,10 +1746,10 @@ require([
 
             htmlArr.push("<tr id='row"+rowI+"'>");
             $.each(feature, function(key, value){
-
-                if (key !== "MRB_ID" && key !== "ST_MRB_ID") {
+                //comment in if changing back to PNAME
+                //if (key !== "MRB_ID" && key !== "ST_MRB_ID") {
                     htmlArr.push('<td>'+ value +'</td>');
-                }
+                //}
 
             });
 
