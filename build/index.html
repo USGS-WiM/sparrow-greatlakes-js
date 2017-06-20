@@ -18,7 +18,7 @@
 
     <script src="scripts/vendor.js"></script>
     <script type="text/javascript" src="https://js.arcgis.com/3.20/"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript" src="scripts/highcharts-exporting-module.js"></script>
 
     <script src="scripts/combined.js"></script>
 
@@ -63,7 +63,8 @@
             <img src="http://wim.usgs.gov/website-assets/usgs-logo.png"/>
         </a>
         <span class="nav-title">
-            2002 MRB3 Great Lakes TP Sparrow
+            Great Lakes Nutrient Loading
+            <small>Based on 2002 MRB3 Sparrow Models</small>
         </span>
         <div class="nav-links">
             <a id="geosearchNav"><span><i class="ion-search"></i> Geosearch</span></a>
@@ -479,11 +480,11 @@
                             <div id="modelResultsRadio">
                               <label for="radio1" class="rdo row radio active" >
                                   <input type="radio" name="radio1" id="radio1" value="option1" checked />
-                                  <span>Phosphorus</span>
+                                  <span>Total Phosphorus</span>
                               </label>
                               <label for="radio2" class="rdo row radio">
                                   <input type="radio" name="radio1" id="radio2" value="option2" />
-                                  <span>Nitrogen</span>
+                                  <span>Total Nitrogen</span>
                               </label>
                             </div>
 
@@ -520,7 +521,7 @@
 
                             <hr/>
 
-                            <h6 class="alignc">Displayed Metric</h6>
+                            <h6 class="alignc">Metric</h6>
 
                             <select id="displayedMetricSelect" class="selectpicker nonAOISelect" data-width="280px"></select>
 

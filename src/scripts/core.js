@@ -1199,9 +1199,9 @@ require([
             labelArr.push(value);
         });
      //   labelArr.push("Area"); // for all but catchments
-        if (sparrowLayerId == 0 || sparrowLayerId == 8) {
+        /*if (sparrowLayerId == 0 || sparrowLayerId == 8) {
             labelArr[0] = "Name";
-        }
+        }*/
         buildTable(tableArr, labelArr);
 
         //removes 'group by' from labels  (MUST MATCH CATEGORIES)
@@ -1346,7 +1346,7 @@ require([
 
         //need listener to resize chart
         $('#chartWindowDiv').resize(function() {
-            var height = $('#chartWindowDiv').height()
+            var height = $('#chartWindowDiv').height() 
             var width = $('#chartWindowDiv').width()
             $('#chartWindowContainer').highcharts().setSize(width-50, height-105, true);//$('#chartWindowContainer').highcharts().setSize(width-50, height-75, true);
         });
@@ -1679,7 +1679,7 @@ require([
             
         }); //END self-invoking highcharts function
         var height = $('#chartWindowDiv').height() - 65;
-        var width = $('#chartWindowDiv').width()
+        var width = $('#chartWindowDiv').width();
         $('#chartWindowContainer').highcharts().setSize(width-50, height-105, true);
 
     } //END ShowChart()
@@ -1718,12 +1718,13 @@ require([
         var selectedLayerId = $('#groupResultsSelect')[0].selectedIndex;
         if (selectedLayerId == 0) {
             //add Basin Area, Upstream Area, and Total
-            headerKeyArr.push("Basin Area");
+            headerKeyArr.push("Total");
+            headerKeyArr.push("Catchment Area");
             headerKeyArr.push("Upstream Area");
-            headerKeyArr.push("Total");
         } else {
-            headerKeyArr.push("Area");
             headerKeyArr.push("Total");
+            headerKeyArr.push("Area");
+            
         }
 
         var htmlHeaderArr =  [];
@@ -1745,10 +1746,10 @@ require([
 
             htmlArr.push("<tr id='row"+rowI+"'>");
             $.each(feature, function(key, value){
-
-                if (key !== "MRB_ID" && key !== "ST_MRB_ID") {
+                //comment in if changing back to PNAME
+                //if (key !== "MRB_ID" && key !== "ST_MRB_ID") {
                     htmlArr.push('<td>'+ value +'</td>');
-                }
+                //}
 
             });
 
