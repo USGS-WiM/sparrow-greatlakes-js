@@ -98,7 +98,7 @@ require([
             }
         },
         {
-            "groupHeading": "Auxilliary Layers",
+            "groupHeading": "Auxiliary Layers",
             "showGroupHeading": true,
             "includeInLayerList": true,
             "layers": {
@@ -107,12 +107,28 @@ require([
                     "visibleLayers": [20],
                     "options": {
                         "id": "streams",
-                        "visible": false,
-                        "opacity": 0.6
+                        "visible": false
                     },
                     "wimOptions": {
                         "type": "layer",
-                        "layerType": "agisDynamic",
+                        "layerType": "agisFeature",
+                        "includeInLayerList": true,
+                        "hasOpacitySlider": true,
+                        "hasZoomto": false,
+                        "includeLegend" : false
+                    }
+                },
+                "Great Lakes SPARROW Model Area" : {
+                    "url": serviceBaseURL,
+                    "visibleLayers": [21],
+                    "options": {
+                        "id": "modelArea",
+                        "visible": false,
+                        "opacity": 0.50
+                    },
+                    "wimOptions": {
+                        "type": "layer",
+                        "layerType": "agisFeature",
                         "includeInLayerList": true,
                         "hasOpacitySlider": true,
                         "hasZoomto": false,
@@ -134,7 +150,7 @@ require([
                         "hasZoomto": false,
                         "includeLegend": false
                     }
-                },
+                }
             }
         }
     ]

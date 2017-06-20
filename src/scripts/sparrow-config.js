@@ -51,9 +51,9 @@ var aggregateDefinitions = {
 
 // key, value pairs come from PHOSPHORUS attribute definitions Excel file
 var catchmentDefinitions = {
-    mrb_id : "SPARROW Reach ID",
-    st_mrb_id: "SPARROW Reach ID by State",
-    pname : "Reach Name",
+    mrb_id : "Catchment ID",
+    st_mrb_id: "Catchment ID by State",
+    pname : "Catchment Name",
     accl : "Accumulated load (kg)",
     incl : "Incremental load (kg)",
     accy : "Accumulated yield (kg/km2)",
@@ -66,9 +66,9 @@ var catchmentDefinitions = {
 
 //Nitrogen same as Phosphorus in this model
 var catchmentDefinitions_tn = {
-    mrb_id : "SPARROW Reach ID",
-    st_mrb_id: "SPARROW Reach ID by State",
-    pname : "Reach Name",
+    mrb_id : "Catchment ID",
+    st_mrb_id: "Catchment ID by State",
+    pname : "Catchment Name",
     accl : "Accumulated load (kg)",
     incl : "Incremental load (kg)",
     accy : "Accumulated yield (kg/km2)",

@@ -1346,7 +1346,7 @@ require([
 
         //need listener to resize chart
         $('#chartWindowDiv').resize(function() {
-            var height = $('#chartWindowDiv').height()
+            var height = $('#chartWindowDiv').height() 
             var width = $('#chartWindowDiv').width()
             $('#chartWindowContainer').highcharts().setSize(width-50, height-105, true);//$('#chartWindowContainer').highcharts().setSize(width-50, height-75, true);
         });
@@ -1679,7 +1679,7 @@ require([
             
         }); //END self-invoking highcharts function
         var height = $('#chartWindowDiv').height() - 65;
-        var width = $('#chartWindowDiv').width()
+        var width = $('#chartWindowDiv').width();
         $('#chartWindowContainer').highcharts().setSize(width-50, height-105, true);
 
     } //END ShowChart()
@@ -1718,12 +1718,13 @@ require([
         var selectedLayerId = $('#groupResultsSelect')[0].selectedIndex;
         if (selectedLayerId == 0) {
             //add Basin Area, Upstream Area, and Total
-            headerKeyArr.push("Basin Area");
+            headerKeyArr.push("Total");
+            headerKeyArr.push("Catchment Area");
             headerKeyArr.push("Upstream Area");
-            headerKeyArr.push("Total");
         } else {
-            headerKeyArr.push("Area");
             headerKeyArr.push("Total");
+            headerKeyArr.push("Area");
+            
         }
 
         var htmlHeaderArr =  [];
