@@ -91,8 +91,8 @@ var mappedDefinitions = {
 }
 
 var phosphorusSourceDefinitons = {
-    s1 : "Urban Land",
-    s2 : "Sewerage Point Sources",
+    s1 : "Point Sources",
+    s2 : "Urban Land",
     s3 : "Manure (Confined)",
     s4 : "Manure (Unconfined)",
     s5 : "Farm Fertilizer",
