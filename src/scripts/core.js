@@ -1173,10 +1173,10 @@ require([
             });
             chartArr.push(data);
         });
-
-        if ($('#groupResultsSelect')[0].selectedIndex == 0) {
+        //appears to be stripping the last source value array off instead
+        /***if ($('#groupResultsSelect')[0].selectedIndex == 0) {
             chartArr.pop(); // remove the last array of MRB_IDs  // TMR ADDED
-        }
+        }***/
         //remove 1st field ('group by') from charting arrays
         categories.shift();
         $.each(chartArr.shift(), function(key, value) {  // TMR ADDED
@@ -1718,12 +1718,12 @@ require([
         var selectedLayerId = $('#groupResultsSelect')[0].selectedIndex;
         if (selectedLayerId == 0) {
             //add Basin Area, Upstream Area, and Total
-            headerKeyArr.push("Total");
             headerKeyArr.push("Catchment Area");
             headerKeyArr.push("Upstream Area");
-        } else {
             headerKeyArr.push("Total");
+        } else {
             headerKeyArr.push("Area");
+            headerKeyArr.push("Total");
             
         }
 
