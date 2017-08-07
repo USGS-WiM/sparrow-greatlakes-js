@@ -392,6 +392,7 @@
 
     $("#chartClose").on('click', function(){
         map.graphics.clear();
+        $("#chartButton").html("Show Chart for All");
         $("#chartWindowDiv").css("visibility", "hidden");
         $("#chartWindowContainer").empty();
     });

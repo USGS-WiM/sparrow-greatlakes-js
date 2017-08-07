@@ -684,12 +684,16 @@ require([
                         if (app.userSelectedDispFieldName == "") {
                             app.userSelectedDispFieldName = respObj.displayFieldName;
                         }
+                        // make sure 'Show Chart for All' button now says 'Show Chart for selected'
+                        $('#chartButton').html("Show Chart for selected");
                     } else {
                         //removing
                         var symbolToRemove = app.map.graphics.graphics.filter(function (g) { return g.symbol.id == respObj.value})[0];
                         app.map.graphics.remove(symbolToRemove);
                         //remove this from array of responses
                         app.userSelectedShapes.splice(app.userSelectedShapes.indexOf(respValue), 1);
+                        // if all selected have been removed, change Show Chart button back to say All
+                        if (app.userSelectedShapes.length == 0) $('#chartButton').html("Show Chart for All");
                     }
                 });
             } else {
@@ -1338,6 +1342,7 @@ require([
 
         $('#chartClose').on('click', function(){
             app.map.graphics.clear();
+            $("#chartButton").html("Show Chart for All");
             app.formattedHighlightString = "";
             $('#chartWindowDiv').css('visibility', 'hidden');
             $('#chartWindowContainer').empty();
