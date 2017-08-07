@@ -125,6 +125,9 @@ function loadEventHandlers() {
             $("#toast-fixed").fadeIn();
             app.createChartQuery();
         }        
+        $(".grp1-warning").remove();
+        $(".grp2-warning").remove();
+        $(".grp3-warning").remove();
     });
     /*END CLEAR AOI BUTTON EVENT */
 

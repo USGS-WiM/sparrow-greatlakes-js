@@ -1821,6 +1821,13 @@ require([
         showModal();
     });
 
+    function showDataDownloadModal () {
+        $('#downloadDatamodal').modal('show');
+    }
+    $('#dataDownloadNav').click(function(){
+        showDataDownloadModal();
+    });
+
     function showAboutModal () {
         $('#aboutModal').modal('show');
     }

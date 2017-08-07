@@ -847,6 +847,72 @@ ul.nav-tabs li.active a{
   font-weight: 500 !important;
 }
 
+/*Modal tab tweaks*/
+.modal-content #ddModalBody ul li a {
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  letter-spacing: 0px !important;
+}
+.modal-content #ddModalBody ul li.active a {
+  background-color: transparent !important;
+  color: black !important;
+  font-weight: 500 !important;
+}
+
+.modal-content #ddModalBody {
+  padding: 0 0px;
+}
+.modal-content #ddModalBody ul {
+  background-color: #ECEEF3;
+  border: none;
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+}
+.modal-content #ddModalBody ul li {
+  border-radius: 0;
+}
+.modal-content #ddModalBody ul li.active {
+  border: none;
+}
+.modal-content #ddModalBody ul li.active a {
+  border: none;
+  margin: 0 auto;
+  border-radius: 0;
+  padding: 10px 15px 9px 15px;
+  background-color: #6F758E;
+  color: #FFFFFF;
+}
+.modal-content #ddModalBody ul li.active a:hover {
+  border: none;
+  background-color: #6F758E;
+}
+.modal-content #ddModalBody ul li a {
+  border-radius: 0;
+  color: #6F758E;
+  border: none;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+.modal-content #ddModalBody ul li a:hover {
+  border: none;
+  background-color: rgba(111, 117, 142, 0.15);
+}
+.modal-content #ddModalBody .tab-content {
+  box-sizing: border-box;
+  padding: 25px;
+  color: #6F758E;
+}
+.modal-content #ddModalBody .tab-content h3 {
+  margin: 0 auto;
+}
+.modal-content #ddModalBody .tab-content p {
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+
+
 
 /*Map Zoom Controls*/
 #mapDiv{

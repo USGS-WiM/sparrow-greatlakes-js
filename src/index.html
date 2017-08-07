@@ -114,6 +114,7 @@
             <a id="geosearchNav"><span><i class="ion-search"></i> Geosearch</span></a>
             <a id="userGuideNav"><span><i class="ion-ios-book"></i> User Guide</span></a>
             <a id="aboutNav"><span><i class="ion-help"></i> About</span></a>
+            <a id="dataDownloadNav"><span><i class="ion-arrow-down-c"></i> Data Download</span></a>
         </div>
     </div>
   </nav>
@@ -170,7 +171,6 @@
                         <li role="presentation" class="active"><a id="dataLimitationsTab" href="#dataLimitationsTabPane" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Data Limitations</a></li>
                         <li role="presentation"><a id="contactTab" href="#contactTabPane" data-toggle="tab"><i class="fa fa-envelope-o"></i>&nbsp;Contact Information</a></li>
                         <li role="presentation"><a id="definitionsTab" href="#definitionsTabPane" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;Definitions</a></li>
-                        <li role="presentation"><a id="downloadTab" href="#downloadTabPane" data-toggle="tab"><i class="fa fa-arrow-circle-o-down"></i>&nbsp;Download Data</a></li>
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane" id="aboutTabPane"></br>
@@ -311,16 +311,7 @@
                                 Please note: For delivered results shown here, the downstream target represents the immediate downstream Great Lake.
                             </p>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="downloadTabPane"></br>
-                          <div style="display: flex; justify-content: space-around;">
-                            <button type="button" class="btn-blue"  id="phosphorusDownload">
-                                <span class="glyphicon glyphicon-download"></span> Download Phosphorus Model Results
-                            </button>
-                            <button type="button" class="btn-blue"  id="nitrogenDownload">
-                                <span class="glyphicon glyphicon-download"></span> Download Nitrogen Model Results
-                            </button>
-                          </div>
-                        </div>
+                        
                     </div>
                 </div>
 
@@ -445,15 +436,54 @@
                         </div>
                     </div>
                 </div>
-
                 <form id="disclaimerButtons" id="disclaimer-form" class="form-inline" style="text-align:center;">
                     <button id="enterMapper" type="button" class="btn-blue" data-dismiss="modal">Close</button>
                 </form>
-
             </div><!-- /.modal-content -->
         </div> <!-- /.modal-dialog -->
     </div><!-- end UserGuidemodal -->
 
+    <div id="downloadDatamodal" class="modal fade"  tabindex="-1" role="dialog" >
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="ion-close"></i></button>
+                  <h3 style="margin: 0;">Download Data</h3>
+                </div>
+                <div id="ddModalBody" class="modal-body">
+                    <ul class="nav nav-tabs" id="ddModalTabs">
+                        <li role="presentation" class="active"><a id="generalTab" href="#generalTabPane" data-toggle="tab"><i class="fa fa-search"></i>&nbsp;General</a></li>
+                        <li role="presentation"><a id="fromMapTab" href="#fromMapTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;From Map</a></li>
+                        <li role="presentation"><a id="fromChtTableTab" href="#fromChtTableTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;From Chart/Table</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="generalTabPane"></br>
+                          <div style="display: flex; justify-content: space-around;">
+                            <button type="button" class="btn-blue"  id="phosphorusDownload">
+                                <span class="glyphicon glyphicon-download"></span> Download Phosphorus Model Results
+                            </button>
+                            <button type="button" class="btn-blue"  id="nitrogenDownload">
+                                <span class="glyphicon glyphicon-download"></span> Download Nitrogen Model Results
+                            </button>
+                          </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="fromMapTabPane">
+                            <span class="user-guide-header">From Map</span>
+                            
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="fromChtTableTabPane">
+                            <span class="user-guide-header">From Chart/Table</span>
+                            
+                        </div>                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="btn-black">Close</button>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div> <!-- /.modal-dialog -->
+    </div><!-- end DownloadDatamodal -->
 
     <div id="tableModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-lg">
