@@ -131,7 +131,7 @@ function loadEventHandlers() {
     // called from within $('.nonAOISelect').on('change' function several times to append warning and clear contents of AOI when getting set to disabled
     function clearAOIandAppendWarning(warningId, cantShow, fromHere, thisSelect, anAOI){
         // 'grp2-warning', 'Tributary', 'HUC8', '#grp2-select option', 'AOI2');
-        $("#clear_btn").append("<a class='" + warningId + "' data-toggle='tooltip' data-placement='top' title='Cannot show " + cantShow + " Area of Interest while grouping by " + fromHere + ".'>"+
+        $("#clearAOIButton").append("<a class='" + warningId + "' data-toggle='tooltip' data-placement='top' title='Cannot show " + cantShow + " Area of Interest while grouping by " + fromHere + ".'>"+
                 "<span class='glyphicon glyphicon-warning-sign'></span></a>");
         //has value, so unselect it, clear the app's LayerDefObj of this property & trigger AOIChange event
         $(thisSelect + ' option').attr("selected",false);

@@ -1755,7 +1755,6 @@ require([
                 //if (key !== "MRB_ID" && key !== "ST_MRB_ID") {
                     htmlArr.push('<td>'+ value +'</td>');
                 //}
-
             });
 
             htmlArr.push("</tr>");
