@@ -217,6 +217,33 @@ require([
                 layerDefObj.AOI3 = newObj.selectedValue;
                 break;
         }
+        // disable available options in the Group By dropdown based on choses in layerDefObj
+        // first enable all options and refresh, then disable only those needed and refresh
+        $('#groupResultsSelect option').each(function() {
+            (this).disabled = false;
+        });
+        if (layerDefObj.AOI3) {
+            // if HUC8 has values NO: [2] Tributary,[3] Main River Basin, [4] State Group By
+            var disForHUC = document.getElementById("groupResultsSelect").getElementsByTagName("option");
+            disForHUC[2].disabled = true; // trib
+            disForHUC[3].disabled = true; // main river basin
+            disForHUC[4].disabled = true; // state
+            $('#groupResultsSelect').selectpicker('render');
+        } 
+        if (layerDefObj.AOI2) {
+            // if Trib has value NO: [1] HUC8, [3] Main River Basin, [4] State Group By
+            var disForTrib = document.getElementById("groupResultsSelect").getElementsByTagName("option");
+            disForTrib[1].disabled = true; // trib
+            disForTrib[3].disabled = true; // main river basin
+            disForTrib[4].disabled = true; // state
+            $('#groupResultsSelect').selectpicker('render');
+        }
+        if (layerDefObj.AOI1) {
+            // if Main River Basin has value NO: [4] State Group By
+            var disForMRB = document.getElementById("groupResultsSelect").getElementsByTagName("option");
+            disForMRB[4].disabled = true; // main river basin
+            $('#groupResultsSelect').selectpicker('render');
+        } 
         app.updateAOIs(newObj.selectedId);
     };
 

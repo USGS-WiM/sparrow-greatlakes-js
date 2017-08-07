@@ -125,9 +125,15 @@ function loadEventHandlers() {
             $("#toast-fixed").fadeIn();
             app.createChartQuery();
         }        
+        // remove all warnings if any
         $(".grp1-warning").remove();
         $(".grp2-warning").remove();
         $(".grp3-warning").remove();
+        //loop through all options from group results by and enable all
+        $('#groupResultsSelect option').each(function() {
+            (this).disabled = false;
+        });
+        $('#groupResultsSelect').selectpicker('render');
     });
     /*END CLEAR AOI BUTTON EVENT */
 
