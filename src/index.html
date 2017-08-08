@@ -94,11 +94,6 @@
 </head>
 <body>
 
-
-
-
-
-
   <!-- NavBar -->
   <nav class="wim-nav">
     <div class="container">
@@ -453,33 +448,74 @@
                 <div id="ddModalBody" class="modal-body">
                     <ul class="nav nav-tabs" id="ddModalTabs">
                         <li role="presentation" class="active"><a id="generalTab" href="#generalTabPane" data-toggle="tab"><i class="fa fa-search"></i>&nbsp;General</a></li>
-                        <li role="presentation"><a id="fromMapTab" href="#fromMapTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;From Map</a></li>
-                        <li role="presentation"><a id="fromChtTableTab" href="#fromChtTableTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;From Chart/Table</a></li>
+                        <li role="presentation"><a id="fromMapTab" href="#fromMapTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;From Chart/Table</a></li>
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="generalTabPane"></br>
-                          <div style="display: flex; justify-content: space-around;">
-                            <button type="button" class="btn-blue"  id="phosphorusDownload">
-                                <span class="glyphicon glyphicon-download"></span> Download Phosphorus Model Results
-                            </button>
-                            <button type="button" class="btn-blue"  id="nitrogenDownload">
-                                <span class="glyphicon glyphicon-download"></span> Download Nitrogen Model Results
-                            </button>
-                          </div>
+                            <span class="user-guide-header">Geospatial data download</span>
+                            <div class="user-guide-item">                               
+                                <p>
+                                    <b>All Model Results</b>
+                                    <div>
+                                        <button type="button" class="btn-blue" id="phosphorusDownload">
+                                            <span class="glyphicon glyphicon-download"></span> Download Phosphorus Model Results
+                                        </button>
+                                        <button type="button" class="btn-blue" id="nitrogenDownload">
+                                            <span class="glyphicon glyphicon-download"></span> Download Nitrogen Model Results
+                                        </button>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="user-guide-item">
+                                <p>
+                                    <b>Calibration Site Information</b>
+                                    <div>
+                                        <button type="button" class="btn-blue" id="calibrationDownload">
+                                            <span class="glyphicon glyphicon-download"></span> Download Calibration Site Information (Coming soon)
+                                        </button>                        
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="user-guide-item">
+                                <p>
+                                    <b>Filtered Results from Map</b>
+                                    <div>
+                                        <button type="button" class="btn-blue" id="mapLayerDownload">
+                                            <span class="glyphicon glyphicon-download"></span> Download Filtered Results from the map (Coming soon)
+                                        </button>
+                                    </div>
+                                </p>
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane" id="fromMapTabPane">
-                            <span class="user-guide-header">From Map</span>
-                            
+                            <span class="user-guide-header">From Chart <br/><a style="font-size:xx-small" href="#" id="showMiniChart">(Show Chart)</a> </span>
+                            <div hidden="hidden" class="user-guide-item-image" id="miniChartContainer"></div>
+                            <div class="user-guide-item">
+                                <p>
+                                    <b>PNG image of chart</b>
+                                    <div>
+                                        <button type="button" class="btn-blue" id="PNGChartDownload">
+                                            <span class="glyphicon glyphicon-download"></span> PNG Chart Download
+                                        </button>
+                                    </div>
+                                </p>                                        
+                            </div>
+                            <div class="user-guide-item">
+                                <p>
+                                    <b>CVS of chart data</b>
+                                    <div>
+                                        <button type="button" class="btn-blue" id="CSVChartDownload">
+                                            <span class="glyphicon glyphicon-download"></span> CSV Chart Data Download
+                                        </button>
+                                    </div>
+                                </p>                                        
+                            </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="fromChtTableTabPane">
-                            <span class="user-guide-header">From Chart/Table</span>
-                            
-                        </div>                        
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" aria-hidden="true" class="btn-black">Close</button>
-                </div>
+                <form id="disclaimerButtons" id="disclaimer-form" class="form-inline" style="text-align:center;">
+                    <button id="enterMapper" type="button" class="btn-blue" data-dismiss="modal">Close</button>
+                </form>
 
             </div><!-- /.modal-content -->
         </div> <!-- /.modal-dialog -->

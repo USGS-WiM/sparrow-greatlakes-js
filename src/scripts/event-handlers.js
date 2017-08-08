@@ -32,7 +32,27 @@ function loadEventHandlers() {
         // hope the server sets Content-Disposition: attachment!
         window.location = 'https://test.wim.usgs.gov/SparrowGreatLakesV2/downloads/greatlakes_shapefiles_nitrogen.zip';
     });
-
+    $("#PNGChartDownload").click(function(){
+        app.downloadPNGofChart();
+    });
+    $("#CSVChartDownload").click(function(){
+        app.downloadCSVofChart();
+    })
+    $('#showMiniChart').click(function() {
+        if ($("#miniChartContainer")[0].hidden == true){
+            $("#miniChartContainer")[0].hidden = false;
+            $('#showMiniChart').text('(Hide Chart)');
+        } else {
+            $("#miniChartContainer")[0].hidden = true;
+            $('#showMiniChart').text('(Show Chart)');
+        }
+    })
+    $("#showMiniChart").click(function(){
+        $("#miniChartContainer").attr("hidden", )
+    })
+    $("#chartDownload").on('click', function() {
+        app.downloadChartPNG();
+    })
     //moved this out of exectureIdentifyTask()
     $("#popupChartButton").on('click', function(){
         app.createChartQuery();
@@ -247,7 +267,7 @@ function loadEventHandlers() {
     });
 
     /* SHOW CHART BUTTON CLICK */
-   $("#chartButton").on("click", function(){     
+    $("#chartButton").on("click", function(){     
         //set up the Chart chain of events
         //check to see if custom click was performed
         if (app.userSelectedDispFieldName != "") {
