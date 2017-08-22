@@ -32,6 +32,14 @@ function loadEventHandlers() {
         // hope the server sets Content-Disposition: attachment!
         window.location = 'https://test.wim.usgs.gov/SparrowGreatLakesV2/downloads/greatlakes_shapefiles_nitrogen.zip';
     });
+    $("#phosphorusCalibrationDownload").click(function() {
+        // hope the server sets Content-Disposition: attachment!
+        window.location = 'https://test.wim.usgs.gov/SparrowGreatLakesV2/downloads/greatlakes_phosphorus_calibration_sites.zip';
+    });
+    $("#nitrogenCalibrationDownload").click(function() {
+        // hope the server sets Content-Disposition: attachment!
+        window.location = 'https://test.wim.usgs.gov/SparrowGreatLakesV2/downloads/greatlakes_nitrogen_calibration_sites.zip';
+    });
     $("#PNGChartDownload").click(function(){
         app.downloadPNGofChart();
     });

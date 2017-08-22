@@ -99,7 +99,7 @@
                 <img src="http://wim.usgs.gov/website-assets/usgs-logo.png"/>
             </a>
             <span class="nav-title">
-                Great Lakes Nutrient Loading
+                <!--title set from config-->
             <!--<small>Based on 2002 MRB3 Sparrow Models</small>-->
             </span>
             <div class="nav-links">
@@ -148,7 +148,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="ion-close"></i></button>
-                    <h3 style="margin: 0;">About SPARROW Great Lakes v0.9.0</h3>
+                    <h3 id='aboutModalHeader' style="margin: 0;">About Great Lakes Nutrient Loading v0.9.0</h3>
                 </div>
                 <div id="aboutModalBody" class="modal-body">
                     <ul class="nav nav-tabs" id="aboutModalTabs">
@@ -517,13 +517,16 @@
                                 <p>
                                     <b>Calibration Site Information</b>
                                     <div>
-                                        <button type="button" class="btn-blue" id="calibrationDownload">
-                                            <span class="glyphicon glyphicon-download"></span> Download Calibration Site Information (Coming soon)
+                                        <button type="button" class="btn-blue" id="phosphorusCalibrationDownload">
+                                            <span class="glyphicon glyphicon-download"></span> Download Phosphorus Calibration Sites
+                                        </button>
+                                        <button type="button" class="btn-blue" id="nitrogenCalibrationDownload">
+                                            <span class="glyphicon glyphicon-download"></span> Download Nitrogen Calibration Sites
                                         </button>
                                     </div>
                                 </p>
                             </div>
-                            <div class="user-guide-item">
+                            <!--<div class="user-guide-item">
                                 <p>
                                     <b>Filtered Results from Map</b>
                                     <div>
@@ -532,7 +535,7 @@
                                         </button>
                                     </div>
                                 </p>
-                            </div>
+                            </div>-->
                         </div>
                         <div role="tabpanel" class="tab-pane" id="fromMapTabPane">
                             <span class="user-guide-header">From Chart <br/><a style="font-size:xx-small" href="#" id="showMiniChart">(Show Chart)</a> </span>
