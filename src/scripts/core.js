@@ -9,6 +9,7 @@ var app = {};
 $( document ).ready(function() {
   $("#page-loader").fadeOut();
   $("#toast-fixed").fadeOut();
+  $(".nav-title").html(appTitle);
 });
 
 
@@ -2117,6 +2118,7 @@ require([
     });
 
     function showAboutModal () {
+        $("#aboutModalHeader").html('About ' + appTitle + ' ' + appVersion);
         $('#aboutModal').modal('show');
     }
     $('#aboutNav').click(function(){
@@ -2148,8 +2150,10 @@ require([
     $('#legendCollapse').on('shown.bs.collapse', function () {
         app.maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
         $('#legendElement').css('max-height', app.maxLegendHeight);
-        app.maxLegendDivHeight = ($('#legendElement').height()) - parseInt($('#legendHeading').css("height").replace('px',''));
-        $('#legendDiv').css('max-height', app.maxLegendDivHeight);
+        /*** CAUSING SOME NASTY MESS WITH THE LEGEND DIV
+        //app.maxLegendDivHeight = ($('#legendElement').height()) - parseInt($('#legendHeading').css("height").replace('px',''));
+        //$('#legendDiv').css('max-height', app.maxLegendDivHeight);
+        ***/
     });
 
     $('#legendCollapse').on('hide.bs.collapse', function () {

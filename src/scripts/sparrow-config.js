@@ -5,6 +5,9 @@ Use this with MRB3v2 map services http://gis.wim.usgs.gov/arcgis/rest/services/S
 prior to data update on 3/17/2017
 */
 
+var appTitle = "Great Lakes Nutrient Loading";
+var appVersion = "v0.9.0";
+
 var serviceBaseURL = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakes/MapServer/"; //important! UPDATE rest service URL
 var chartUnits = " (kg/yr.)"
 

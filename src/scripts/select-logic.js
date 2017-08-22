@@ -362,13 +362,13 @@ function getTableFields(headerKeysArr, sparrowLayerId){
 function getLegendLabels(sparrowLayerId){
     var label = "";
     var configObject = app.getLayerConfigObject(sparrowLayerId);
-
+    var nutrientModel = sparrowLayerId < 8 ? 'Total Phosphorus' : 'Total Nitrogen';  //if layer id is less than 8 prefix with Phosphorus, else Nitrogen
     $.each(configObject, function(index, item){
         if( $("#displayedMetricSelect").val() == item.field ) {
             label = item.name;
         }
     });
-    return label;
+    return nutrientModel + ', ' + label;
 
 } //END getLegendLabels()
 
@@ -521,11 +521,43 @@ function generateRenderer(){
         params.formatLabel = false; //formatLabel = false otherwise expect some bad behavior from the renderer!
         params.where = app.layerDef; 
         var generateRenderer = new GenerateRendererTask(app.Url);
-        generateRenderer.execute(params, applyRenderer, errorHandler);
+        generateRenderer.execute(params, processValues, errorHandler);
+
+        function processValues(renderer){
+
+            //calculate to 3 significant figures
+            function sigFigures(n){
+                if (n > 0 ){
+                    var mult = Math.pow(10, 3 - Math.floor(Math.log(n) / Math.LN10) -1);
+                    return Math.round(n * mult) / mult;
+                } else{
+                    return n;
+                }
+            }
+
+            $.each(renderer.infos, function(index, info){
+                //calculate sig figures
+                var minVal = sigFigures(info.minValue);
+                var maxVal = sigFigures(info.maxValue);
+
+                //set new label
+                if (index == 4){
+                    //less than sign on the last label maxValue
+                    var newLabel = minVal.toString() + " <";
+                } else{
+                    var newLabel = minVal.toString() + " - " + maxVal.toString();
+                }
+                renderer.infos[index].label = newLabel;
+            });
+            
+            applyRenderer(renderer);
+        }
 
         function applyRenderer(renderer){
             var sparrowId = app.map.getLayer('SparrowRanking').visibleLayers[0];
             var layer = app.map.getLayer('SparrowRanking');
+
+            
 
             // dynamic layer stuff            
             var optionsArray = [];

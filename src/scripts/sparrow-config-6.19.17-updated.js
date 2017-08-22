@@ -6,6 +6,9 @@ THIS CONFIG REMOVES CATCHMENT AND AGGREGATE LABELS FROM THE CHARTOUTFIELS OBJECT
 Also removes PNAME and replaces it with MRB_ID and ST_MRB_ID
 */
 
+var appTitle = "Great Lakes Nutrient Loading";
+var appVersion = "v0.9.0";
+
 var serviceBaseURL = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakes/MapServer/"; //important! UPDATE rest service URL
 var chartUnits = " (kg/yr.)"
 
@@ -13,7 +16,7 @@ var groupResultsInitIndex = 1; //sets the default layer for the application.  In
 
 var splitLayers = [5,6,7,13,14,15]; //important! UPDATE layer Ids of all state split layers
 
-var mapCenter = [-87, 42];
+var mapCenter = [-85.2, 44.4];
 //app.defaultMapCenter = [-87, 42];
 defaultZoomLevel = 6
 
