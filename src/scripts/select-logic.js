@@ -549,7 +549,7 @@ function generateRenderer(){
                 }
                 renderer.infos[index].label = newLabel;
             });
-            
+
             applyRenderer(renderer);
         }
 
@@ -580,7 +580,7 @@ function generateRenderer(){
             if(layer.visible == false){
                 layer.show();                
             }
-            $("#page-loader").fadeOut(); 
+            
         }
 
         function errorHandler(err){
@@ -598,6 +598,6 @@ function generateRenderer(){
             }, dom.byId("legendDiv"));
             app.legend.startup();                        
         }
-        
+        //$("#page-loader").fadeOut(); 
     }); // END Dojo
 } //END generateRenderer()

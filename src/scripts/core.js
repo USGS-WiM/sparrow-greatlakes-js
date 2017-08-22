@@ -7,7 +7,7 @@ var app = {};
 
 // Get toast and page loader ready
 $( document ).ready(function() {
-  $("#page-loader").fadeOut();
+  //$("#page-loader").fadeOut();
   $("#toast-fixed").fadeOut();
   $(".nav-title").html(appTitle);
 });
@@ -113,7 +113,6 @@ require([
         center: app.defaultMapCenter,
         zoom: app.defaultZoom
     });
-
 
     //button for returning to initial extent
     app.home = new HomeButton({

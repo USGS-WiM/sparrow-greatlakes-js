@@ -107,6 +107,7 @@ function loadEventHandlers() {
             app.map.graphics.clear();
             app.createChartQuery();
         }
+
     });
     /*END GROUP RESULTS (AGGREGATE LAYER) EVENTS */
 
@@ -312,6 +313,10 @@ function loadEventHandlers() {
 
         app.setupDraggableInfoWindow();
         app.map.disableClickRecenter();
+    });
+
+     app.map.on('update-end', function(){
+       $("#page-loader").fadeOut(); 
     });
 
    
