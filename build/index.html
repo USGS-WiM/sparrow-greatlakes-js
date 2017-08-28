@@ -451,7 +451,7 @@
                         <li role="presentation" class="active"><a id="generalTab" href="#generalTabPane" data-toggle="tab"><i class="fa fa-search"></i>&nbsp;General</a></li>
                         <li role="presentation"><a id="fromMapTab" href="#fromMapTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;From Chart/Table</a></li>
                     </ul>
-                    <div class="tab-content">
+                    <div class="tab-content data-download">
                         <div role="tabpanel" class="tab-pane active" id="generalTabPane">
                             </br>
                             <span class="user-guide-header">Geospatial data download</span>
@@ -493,7 +493,7 @@
                             </div>-->
                         </div>
                         <div role="tabpanel" class="tab-pane" id="fromMapTabPane">
-                            <span class="user-guide-header">From Chart <br/><a style="font-size:xx-small" href="#" id="showMiniChart">(Show Chart)</a> </span>
+                            <span class="user-guide-header">From Chart <br/><a style="font-size:xx-small" href="#" id="showMiniChart">(Show Chart Example)</a> </span>
                             <div hidden="hidden" class="user-guide-item-image" id="miniChartContainer"></div>
                             <div class="user-guide-item">
                                 <p>
@@ -507,7 +507,7 @@
                             </div>
                             <div class="user-guide-item">
                                 <p>
-                                    <b>CVS of chart data</b>
+                                    <b>CSV of chart data</b>
                                     <div>
                                         <button type="button" class="btn-blue" id="CSVChartDownload">
                                             <span class="glyphicon glyphicon-download"></span> CSV Chart Data Download
@@ -719,30 +719,33 @@
                     </div>
 
                     <!--LOBIPANEL EXPERIMENTAL________________________________________________________________________________________________________________________-->
+
+
                     <div id="chartWindowDiv" class="panel panel-default chartWindowMaximize" role="tabpanel">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                <h4 id="chartWindowPanelTitle"></h4>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <ul class="nav nav-tabs" id="lobiPanelTabs">
-                                <li role="presentation" class="active">
-                                    <a id="chartTab" href="#chartTabPane" data-toggle="tab"><i class="fa fa-line-chart"></i>&nbsp;Chart</a>
-                                </li>
-                                <li role="presentation">
-                                    <a id="tableTab" href="#tableTabPane" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;Table</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="chartTabPane">
-                                    <div id="chartWindowContainer"></div>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="tableTabPane">
-                                    <table class="table tablesorter" id="resultsTable"></table>
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <h4 id="chartWindowPanelTitle"></h4>
                                 </div>
                             </div>
-                        </div>
+                            <div class="panel-body">
+                                <ul class="nav nav-tabs" id="lobiPanelTabs">
+                                    <li role="presentation" class="active">
+                                        <a id="chartTab" href="#chartTabPane" data-toggle="tab"><i class="fa fa-line-chart"></i>&nbsp;Chart</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a id="tableTab" href="#tableTabPane" data-toggle="tab"><i class="fa fa-list"></i>&nbsp;Table</a>
+                                    </li>
+                                </ul>
+                                <div id="chartTabContent" class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="chartTabPane">
+                                        <div id="chartWindowContainer"></div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="tableTabPane">
+                                        <table class="table tablesorter" id="resultsTable"></table>
+                                    </div>
+                                </div>
+                            </div>
+
                     </div>
                 </div>
                 <!--END mapDiv-->
