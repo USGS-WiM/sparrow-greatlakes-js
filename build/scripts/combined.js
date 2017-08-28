@@ -2807,9 +2807,21 @@ require([
     }//END createTableQuery()
 
     app.createChartQuery = function(optionalWhereClause){   
-        $("#toast_body").html("Chart is loading");        
-        $("#toast-fixed").fadeIn();
-        $("#toast-fixed").css('opacity', '1');
+        
+        if( $("#chartWindowDiv").css("visibility") != "visible" ) {
+           $('#chartWindowDiv').css({
+                'visibility': 'visible',
+                'height': '800px',
+                'width': '800px',
+                'top': '50px',
+                'left': '510px'
+            });
+            $("#chartWindowContent").addClass("content-loading");
+        }  else {
+            $("#chartWindowContent").addClass("content-loading");
+        }
+
+        
  
         $('#chartContainer').empty();
         console.log('creating chart query');
@@ -2848,6 +2860,9 @@ require([
         chartQuery.where = whereClause;
 
         chartQueryTask.execute(chartQuery, showChart);
+
+        //$('#chartWindowDiv').addClass("content-loading");
+        $('#chartTabContent').addClass("content-loading");
     }//END app.createChartQuery
 
     app.downloadChartPNG = function(){
@@ -3681,6 +3696,9 @@ require([
         var height = $('#chartWindowDiv').height() - 65;
         var width = $('#chartWindowDiv').width();
         $('#chartWindowContainer').highcharts().setSize(width-50, height-105, true);
+        $('#chartTabContent').removeClass("content-loading");
+        //$('#chartWindowDiv').removeClass("content-loading");
+        //$('#loadingDiv').removeClass("content-loading");
 
     } //END ShowChart()
 
@@ -4331,8 +4349,8 @@ function loadEventHandlers() {
 
         //reflow the chart if it's open
         if( $("#chartWindowDiv").css("visibility") == "visible" ) {
-            $("#toast_body").html("Chart updating");  
-            $("#toast-fixed").fadeIn();  
+            //$("#toast_body").html("Chart updating");  
+            //$("#toast-fixed").fadeIn();  
  
             app.createChartQuery();
         }
@@ -4370,7 +4388,7 @@ function loadEventHandlers() {
             $('#showMiniChart').text('(Hide Chart)');
         } else {
             $("#miniChartContainer")[0].hidden = true;
-            $('#showMiniChart').text('(Show Chart)');
+            $('#showMiniChart').text('(Show Chart Example)');
         }
     })
     $("#showMiniChart").click(function(){
@@ -4435,8 +4453,8 @@ function loadEventHandlers() {
         generateRenderer();
 
         if( $("#chartWindowDiv").css("visibility") == "visible" ) {
-            $("#toast_body").html("Chart updating");  
-            $("#toast-fixed").fadeIn();
+            /*$("#toast_body").html("Chart updating");  
+            $("#toast-fixed").fadeIn();*/
             app.createChartQuery();
         }
     });
@@ -4468,8 +4486,8 @@ function loadEventHandlers() {
         generateRenderer();
 
         if( $("#chartWindowDiv").css("visibility") == "visible" ) {
-            $("#toast_body").html("Chart updating");  
-            $("#toast-fixed").fadeIn();
+           /* $("#toast_body").html("Chart updating");  
+            $("#toast-fixed").fadeIn();*/
             app.createChartQuery();
         }        
         // remove all warnings if any

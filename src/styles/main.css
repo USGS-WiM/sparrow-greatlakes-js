@@ -1014,3 +1014,16 @@ Mitch GH Issues Aug 28
 .data-download .user-guide-item button{
     margin: 0 10px;
 }
+
+/*override wim min css default settings of 5000 to keep loading screen behind*/
+.wim-nav{
+  z-index:3000;
+}
+
+.tempLoading{
+  visibility: visible;
+  width:800px;
+  height:800px;
+  top:10%;
+  left:25%;
+}
