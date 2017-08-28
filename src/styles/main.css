@@ -746,6 +746,8 @@ table.hover-highlight tbody > tr.even:hover > td {
   width: 83.33333333%;
   position: fixed !important;
   left: auto;
+  top: 55px !important;
+  padding-bottom: 100px !important;
   right: 0 !important;
 }
 @media (max-width: 1200px) {
@@ -944,4 +946,71 @@ ul.nav-tabs li.active a{
 
 .wim-nav .container .nav-title{
     width: 270px !important;
+}
+/*
+Mitch GH Issues Aug 28
+*/
+
+.panel h6{
+    margin: 0 auto 5px auto !important;
+}
+
+.panel hr{
+    margin: 10px auto !important;
+}
+
+.panel-body{
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+.lobipanel>.panel-heading .dropdown{
+    height: 35px !important;
+}
+
+/*Panel Loading*/
+.content-loading .tab-pane{
+    opacity: 0;
+}
+.content-loading:before{
+    display: -webkit-flex;
+    display: flex;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+    -webkit-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    justify-content: center;
+    text-align: center;
+    content: 'loading...';
+    background-image: url(../images/usgsanimated.svg);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    color: white;
+    left: 0;
+    background-color: #10152C;
+    background-repeat: no-repeat;
+    background-size: 100px auto;
+    background-position: center 35%;
+    width: 100%;
+}
+
+/*Data Download Modal Changes*/
+.data-download .user-guide-header{
+    padding: 0;
+}
+.data-download .user-guide-item{
+    padding: 10px 0;
+    text-align: center;
+}
+.data-download .user-guide-item p{
+    padding: 5px 0;
+    margin: 0;
+    text-align: center;
+}
+.data-download .user-guide-item button{
+    margin: 0 10px;
 }
