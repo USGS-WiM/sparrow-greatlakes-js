@@ -123,8 +123,8 @@ require([
                     "visibleLayers": [21],
                     "options": {
                         "id": "modelArea",
-                        "visible": false,
-                        "opacity": 0.50
+                        "visible": true,
+                        "opacity": 0.70
                     },
                     "wimOptions": {
                         "type": "layer",
