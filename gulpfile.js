@@ -37,6 +37,7 @@ gulp.task('icons', function () {
 
 // Scripts
 gulp.task('scripts', function () {
+    
     return gulp.src(['src/scripts/**/*.js'])
         .pipe($.jshint('.jshintrc'))
         .pipe($.jshint.reporter('default'))
@@ -89,6 +90,10 @@ gulp.task('build', ['html', 'images', 'styles', 'less']);
 //gulp.task('default', ['clean', 'download-esri-api'], function () {
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
+    process.on('uncaughtException', function(error) {
+        console.log(error);
+        process.exit(1)
+    });
 });
 
 // Connect

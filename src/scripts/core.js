@@ -197,21 +197,22 @@ require([
     // in event-handlers.js
     loadEventHandlers();
 
-    /**to remove xhr request cancelled messages from console  https://geonet.esri.com/thread/64761**/
-    /* Also can look here for other fixes https://geonet.esri.com/thread/10158 */
     if( typeof esri.layers.Layer.prototype._errorHandler == 'function' )  {  
         esri.layers.Layer.prototype._errorHandler = function(error)  {  
-            if( error && error.message && error.message == "xhr cancelled" )  
-            return;  
-            this.onError(error);  
+            if( error && error.message && error.message == "xhr cancelled" )  {
+                return;  
+                this.onError(error);  
+            }
+                
         }  
        
         dojo.config.deferredOnError = function(e){}  
         dojo._ioSetArgs2 = dojo._ioSetArgs;  
         dojo._ioSetArgs = function(_14,_15,_16,_17)  {  
-            return dojo._ioSetArgs2(_14,_15,_16,function(a,b){return a;});  
-        }  
+        return dojo._ioSetArgs2(_14,_15,_16,function(a,b){return a;});  
+     }  
     }  
+    
 
     //fire initial query to populate AOIs
     //UPDATE IMPORTANT!  check layer and field names to make sure the fields exist in the service layers
@@ -978,7 +979,7 @@ require([
     app.initMapScale = function() {
         var scale = app.map.getScale().toFixed(0);
         $('#scale')[0].innerHTML = addCommas(scale);
-        var initMapCenter = webMercatorUtils.webMercatorToGeographic(app.map.extent.getCenter());
+        var initMapCenter = webMercatorUtils.webMercatorToGeographic( app.map.extent.getCenter() );
         $('#latitude').html(initMapCenter.y.toFixed(3));
         $('#longitude').html(initMapCenter.x.toFixed(3));
     };
@@ -995,7 +996,7 @@ require([
     app.updateMapCenter = function(extent) {
         //displays latitude and longitude of map center
         $('#mapCenterLabel').css('display', 'inline');
-        var geographicMapCenter = webMercatorUtils.webMercatorToGeographic(extent.getCenter());
+        var geographicMapCenter = webMercatorUtils.webMercatorToGeographic( extent.getCenter() );
         $('#latitude').html(geographicMapCenter.y.toFixed(3));
         $('#longitude').html(geographicMapCenter.x.toFixed(3));
     };
@@ -2354,7 +2355,7 @@ require([
             var label;
             var configObject = app.getLayerConfigObject(app.map.getLayer('SparrowRanking').visibleLayers[0]);
             $.each(configObject, function(index, object){
-                if (object.field == $('#displayedMetricSelect').val()) label = object.name;                
+                if (object.field == $( '#displayedMetricSelect').val() ) label = object.name;                
             });
             return label;
         }
@@ -2515,11 +2516,11 @@ require([
 
     $('#legendDiv').niceScroll();
 
-    app.maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
+    app.maxLegendHeight =  ( $('#mapDiv').height() ) * 0.90;
     $('#legendElement').css('max-height', app.maxLegendHeight);
 
     $('#legendCollapse').on('shown.bs.collapse', function () {
-        app.maxLegendHeight =  ($('#mapDiv').height()) * 0.90;
+        app.maxLegendHeight =  ( $('#mapDiv').height() ) * 0.90;
         $('#legendElement').css('max-height', app.maxLegendHeight);
         /*** CAUSING SOME NASTY MESS WITH THE LEGEND DIV
         //app.maxLegendDivHeight = ($('#legendElement').height()) - parseInt($('#legendHeading').css("height").replace('px',''));

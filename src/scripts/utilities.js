@@ -1,6 +1,3 @@
-/**
- * Created by bdraper on 4/17/2015.
- */
 //utility function for formatting numbers with commas every 3 digits
 function addCommas(nStr) {
     nStr += '';
