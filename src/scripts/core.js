@@ -183,7 +183,8 @@ require([
         "include_huc4" : true,
         "include_huc6" : true,
         "include_huc8" : true,
-        "include_huc12" : true
+        "include_huc12" : true,
+        "verbose" : false
     });
 
 
@@ -195,6 +196,22 @@ require([
 
     // in event-handlers.js
     loadEventHandlers();
+
+    /**to remove xhr request cancelled messages from console  https://geonet.esri.com/thread/64761**/
+    /* Also can look here for other fixes https://geonet.esri.com/thread/10158 */
+    if( typeof esri.layers.Layer.prototype._errorHandler == 'function' )  {  
+        esri.layers.Layer.prototype._errorHandler = function(error)  {  
+            if( error && error.message && error.message == "xhr cancelled" )  
+            return;  
+            this.onError(error);  
+        }  
+       
+        dojo.config.deferredOnError = function(e){}  
+        dojo._ioSetArgs2 = dojo._ioSetArgs;  
+        dojo._ioSetArgs = function(_14,_15,_16,_17)  {  
+            return dojo._ioSetArgs2(_14,_15,_16,function(a,b){return a;});  
+        }  
+    }  
 
     //fire initial query to populate AOIs
     //UPDATE IMPORTANT!  check layer and field names to make sure the fields exist in the service layers
