@@ -742,6 +742,10 @@ table.hover-highlight tbody > tr.even:hover > td {
   width: auto;
 }
 
+.page-loader{
+    background-image:url('https://wim.usgs.gov/website-assets/branding/usgsanimated.svg') !important;
+}
+
 #page-loader{
   width: 83.33333333%;
   position: fixed !important;
