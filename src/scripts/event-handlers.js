@@ -284,8 +284,8 @@ function loadEventHandlers() {
             app.customChartClicked = true;
             console.log("Custom Click: " + app.formattedHighlightString);
             app.createChartQuery(app.formattedHighlightString);
-            app.userSelectedDispFieldName = "";
-            app.userSelectedShapes = [];
+            //app.userSelectedDispFieldName = "";
+            //app.userSelectedShapes = [];
         } else {
             app.createChartQuery();
         }

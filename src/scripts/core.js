@@ -1729,6 +1729,8 @@ require([
         $('#popupChartButton').on('click', function(){
             app.formattedHighlightString = "";
             app.map.graphics.clear();
+            app.userSelectedDispFieldName = ""; //clears any selected features from memory
+            app.userSelectedShapes = []; //clears any selected features from memory
             app.createChartQuery();
         });
         var instance = $('#chartWindowDiv').data('lobiPanel');
@@ -1739,6 +1741,8 @@ require([
 
         $('#chartClose').on('click', function(){
             app.map.graphics.clear();
+            app.userSelectedDispFieldName = ""; //clears any selected features from memory
+            app.userSelectedShapes = []; //clears any selected features from memory
             $("#chartButton").html("Show Chart for All");
             app.formattedHighlightString = "";
             $('#chartWindowDiv').css('visibility', 'hidden');
@@ -1895,12 +1899,12 @@ require([
                     },
                     buttons:{
                         contextButton:{
-                            text: "Chart Options",
-                            height: 40,
+                            text: "Chart Download / Chart Options",
+                            height: 80,
                             symbol: null,
                             align: 'right',
                             menuItems:[
-                                /*{
+                                {
                                     text: 'Download PNG',
                                     onclick: function() {
                                         this.exportChart({
@@ -1919,7 +1923,7 @@ require([
                                     onclick: function(){
                                         this.downloadXLS();
                                     }
-                                },*/
+                                },
                                 {
                                     text: 'Change Background Transparency',
                                     onclick: function(){
@@ -1936,9 +1940,10 @@ require([
                                         }
                                     }
                                 }
-                            ]
-                        }
-                    }
+                            ] //END MenuItems
+                        } //END contextButton
+                        
+                    } //END Buttons
                 },
                 xAxis: {
                     categories: columnLabels,
@@ -2461,6 +2466,7 @@ require([
         }); //END self-invoking highcharts function
     } //END getDDChart()
 
+    /**DELETE BLOCK */
     app.downloadPNGofChart = function() {
         $('#miniChartContainer').highcharts().exportChart({ type: 'PNG' });
     }
@@ -2475,8 +2481,8 @@ require([
             app.customChartClicked = true;
             //console.log("Custom Click: " + app.formattedHighlightString);
             app.createMiniChartQuery(app.formattedHighlightString);
-            app.userSelectedDispFieldName = "";
-            app.userSelectedShapes = [];
+            //app.userSelectedDispFieldName = "";
+            //app.userSelectedShapes = [];
         } else {
             app.createMiniChartQuery();
         }
