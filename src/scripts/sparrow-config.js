@@ -1,10 +1,9 @@
 /*
 Created By Erik Myers 6/19/2017
 CONFIG FILE FOR USE WITH SPARROW-GREAT LAKES
-
-THIS CONFIG REMOVES CATCHMENT AND AGGREGATE LABELS FROM THE CHARTOUTFIELS OBJECTS TO SHORTEN CHART AND DISPLAYED METRIC LABELS.
-Also removes PNAME and replaces it with MRB_ID and ST_MRB_ID
 */
+
+//before updating make sure that displayField name is set to MRB_ID or ST_MRB_ID for ALL catchment layers.  Charts will not properly function otherwise
 
 var appTitle = "Great Lakes Nutrient Loading";
 var appVersion = "v0.9.0";
@@ -17,7 +16,6 @@ var groupResultsInitIndex = 1; //sets the default layer for the application.  In
 var splitLayers = [5,6,7,13,14,15]; //important! UPDATE layer Ids of all state split layers
 
 var mapCenter = [-85.2, 44.4];
-//app.defaultMapCenter = [-87, 42];
 defaultZoomLevel = 6
 
 

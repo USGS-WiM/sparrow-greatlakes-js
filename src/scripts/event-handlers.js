@@ -40,27 +40,7 @@ function loadEventHandlers() {
         // hope the server sets Content-Disposition: attachment!
         window.location = 'https://test.wim.usgs.gov/SparrowGreatLakesV2/downloads/greatlakes_nitrogen_calibration_sites.zip';
     });
-    $("#PNGChartDownload").click(function(){
-        app.downloadPNGofChart();
-    });
-    $("#CSVChartDownload").click(function(){
-        app.downloadCSVofChart();
-    })
-    $('#showMiniChart').click(function() {
-        if ($("#miniChartContainer")[0].hidden == true){
-            $("#miniChartContainer")[0].hidden = false;
-            $('#showMiniChart').text('(Hide Chart)');
-        } else {
-            $("#miniChartContainer")[0].hidden = true;
-            $('#showMiniChart').text('(Show Chart Example)');
-        }
-    })
-    $("#showMiniChart").click(function(){
-        $("#miniChartContainer").attr("hidden", )
-    })
-    $("#chartDownload").on('click', function() {
-        app.downloadChartPNG();
-    })
+    
     //moved this out of exectureIdentifyTask()
     $("#popupChartButton").on('click', function(){
         app.createChartQuery();
@@ -284,8 +264,8 @@ function loadEventHandlers() {
             app.customChartClicked = true;
             console.log("Custom Click: " + app.formattedHighlightString);
             app.createChartQuery(app.formattedHighlightString);
-            app.userSelectedDispFieldName = "";
-            app.userSelectedShapes = [];
+            //app.userSelectedDispFieldName = "";
+            //app.userSelectedShapes = [];
         } else {
             app.createChartQuery();
         }

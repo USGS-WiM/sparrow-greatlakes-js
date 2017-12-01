@@ -6,6 +6,7 @@ var open = require('open');
 var del = require('del');
 var less = require('gulp-less');
 var wiredep = require('wiredep').stream;
+var uglify = require('gulp-uglify-es').default;
 
 // Load plugins
 var $ = require('gulp-load-plugins')();
@@ -37,6 +38,7 @@ gulp.task('icons', function () {
 
 // Scripts
 gulp.task('scripts', function () {
+    
     return gulp.src(['src/scripts/**/*.js'])
         .pipe($.jshint('.jshintrc'))
         .pipe($.jshint.reporter('default'))
@@ -51,7 +53,7 @@ gulp.task('html', ['styles', 'scripts', 'icons'], function () {
     return gulp.src('src/*.html')
         .pipe($.useref.assets())
         .pipe(jsFilter)
-        .pipe($.uglify())
+        .pipe(uglify())
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
         .pipe($.csso())
@@ -89,6 +91,10 @@ gulp.task('build', ['html', 'images', 'styles', 'less']);
 //gulp.task('default', ['clean', 'download-esri-api'], function () {
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
+    process.on('uncaughtException', function(error) {
+        console.log(error);
+        process.exit(1)
+    });
 });
 
 // Connect
