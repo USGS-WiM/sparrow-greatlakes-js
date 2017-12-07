@@ -1142,11 +1142,11 @@ require([
                         var valuePairs = {};
 
                         //need to wrap value in single quotes for ESRI REST Service query.  BUT ONLY IF THE DISPLAY FIELD IS A STRING!
-                        if (response[0].displayFieldName == "MRB_ID"){
+                        /* if (response[0].displayFieldName == "MRB_ID"){
                             var chartQueryArg = response[0].displayFieldName + " = " + response[0].value;
-                        } else{
+                        } else{ */
                             var chartQueryArg = response[0].displayFieldName + " = " + "'" + response[0].value + "'";
-                        }
+                        //}
 
                         $.each(fields, function(index, obj){
                             //console.log(obj.attribute);
