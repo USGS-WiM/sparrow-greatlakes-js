@@ -104,6 +104,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="ion-close"></i></button>
                     <h3 id='aboutModalHeader' style="margin: 0;">About Great Lakes Nutrient Loading v0.9.0</h3>
+                    <h5 id='aboutModalsubHeader' style="margin: 0;">2002 MRB3 Sparrow Models </h5>
                 </div>
                 <div id="aboutModalBody" class="modal-body">
                     <ul class="nav nav-tabs" id="aboutModalTabs">
@@ -444,78 +445,45 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="ion-close"></i></button>
-                    <h3 style="margin: 0;">Download Data</h3>
+                    <h3 style="margin: 0;">Download Geospatial Data</h3>
                 </div>
                 <div id="ddModalBody" class="modal-body">
-                    <ul class="nav nav-tabs" id="ddModalTabs">
-                        <li role="presentation" class="active"><a id="generalTab" href="#generalTabPane" data-toggle="tab"><i class="fa fa-search"></i>&nbsp;General</a></li>
-                        <li role="presentation"><a id="fromMapTab" href="#fromMapTabPane" data-toggle="tab"><i class="fa fa-map"></i>&nbsp;From Chart/Table</a></li>
-                    </ul>
-                    <div class="tab-content data-download">
-                        <div role="tabpanel" class="tab-pane active" id="generalTabPane">
-                            </br>
-                            <span class="user-guide-header">Geospatial data download</span>
-                            <div class="user-guide-item">
-                                <p>
-                                    <b>All Model Results</b>
-                                    <div>
-                                        <button type="button" class="btn-blue" id="phosphorusDownload">
-                                            <span class="glyphicon glyphicon-download"></span> Download Phosphorus Model Results
-                                        </button>
-                                        <button type="button" class="btn-blue" id="nitrogenDownload">
-                                            <span class="glyphicon glyphicon-download"></span> Download Nitrogen Model Results
-                                        </button>
-                                    </div>
-                                </p>
+                    <div>
+                        <p>
+                            <b>All Model Results</b>
+                            <div >
+                                <button type="button" class="btn-blue" id="phosphorusDownload">
+                                    <span class="glyphicon glyphicon-download"></span> Download Phosphorus Model Results
+                                </button>
+                                <button type="button" class="btn-blue" id="nitrogenDownload">
+                                    <span class="glyphicon glyphicon-download"></span> Download Nitrogen Model Results
+                                </button>
                             </div>
-                            <div class="user-guide-item">
-                                <p>
-                                    <b>Calibration Site Information</b>
-                                    <div>
-                                        <button type="button" class="btn-blue" id="phosphorusCalibrationDownload">
-                                            <span class="glyphicon glyphicon-download"></span> Download Phosphorus Calibration Sites
-                                        </button>
-                                        <button type="button" class="btn-blue" id="nitrogenCalibrationDownload">
-                                            <span class="glyphicon glyphicon-download"></span> Download Nitrogen Calibration Sites
-                                        </button>
-                                    </div>
-                                </p>
-                            </div>
-                            <!--<div class="user-guide-item">
-                                <p>
-                                    <b>Filtered Results from Map</b>
-                                    <div>
-                                        <button type="button" class="btn-blue" id="mapLayerDownload">
-                                            <span class="glyphicon glyphicon-download"></span> Download Filtered Results from the map (Coming soon)
-                                        </button>
-                                    </div>
-                                </p>
-                            </div>-->
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="fromMapTabPane">
-                            <span class="user-guide-header">From Chart <br/><a style="font-size:xx-small" href="#" id="showMiniChart">(Show Chart Example)</a> </span>
-                            <div class="user-guide-item">
-                                <p>
-                                    <b>PNG image of chart</b>
-                                    <div>
-                                        <button type="button" class="btn-blue" id="PNGChartDownload">
-                                            <span class="glyphicon glyphicon-download"></span> PNG Chart Download
-                                        </button>
-                                    </div>
-                                </p>
-                            </div>
-                            <div class="user-guide-item">
-                                <p>
-                                    <b>CSV of chart data</b>
-                                    <div>
-                                        <button type="button" class="btn-blue" id="CSVChartDownload">
-                                            <span class="glyphicon glyphicon-download"></span> CSV Chart Data Download
-                                        </button>
-                                    </div>
-                                </p>
-                            </div>
-                        </div>
+                        </p>
                     </div>
+                    <div class="user-guide-item">
+                        <p>
+                            <b>Calibration Site Information</b>
+                            <div>
+                                <button type="button" class="btn-blue" id="phosphorusCalibrationDownload">
+                                    <span class="glyphicon glyphicon-download"></span> Download Phosphorus Calibration Sites
+                                </button>
+                                <button type="button" class="btn-blue" id="nitrogenCalibrationDownload">
+                                    <span class="glyphicon glyphicon-download"></span> Download Nitrogen Calibration Sites
+                                </button>
+                            </div>
+                        </p>
+                    </div>
+                    <!--<div class="user-guide-item">
+                        <p>
+                            <b>Filtered Results from Map</b>
+                            <div>
+                                <button type="button" class="btn-blue" id="mapLayerDownload">
+                                    <span class="glyphicon glyphicon-download"></span> Download Filtered Results from the map (Coming soon)
+                                </button>
+                            </div>
+                        </p>
+                    </div>-->
                 </div>
                 <form id="disclaimerButtons" id="disclaimer-form" class="form-inline" style="text-align:center;">
                     <button id="enterMapper" type="button" class="btn-blue" data-dismiss="modal">Close</button>
@@ -544,8 +512,10 @@
     <!-- Begin page content -->
     <div class="container-fluid keepit100">
         <div class="row keepit100">
+            <!--begin sidebar-->
             <div id="sidebar" class="col-xs-11 col-sm-10 col-md-3 col-lg-2 sidebar sidebar-left sidebar-animate sidebar-md-show no-col-padding"
                 style="padding: 0 !important;">
+                <!--basemaps panel-->
                 <div class="panel panel-default wim-sidebar-panel">
                     <div class="panel-heading" id="basemapsHeader">
                         <h4 class="panel-title">
@@ -554,6 +524,7 @@
                             </a>
                         </h4>
                     </div>
+                    
                     <div id="basemapsPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="basemapsHeader">
                         <div class="panel-body collapse in">
                             <button id="btnStreets" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/streets.jpg"><br class="basemapThumb">Streets</button>
@@ -565,10 +536,10 @@
                             <button id="btnOSM" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/osm.jpg"><br class="basemapThumb">OSM</button>
                             <button id="btnNatGeo" class="btn btn-default basemapBtn equalize"><img class="basemapThumb" alt="" src="images/natgeo.jpg"><br class="basemapThumb">NatGeo</button>
                         </div>
-                    </div>
-                </div>
-                <!--END basemaps panel-->
+                    </div> 
+                </div> <!--END basemaps panel-->
 
+                <!--layers Panel-->
                 <div class="panel panel-default wim-sidebar-panel">
                     <div class="panel-heading" id="layersPanelHeader">
                         <h4 class="panel-title">
@@ -584,6 +555,7 @@
                 </div>
                 <!--END layers Panel-->
 
+                <!--data filters Panel-->
                 <div class="panel panel-default wim-sidebar-panel">
                     <div class="panel-heading" id="filtersPanelHeader">
                         <h4 class="panel-title">
@@ -596,7 +568,6 @@
                         <div class="panel-body collapse in">
 
                             <h6 class="alignc">Nutrient Model</h6>
-                            <!-- <div id="nutrientRadio" class="btn-gorup" data-toggle="buttons"> -->
                             <div id="modelResultsRadio">
                                 <label for="radio1" class="rdo row radio active">
                                   <input type="radio" name="radio1" id="radio1" value="option1" checked />
@@ -607,21 +578,6 @@
                                   <span>Total Nitrogen</span>
                               </label>
                             </div>
-
-
-                            <!-- <div class="radio radio-primary active" id="modelResultsRadio">
-                                    <input type="radio" name="radio1" id="radio1" value="option1" checked>
-                                    <label for="radio1">
-                                        Phosphorus
-                                    </label>
-                                </div>
-                                <div class="radio radio-primary">
-                                    <input type="radio" name="radio1" id="radio2" value="option2">
-                                    <label for="radio2">
-                                        Nitrogen
-                                    </label>
-                                </div> -->
-
                             <hr/>
 
                             <h6 class="alignc">Area of Interest</h6>
@@ -648,11 +604,10 @@
                             </select>
 
                         </div>
-                        <!--END panel body-->
                     </div>
-                    <!--END filters panel-->
-                </div>
+                </div>  <!--END data filters Panel-->
 
+                <!--Data Display Panel-->
                 <div class="panel panel-default wim-sidebar-panel">
                     <div class="panel-heading" id="dataDisplayPanelHeader">
                         <h4 class="panel-title">
@@ -681,11 +636,12 @@
                               </button>
                         </div>
                     </div>
-                </div>
+                </div> <!-- END Data Display Panel-->
                 <!--END layers Panel-->
+
                 <!-- # closing div tag for accordion style panels -->
                 <!--</div>-->
-                <a href="http://wim.usgs.gov" target="_blank" class="identification">POWERED BY WiM</a>
+                <a href="http://wim.usgs.gov" target="_blank" class="identification">POWERED BY WIM</a>
 
                 <div class="sidebar-footer">
                     <a href="https://usgs.gov/" target="_blank">USGS Home</a>
@@ -699,10 +655,10 @@
             </div>
             <!--end sidebar-->
 
-
-
+            <!--BEGIN Main Map Content-->
             <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-3 no-col-padding keepit100" style="margin-top:20px;">
                 <div id="mapDiv">
+                    <!--Legend Panel-->
                     <div id="legendElement" class="panel panel-default legendClass">
                         <div id="legendHeading" class=" legendHeading" role="tab">
                             <h4 class="panel-title">
@@ -715,10 +671,7 @@
                         <div id="legendCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div id="legendDiv" class="panel-body"></div>
                         </div>
-                    </div>
-
-                    <!--LOBIPANEL EXPERIMENTAL________________________________________________________________________________________________________________________-->
-
+                    </div> <!--END Legend Panel-->
 
                     <div id="chartWindowDiv" class="panel panel-default chartWindowMaximize" role="tabpanel">
                             <div class="panel-heading">
@@ -762,7 +715,7 @@
                     <span id="mapCenterLabel" class="hover-content"> (center)</span>
                 </div>
 
-            </div>
+            </div>  <!--END Main Map Content-->
             <div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-right sidebar-animate"></div>
         </div>
     </div>
