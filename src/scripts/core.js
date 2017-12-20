@@ -1051,7 +1051,7 @@ require([
             if (app.clickSelectionActive) {
                 $.each(response, function(i, respObj){
                     var feature = respObj.feature;
-                    var respValue = respObj.displayFieldName == "MRB_ID" ? respObj.value : "'" + respObj.value + "'";
+                    var respValue = typeof respObj.value === 'string' ? respObj.value : "'" + respObj.value + "'";
 
                     if (!app.shiftKey) {
                         //adding

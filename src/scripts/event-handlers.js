@@ -260,7 +260,7 @@ function loadEventHandlers() {
         //set up the Chart chain of events
         //check to see if custom click was performed
         if (app.userSelectedDispFieldName != "") {
-            app.formattedHighlightString = app.userSelectedDispFieldName + " IN (" + app.userSelectedShapes.join(",") + ")";
+            app.formattedHighlightString = app.userSelectedDispFieldName + " IN ('" + app.userSelectedShapes.join("','") + "')";
             app.customChartClicked = true;
             console.log("Custom Click: " + app.formattedHighlightString);
             app.createChartQuery(app.formattedHighlightString);
