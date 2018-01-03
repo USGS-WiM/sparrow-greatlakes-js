@@ -2,13 +2,11 @@
 (Examples Below)
 ### Files licensed under the SIL Open Font License
 
-(Example) The FontAwesome font files in `XXX` are from [Font Awesome](http://fontawesome.io/) by Dave Gandy under the [SIL Open Font License 1.1](http://scripts.sil.org/OFL). The FontAwesome styles located in `XXX` are licensed under the [MIT License](https://opensource.org/licenses/MIT).
+The FontAwesome font files in `XXX` are from [Font Awesome](http://fontawesome.io/) by Dave Gandy under the [SIL Open Font License 1.1](http://scripts.sil.org/OFL). The FontAwesome styles located in `XXX` are licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-(Other Examples)
+The [Lobipanel](https://lobianijs.com/site/lobipanel) library is licensed by Zura Sekhniashvili under the [MIT License](https://opensource.org/licenses/MIT).
 
-### (Example Project Dependancy) AngularClass project files
 
-This project originated as the [angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter) and was created by [AngularClass](https://github.com/AngularClass). These files are licensed under the MIT license located in the root directory as `AngularClass License.txt`.
 
 ## The rest of this project is in the public domain
 
