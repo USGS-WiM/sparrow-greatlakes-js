@@ -48,12 +48,12 @@ function detectIE() {
         var rv = ua.indexOf('rv:');
         return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
     }
-
-    var edge = ua.indexOf('Edge/');
+    //app works fine in Edge
+    /* var edge = ua.indexOf('Edge/');
     if (edge > 0) {
         // Edge (IE 12+) => return version number
         return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-    }
+    } */
 
     // other browser
     return false;

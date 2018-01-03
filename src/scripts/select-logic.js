@@ -8,6 +8,7 @@ $('.selectpicker').selectpicker();
 //Change Displayed Metric select options
 function populateMetricOptions(selectedIndex){
     var metricOptions;
+    var keepMetricIndex = selectedIndex;
     if($(".radio input[type='radio']:checked")[0].id == 'radio1'){
         switch (selectedIndex){
             case 0:
@@ -80,10 +81,14 @@ function populateMetricOptions(selectedIndex){
     }
     
     $("#displayedMetricSelect").find('option').remove();
+
     $.each(metricOptions, function(index, value){
         $("#displayedMetricSelect").append(new Option(value.name, value.field));
         $('#displayedMetricSelect').selectpicker('refresh');
     });
+    //$("#displayedMetricSelect").find('option').value('AccumulatedLoad (Kg)');
+    
+    
 
 } // END populateMetricOptions
 

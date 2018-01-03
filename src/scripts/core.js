@@ -2356,7 +2356,8 @@ require([
                 } else {
                     layer.setVisibility(true);
                     //add to legend.
-                    app.legend.layerInfos.push({layer: layer, title: e.currentTarget.innerText});
+                    /*TODO need some sort of layer check below*/
+                   // app.legend.layerInfos.push({layer: layer, title: e.currentTarget.innerText});
                     app.legend.refresh();
 
                 }
