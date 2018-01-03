@@ -9,8 +9,8 @@ SPARROW is a modeling tool for the regional interpretation of water-quality moni
 
 This project is based on the USGS WiM Generator template for ESRI Javascript API web map applications.  To work with the code you will need the following software: 
 
-*[Node Package Manager](https://www.npmjs.com/)
-*[Git](https://desktop.github.com/)
+* [Node Package Manager](https://www.npmjs.com/)
+* [Git](https://desktop.github.com/)
 
 ```
 Give examples
@@ -68,6 +68,10 @@ To create a build run:
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for submitting pull requests to us. Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details on adhering by the [USGS Code of Scientific Conduct](https://www2.usgs.gov/fsp/fsp_code_of_scientific_conduct.asp).
+
+## Updating the Application
+
+Please read [UPDATING_SPARROW.md](UPDATING_SPARROW.md) for a checklist and description of how to add a new SPARROW model dataset or modify the application's configuration file.
 
 ## Versioning
 
