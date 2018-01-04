@@ -128,7 +128,7 @@ require([
                     },
                     "wimOptions": {
                         "type": "layer",
-                        "layerType": "agisFeature",
+                        "layerType": "agisDynamic",
                         "includeInLayerList": true,
                         "hasOpacitySlider": true,
                         "hasZoomto": false,
