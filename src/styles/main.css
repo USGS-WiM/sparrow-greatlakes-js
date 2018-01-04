@@ -1031,10 +1031,16 @@ Mitch GH Issues Aug 28
   top:10%;
   left:25%;
 }
+/*position above loading screen(?) and nav*/
 .modal {
     z-index: 10050 !important;
 }
 
 .highcharts-contextbutton text {
     fill: #fff !important;
+}
+
+/*override default search api menu z-index to match the modals (above loading screen)*/
+.search-api-menu{
+    z-index: 1000000 !important;
 }

@@ -2,10 +2,9 @@
 (Examples Below)
 ### Files licensed under the SIL Open Font License
 
-The FontAwesome font files in `XXX` are from [Font Awesome](http://fontawesome.io/) by Dave Gandy under the [SIL Open Font License 1.1](http://scripts.sil.org/OFL). The FontAwesome styles located in `XXX` are licensed under the [MIT License](https://opensource.org/licenses/MIT).
+The FontAwesome font files are from [Font Awesome](http://fontawesome.io/) by Dave Gandy under the [SIL Open Font License 1.1](http://scripts.sil.org/OFL). The FontAwesome styles located in `XXX` are licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 The [Lobipanel](https://lobianijs.com/site/lobipanel) library is licensed by Zura Sekhniashvili under the [MIT License](https://opensource.org/licenses/MIT).
-
 
 
 ## The rest of this project is in the public domain
