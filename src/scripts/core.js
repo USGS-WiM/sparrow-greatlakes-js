@@ -2301,6 +2301,11 @@ require([
                     if (layerDetails.visibleLayers) {
                         layer.setVisibleLayers(layerDetails.visibleLayers);
                     }
+                   /*  if (layerDetails.options.id != 'SparrowRanking'){
+                        if (layerDetails.wimOptions && layerDetails.wimOptions.includeLegend == true){
+                            legendLayers.push({layer:layer, title: legendLayerName});
+                        }
+                    } */
                     addLayer(group.groupHeading, group.showGroupHeading, layer, layerName, layerDetails.options, layerDetails.wimOptions);
                 }
 
@@ -2325,7 +2330,7 @@ require([
                 var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" > <button id="' + layer.id + '"type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-check-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right opacity"></span></button></div>');
             }
             else if (!layer.visible && wimOptions.hasOpacitySlider !== undefined && wimOptions.hasOpacitySlider == true && wimOptions.hasZoomto !== undefined && wimOptions.hasZoomto == false){
-                //opacity icon, NO zoomTo icon
+                //opacity icon, NO zoomTo icon, NOT Visible
                 var button = $('<div class="btn-group-vertical lyrTogDiv" style="cursor: pointer;" > <button id="' + layer.id + '"type="button" class="btn btn-default active" aria-pressed="true" style="font-weight: bold;text-align: left"><i class="glyphspan fa fa-square-o"></i>&nbsp;&nbsp;' + layerName + '<span id="opacity' + camelize(layerName) + '" class="glyphspan glyphicon glyphicon-adjust pull-right opacity"></span></button></div>');
             }
             //click listener for regular
@@ -2355,11 +2360,15 @@ require([
                     app.legend.refresh();
                 } else {
                     layer.setVisibility(true);
-                    //add to legend.
-                    /*TODO need some sort of layer check below*/
-                   // app.legend.layerInfos.push({layer: layer, title: e.currentTarget.innerText});
-                    app.legend.refresh();
-
+                    //add to legend
+                    if (app.map.getLayer(layer.id).id != "modelArea"){
+                         /* Cheap, ugly fix 
+                            -- seems that layers that are on by default will show up in legend when re-toggled.
+                            -- getting around that here by checking for the offending layer id above and skipping the legend layer push
+                        */
+                        app.legend.layerInfos.push({layer: layer, title: e.currentTarget.innerText});
+                        app.legend.refresh();
+                    }
                 }
             });
 
