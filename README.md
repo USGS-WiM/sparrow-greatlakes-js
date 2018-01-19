@@ -63,7 +63,9 @@ To create a build run:
 * [NPM](https://www.npmjs.com/) - Dependency Management
 * [Tablesorter](https://mottie.github.io/tablesorter/docs/) - HTML table sorting
 * [HighCharts](https://www.highcharts.com/) - Interactive charting
-* [lobipanel](https://github.com/arboshiki/lobipanel) - jQuery plugin for bootstrap panels. 
+* [Lobipanel](https://github.com/arboshiki/lobipanel) - jQuery plugin for bootstrap panels. 
+* [Bootstrap Select](https://silviomoreto.github.io/bootstrap-select/) - jQuery plugin to bring additional functionality to standard select elements.
+
 
 ## Contributing
 
