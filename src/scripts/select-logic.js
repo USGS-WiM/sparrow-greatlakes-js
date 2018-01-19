@@ -91,7 +91,7 @@ function populateMetricOptions(selectedIndex){
         $('#displayedMetricSelect').selectpicker('refresh');
     });
 
-    //find previously Selected metric value
+    //finds and returns previously selected value in the new metric options  
     var selectedMetric = function(previousFieldLabel, metricOptions){
         for (var i = 0, len = metricOptions.length; i< len; i++){
             if (previousFieldLabel === metricOptions[i].name){
@@ -100,27 +100,19 @@ function populateMetricOptions(selectedIndex){
         }
         return null;
     }
-   
+    
+    //set the selected metric dropdown here
     if(previousFieldLabel){
         if ( selectedMetric(previousFieldLabel, metricOptions) != null ){
-            $("#displayedMetricSelect").selectpicker('val', selectedMetric(previousFieldLabel, metricOptions).field); ///CAN"T USE PREVIOUS VALUE AS THEY ARE NOT THE SAME GP3 VS GP2 etc
+            //set dropdown to previously selected value
+            $("#displayedMetricSelect").selectpicker('val', selectedMetric(previousFieldLabel, metricOptions).field); //use field, not name
         } else{
-            $("#displayedMetricSelect").selectpicker('val', metricOptions[0].field); //move accl to config as default metric value
+            //set default to the first new metric option because the previously selected value isn't in the new list.
+            $("#displayedMetricSelect").selectpicker('val', metricOptions[0].field); 
         }
     } else{
         $("#displayedMetricSelect").selectpicker('val', metricOptions[0].field);
     } 
-
-    /*  if(previousFieldLabel){
-        if ( $.inArray(previousFieldLabel, metricOptions) > -1 ){
-            $("#displayedMetricSelect").selectpicker('val', previousFieldLabel); ///CAN"T USE PREVIOUS VALUE AS THEY ARE NOT THE SAME GP3 VS GP2 etc
-        } else{
-            $("#displayedMetricSelect").selectpicker('val', "ACCL"); //move accl to config as default metric value
-        }
-    } else{
-        $("#displayedMetricSelect").selectpicker('val', "ACCL");
-    }  */
-   
 
 } // END populateMetricOptions
 
