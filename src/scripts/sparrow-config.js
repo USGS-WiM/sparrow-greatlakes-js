@@ -9,6 +9,7 @@ var appTitle = "Great Lakes Nutrient Loading";
 var appVersion = "v0.9.0";
 
 var serviceBaseURL = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakes/MapServer/"; //important! UPDATE rest service URL
+var downloadBaseURL = "https://sparrow.wim.usgs.gov/great-lakes/downloads/";
 var chartUnits = " (kg/yr.)"
 
 var groupResultsInitIndex = 1; //sets the default layer for the application.  In this case service layer 1 == HUC8.
