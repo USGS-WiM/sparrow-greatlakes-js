@@ -22,29 +22,30 @@ function loadEventHandlers() {
     });
     /*END RADIO EVENTS*/
 
-    //UPDATE: important! make sure the file name is updated_____________________________________________________
+    /*DOWNLOAD BUTTONS*/
     $("#phosphorusDownload").click(function() {
         // hope the server sets Content-Disposition: attachment!
-        window.location = downloadBaseURL + "greatlakes_shapefiles_phosphorus.zip";
+        window.location = downloadBaseURL + "greatlakes_shapefiles_phosphorus.zip";  //UPDATE: important! make sure the file name is updated
     });
-    //UPDATE: important! make sure the file name is updated_____________________________________________________
+    
     $("#nitrogenDownload").click(function() {
         // hope the server sets Content-Disposition: attachment!
-        window.location = downloadBaseURL + 'greatlakes_shapefiles_nitrogen.zip';
+        window.location = downloadBaseURL + 'greatlakes_shapefiles_nitrogen.zip';  //UPDATE: important! make sure the file name is updated
     });
     $("#phosphorusCalibrationDownload").click(function() {
         // hope the server sets Content-Disposition: attachment!
-        window.location = downloadBaseURL + 'greatlakes_phosphorus_calibration_sites.zip';
+        window.location = downloadBaseURL + 'greatlakes_phosphorus_calibration_sites.zip'; //UPDATE: important! check file name
     });
     $("#nitrogenCalibrationDownload").click(function() {
         // hope the server sets Content-Disposition: attachment!
-        window.location = downloadBaseURL + 'greatlakes_nitrogen_calibration_sites.zip';
+        window.location = downloadBaseURL + 'greatlakes_nitrogen_calibration_sites.zip'; //UPDATE: important! check file name
     });
+    /*END DOWNLOAD BUTTONS*/
     
-    //moved this out of exectureIdentifyTask()
     $("#popupChartButton").on('click', function(){
         app.createChartQuery();
     });
+    
     /* AOI EVENTS */
     $('.aoiSelect').on('change', AOIChange);
 
