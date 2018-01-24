@@ -916,6 +916,11 @@ ul.nav-tabs li.active a{
   box-sizing: border-box;
   padding: 10px 0;
 }
+/*sets max height and overflow on BOTH about modal and userguideModal (which shares id with aboutModalBody*/
+#aboutModalBody{
+    max-height: 400px;
+    overflow-y: auto;
+}
 
 
 
