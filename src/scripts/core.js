@@ -2257,6 +2257,15 @@ require([
         app.createTableQuery();
     }
 
+    $('.showAboutDefinitions').click(function(){
+        $('#userGuideModal').modal('hide');
+        $('#downloadDatamodal').modal('hide');
+        $('#geosearchModal').modal('hide');
+        $('#aboutModal').modal('show');
+        console.log("Opening definitions tab");
+        $('#definitionsTab').trigger('click');
+    });
+
     $('#legendDiv').niceScroll();
 
     app.maxLegendHeight =  ( $('#mapDiv').height() ) * 0.90;
