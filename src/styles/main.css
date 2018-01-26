@@ -994,7 +994,7 @@ Mitch GH Issues Aug 28
     justify-content: center;
     text-align: center;
     content: 'loading...';
-    background-image: url(../images/usgsanimated.svg);
+    background-image: url('https://wim.usgs.gov/website-assets/branding/usgsanimated.svg');
     height: 100%;
     position: absolute;
     top: 0;
@@ -1048,4 +1048,17 @@ Mitch GH Issues Aug 28
 /*override default search api menu z-index to match the modals (above loading screen)*/
 .search-api-menu{
     z-index: 1000000 !important;
+}
+
+
+/* Jan 25 GH issue fixes */
+.search-api-container input{
+  margin: 0 !important;
+  padding: 15px 5px 15px 15px !important;
+}
+#chartClose{
+  display: block;
+  position: absolute;
+  margin-top: 15px;
+  margin-left: -5px;
 }
