@@ -18,7 +18,7 @@
 
     "homepageURL": "https://sparrow.wim.usgs.gov/great-lakes/",
     "downloadURL": "https://github.com/USGS-WiM/sparrow-greatlakes-js/archive/master.zip",
-    "disclaimerURL": "https://github.com/USGS-WiM/sparrow-greatlakes-js/blob/master/LICENSE.md",
+    "disclaimerURL": "https://github.com/USGS-WiM/sparrow-greatlakes-js/blob/master/DISCLAIMER.md",
     "repositoryUrl": "https://github.com/USGS-WiM/sparrow-greatlakes-js",
     "vcs": "git",
 
