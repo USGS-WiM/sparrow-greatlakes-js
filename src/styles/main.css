@@ -1062,3 +1062,14 @@ Mitch GH Issues Aug 28
   margin-top: 15px;
   margin-left: -5px;
 }
+.nicescroll-rails-vr {
+    display: block !important;
+}
+    
+.nicescroll-rails-hr{
+    display: block !important;
+}
+.esriMapContainer{
+	width: 100% !important;
+	height: 100% !important;
+} 
