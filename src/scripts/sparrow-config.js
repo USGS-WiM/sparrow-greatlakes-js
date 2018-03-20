@@ -19,7 +19,7 @@ var splitLayers = [5,6,7,13,14,15]; //important! UPDATE layer Ids of all state s
 var mapCenter = [-85.2, 44.4];
 var defaultZoomLevel = 6;
 
-var borderThreshold = 7; //dynamic polygon border threshold.  When zoomed beyond this number borders appear
+var borderThreshold = 8; //dynamic polygon border threshold.  When zoomed beyond this number borders appear
 var dynamicBorderLayers = ["Catchment"]; //Aggregate layer choices placed in this array will have dynamic borders.  Each string MUST MATCH the text in the Group Results By Select to work.
 
 var tableOutFields = [
