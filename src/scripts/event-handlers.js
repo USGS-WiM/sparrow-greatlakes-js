@@ -305,6 +305,15 @@ function loadEventHandlers() {
     app.map.on('zoom-end', function (){
         var scale = app.map.getScale().toFixed(0);
         $('#scale')[0].innerHTML = addCommas(scale);
+        var zoomEnd = app.map.getZoom();
+        console.log(zoomEnd);
+        //for the dynamic borders
+        if (app.currentZoomLevel <= borderThreshold && zoomEnd > borderThreshold){
+            generateRenderer();
+        } else if (app.currentZoomLevel > borderThreshold && zoomEnd <= borderThreshold){
+            generateRenderer();
+        }
+        app.currentZoomLevel = zoomEnd;
     });
 
     //updates lat/lng indicator on mouse move. does not apply on devices w/out mouse. removes "map center" label
