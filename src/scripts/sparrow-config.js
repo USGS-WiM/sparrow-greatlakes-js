@@ -5,7 +5,7 @@ CONFIG FILE FOR USE WITH SPARROW-GREAT LAKES
 
 //before updating make sure that displayField name is set to MRB_ID or ST_MRB_ID for ALL catchment layers.  Charts will not properly function otherwise
 
-var appTitle = "Great Lakes Nutrient Loading";
+var appTitle = "Great Lakes 2002 Nutrient Loading";
 var appVersion = "v0.9.0";
 
 var serviceBaseURL = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakes/MapServer/"; //important! UPDATE rest service URL
@@ -17,8 +17,10 @@ var groupResultsInitIndex = 1; //sets the default layer for the application.  In
 var splitLayers = [5,6,7,13,14,15]; //important! UPDATE layer Ids of all state split layers
 
 var mapCenter = [-85.2, 44.4];
-defaultZoomLevel = 6
+var defaultZoomLevel = 6;
 
+var borderThreshold = 7; //dynamic polygon border threshold.  When zoomed beyond this number borders appear
+var dynamicBorderLayers = ["Catchment"]; //Aggregate layer choices placed in this array will have dynamic borders.  Each string MUST MATCH the text in the Group Results By Select to work.
 
 var tableOutFields = [
     { field: "FID", name: "Unique Feature Id"},

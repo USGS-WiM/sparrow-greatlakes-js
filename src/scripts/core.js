@@ -2127,13 +2127,13 @@ require([
         var selectedLayerId = $('#groupResultsSelect')[0].selectedIndex;
         if (selectedLayerId == 0) {
             //add Basin Area, Upstream Area, and Total
+            headerKeyArr.push("Total");
             headerKeyArr.push("Catchment Area");
             headerKeyArr.push("Upstream Area");
-            headerKeyArr.push("Total");
-        } else {
-            headerKeyArr.push("Area");
-            headerKeyArr.push("Total");
             
+        } else {
+            headerKeyArr.push("Total");
+            headerKeyArr.push("Area");
         }
 
         var htmlHeaderArr =  [];
@@ -2155,10 +2155,18 @@ require([
 
             htmlArr.push("<tr id='row"+rowI+"'>");
             $.each(feature, function(key, value){
-                //comment in if changing back to PNAME
-                //if (key !== "MRB_ID" && key !== "ST_MRB_ID") {
+                
+                if (key == 'total'){
+                    var insertSpace; 
+                    if($('#groupResultsSelect')[0].selectedIndex == 0){
+                        insertSpace = -2; //catchment layers have 2 area fields to displace
+                    } else{
+                        insertSpace = -1; //non-catchemnt have only 1 area field
+                    }
+                    htmlArr.splice(insertSpace, 0, '<td>'+ value +'</td>'); //move the total column to the specified place in the array (note: matches headerKeyArr)
+                } else{
                     htmlArr.push('<td>'+ value +'</td>');
-                //}
+                }
             });
 
             htmlArr.push("</tr>");
