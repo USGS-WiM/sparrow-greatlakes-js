@@ -1142,11 +1142,11 @@ require([
                         var valuePairs = {};
 
                         //need to wrap value in single quotes for ESRI REST Service query.  BUT ONLY IF THE DISPLAY FIELD IS A STRING!
-                        /* if (response[0].displayFieldName == "MRB_ID"){
-                            var chartQueryArg = response[0].displayFieldName + " = " + response[0].value;
-                        } else{ */
+                        if (typeof response[0].value == "string"){
                             var chartQueryArg = response[0].displayFieldName + " = " + "'" + response[0].value + "'";
-                        //}
+                        } else{
+                           var chartQueryArg = response[0].displayFieldName + " = " + response[0].value;
+                        }
 
                         $.each(fields, function(index, obj){
                             //console.log(obj.attribute);
@@ -1534,8 +1534,8 @@ require([
                     sum += attribute;
                 }
             });
-            obj.total = sum;
-            tableFeatures[index].total = sum;
+            obj.total = sum.toFixed(3);
+            tableFeatures[index].total = sum.toFixed(3);
             sum = 0;
         });
         featureSort.sort(function(a, b){
@@ -1820,9 +1820,7 @@ require([
                             if (e.resetSelection != true) {
                                 var categoryStr = "";
                                 $.each(categoryArr, function(i, category){
-
-                                    // only MRB_ID is a number, ST_MRB_ID is a string
-                                    categoryStr += fieldName == "MRB_ID" ?  + category + ", " : "'" + category + "', ";
+                                    categoryStr += "'" + category + "', ";
                                 });
                                 var queryStr = categoryStr.slice(0, categoryStr.length - 2);
 
@@ -2019,13 +2017,7 @@ require([
                                     graphicsQuery.returnGeometry = true; //important!
                                     graphicsQuery.outSpatialReference = app.map.spatialReference;  //important!
                                     graphicsQuery.outFields = [fieldName];
-
-                                    if (fieldName != "MRB_ID"){
-                                        graphicsQuery.where = fieldName + "= '" + category + "'";
-                                    }else {
-                                        //MRB_ID (but ST_MRB_ID is) field is NOT a string!!!
-                                        graphicsQuery.where = fieldName + " = " + category;
-                                    }
+                                    graphicsQuery.where = fieldName + "= '" + category + "'";  //wrap in single quotes for string
 
                                     queryTask.execute(graphicsQuery, responseHandler);
 
@@ -2052,14 +2044,8 @@ require([
                                     } else {
                                         thisCategory = this.category;
                                     }
-
-                                    if (queryField != "MRB_ID"){
-                                        var queryString = queryField + " = " + "'" + thisCategory + "'";
-                                    } else {
-                                        //MRB_ID field is NOT a string!!!
-                                        var queryString = queryField + " = " + thisCategory ;
-                                    }
-
+                                    //watch out! if query field is not a string ESRI request will fail when wrapped in quotes
+                                    var queryString = queryField + " = " + "'" + thisCategory + "'";
                                     app.map.graphics.clear();
                                     app.createChartQuery(queryString);
                                 }
@@ -2201,12 +2187,8 @@ require([
         graphicsQuery.returnGeometry = true; //important!
         graphicsQuery.outSpatialReference = app.map.spatialReference;  //important!
         graphicsQuery.outFields = [fieldName];
-
-        if (fieldName == "MRB_ID"){
-            graphicsQuery.where = fieldName + " = " + category;
-        } else{
-            graphicsQuery.where = fieldName + "= '" + category + "'";
-        }
+        graphicsQuery.where = fieldName + "= '" + category + "'";
+        
 
         queryTask.execute(graphicsQuery, responseHandler);
 

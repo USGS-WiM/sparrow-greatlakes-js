@@ -263,7 +263,7 @@ function loadEventHandlers() {
         if (app.userSelectedDispFieldName != "") {
             app.formattedHighlightString = app.userSelectedDispFieldName + " IN ('" + app.userSelectedShapes.join("','") + "')";
             app.customChartClicked = true;
-            console.log("Custom Click: " + app.formattedHighlightString);
+            //console.log("Custom Click: " + app.formattedHighlightString);
             app.createChartQuery(app.formattedHighlightString);
             //app.userSelectedDispFieldName = "";
             //app.userSelectedShapes = [];
@@ -306,7 +306,7 @@ function loadEventHandlers() {
         var scale = app.map.getScale().toFixed(0);
         $('#scale')[0].innerHTML = addCommas(scale);
         var zoomEnd = app.map.getZoom();
-        console.log(zoomEnd);
+        //console.log(zoomEnd);
         //for the dynamic borders
         if (app.currentZoomLevel <= borderThreshold && zoomEnd > borderThreshold){
             generateRenderer();

@@ -374,10 +374,10 @@ function getTableFields(headerKeysArr, sparrowLayerId){
 
     htmlHeaderArr.push("<tr>");
     $.each(headerKeysArr, function(index, key){
-        console.log(key);
+        //console.log(key);
         $.each(flatArr, function(index, obj){
             if(key == obj.field){
-                console.log(obj.field);
+                //console.log(obj.field);
                 htmlHeaderArr.push('<th>' + obj.name + '</th>');
                 return false; //escape the each loop?
             }
@@ -403,7 +403,7 @@ function getLegendLabels(sparrowLayerId){
 
 function getChartOutfields(sparrowLayerId){
     var chartFieldsArr = [];
-    console.log("in GetChartOutfields()")
+    //console.log("in GetChartOutfields()")
     var configObject = app.getLayerConfigObject(sparrowLayerId);
     $.each(configObject, function(index, item){
         if( $("#displayedMetricSelect").val() == item.field ) {
