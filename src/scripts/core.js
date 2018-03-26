@@ -1051,7 +1051,7 @@ require([
             if (app.clickSelectionActive) {
                 $.each(response, function(i, respObj){
                     var feature = respObj.feature;
-                    var respValue = typeof respObj.value != "string" ? respObj.value : "'" + respObj.value + "'";
+                    var respValue = typeof respObj.value === 'string' ? respObj.value : "'" + respObj.value + "'";
 
                     if (!app.shiftKey) {
                         //adding
@@ -2044,14 +2044,8 @@ require([
                                     } else {
                                         thisCategory = this.category;
                                     }
-
-                                    if (queryField != "MRB_ID"){
-                                        var queryString = queryField + " = " + "'" + thisCategory + "'";
-                                    } else {
-                                        //MRB_ID field is NOT a string!!!
-                                        var queryString = queryField + " = " + thisCategory ;
-                                    }
-
+                                    //watch out! if query field is not a string ESRI request will fail when wrapped in quotes
+                                    var queryString = queryField + " = " + "'" + thisCategory + "'";
                                     app.map.graphics.clear();
                                     app.createChartQuery(queryString);
                                 }
