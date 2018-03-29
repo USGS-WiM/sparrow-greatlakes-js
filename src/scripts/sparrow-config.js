@@ -22,6 +22,8 @@ var defaultZoomLevel = 6;
 var borderThreshold = 8; //dynamic polygon border threshold.  When zoomed beyond this number borders appear
 var dynamicBorderLayers = ["Catchment"]; //Aggregate layer choices placed in this array will have dynamic borders.  Each string MUST MATCH the text in the Group Results By Select to work.
 
+var initQueryParams = ['ST', 'GP3', 'GP2', 'GP1' ]; //used to query for the AOI dropdown values on app init.
+
 var tableOutFields = [
     { field: "FID", name: "Unique Feature Id"},
     { field: "GRP1", name: "Main River Basin"},
@@ -113,7 +115,6 @@ var nitrogenSourceDefinitions = {
 }
 
 
-
 /***TODO -- 
     WE DON"T HAVE ALL THE CORRECT COLORS FOR Great Lakes AT THIS TIME -- double check before release. 
 ***/
@@ -124,7 +125,22 @@ var nitroColors = ['#BF0000', '#663100', '#FFEC99', '#97DA7C', '#0070C0' ];
 
 /***-----BEGIN PHOSPHORUS LAYER GROUPS --------***/
 /* PHOSPHORUS CATCHMENTS */
-    
+
+/* function createChartOutFields(attributeStr, idField, sourceDef, layerDef ){
+    var tempArr = [];
+    console.log( window[idField]);
+    tempArr.push({attribute: idField, label: layerDef.idField});
+
+
+}
+
+var TESTLAYER =[    
+    {
+        field: "ACCL", 
+        name: catchmentDefinitions.accl, 
+        chartOutfields: createChartOutFields("ACCL", "MRB_ID", phosphorusSourceDefinitons, catchmentDefinitions  )
+    }
+];    */
 /*DOCUMENTATION NOTES: each 'field below should correspond to a "Mapped Attribute" in the cats_tp_attribute_definitons.xlsx file.  These are the attributes that will be displayed on the map. */
 var Catchments = [    
     {
@@ -562,62 +578,6 @@ var Catchments_st = [
         ]
     }
 
-]
-
-//HUC8 Metric choices, service Id 1
-var Group3 = [    
-    {
-        field: "GP3_AL", 
-        name: mappedDefinitions.al, 
-        chartOutfields: [
-            { attribute: "GP3", label: aggregateDefinitions.gp3 }, 
-            { attribute: "GP3_AL_S1", label: mappedDefinitions.al + ' ' + phosphorusSourceDefinitons.s1},
-            { attribute: "GP3_AL_S2", label: mappedDefinitions.al + ' ' + phosphorusSourceDefinitons.s2},
-            { attribute: "GP3_AL_S3", label: mappedDefinitions.al + ' ' + phosphorusSourceDefinitons.s3},
-            { attribute: "GP3_AL_S4", label: mappedDefinitions.al + ' ' + phosphorusSourceDefinitons.s4},
-            { attribute: "GP3_AL_S5", label: mappedDefinitions.al + ' ' + phosphorusSourceDefinitons.s5},
-            { attribute: "GP3_AL_S6", label: mappedDefinitions.al + ' ' + phosphorusSourceDefinitons.s6}
-        ]
-    },
-    {
-        field: "GP3_DAL", 
-        name: mappedDefinitions.dal, 
-        chartOutfields: [
-            { attribute: "GP3", label: aggregateDefinitions.gp3 }, 
-            { attribute: "GP3_DAL_S1", label: mappedDefinitions.dal + ' ' + phosphorusSourceDefinitons.s1},
-            { attribute: "GP3_DAL_S2", label: mappedDefinitions.dal + ' ' + phosphorusSourceDefinitons.s2},
-            { attribute: "GP3_DAL_S3", label: mappedDefinitions.dal + ' ' + phosphorusSourceDefinitons.s3},
-            { attribute: "GP3_DAL_S4", label: mappedDefinitions.dal + ' ' + phosphorusSourceDefinitons.s4},
-            { attribute: "GP3_DAL_S5", label: mappedDefinitions.dal + ' ' + phosphorusSourceDefinitons.s5},
-            { attribute: "GP3_DAL_S6", label: mappedDefinitions.dal + ' ' + phosphorusSourceDefinitons.s6}
-        ] 
-    },
-    {
-        field: "GP3_AY", 
-        name: mappedDefinitions.ay, 
-        chartOutfields: [
-            { attribute: "GP3", label: aggregateDefinitions.gp3 }, 
-            { attribute: "GP3_AY_S1", label: mappedDefinitions.ay + ' ' + phosphorusSourceDefinitons.s1},
-            { attribute: "GP3_AY_S2", label: mappedDefinitions.ay + ' ' + phosphorusSourceDefinitons.s2},
-            { attribute: "GP3_AY_S3", label: mappedDefinitions.ay + ' ' + phosphorusSourceDefinitons.s3},
-            { attribute: "GP3_AY_S4", label: mappedDefinitions.ay + ' ' + phosphorusSourceDefinitons.s4},
-            { attribute: "GP3_AY_S5", label: mappedDefinitions.ay + ' ' + phosphorusSourceDefinitons.s5},
-            { attribute: "GP3_AY_S6", label: mappedDefinitions.ay + ' ' + phosphorusSourceDefinitons.s6}
-        ]
-    },
-    {
-        field: "GP3_DAY", 
-        name: mappedDefinitions.day, 
-        chartOutfields: [
-            { attribute: "GP3", label: aggregateDefinitions.gp3 }, 
-            { attribute: "GP3_DAY_S1", label: mappedDefinitions.day + ' ' + phosphorusSourceDefinitons.s1},
-            { attribute: "GP3_DAY_S2", label: mappedDefinitions.day + ' ' + phosphorusSourceDefinitons.s2},
-            { attribute: "GP3_DAY_S3", label: mappedDefinitions.day + ' ' + phosphorusSourceDefinitons.s3},
-            { attribute: "GP3_DAY_S4", label: mappedDefinitions.day + ' ' + phosphorusSourceDefinitons.s4},
-            { attribute: "GP3_DAY_S5", label: mappedDefinitions.day + ' ' + phosphorusSourceDefinitons.s5},
-            { attribute: "GP3_DAY_S6", label: mappedDefinitions.day + ' ' + phosphorusSourceDefinitons.s6}
-        ]
-    }
 ]
 
 var Group3_st = [
@@ -1334,33 +1294,7 @@ var Group1_st_tn = [
 ////END NITROGEN LAYER GROUPS______________________________________________________________________________________________________________________________
 
 
-var queryParameters = {
-    grp3: {idField: "GRP_3_NUM",
-        nameField: ["GRP_3_NAM", "GRP_2_NAM", "GRP_1_NAM", "ST"], //actually set in core.js for loop currently
-        alias: "HUC10",
-        serviceId: 4,
-        AOISelect: false
-    },
-    grp2: {idField: "GRP_2_NUM",
-        nameField: ["GRP_2_NAM"],
-        alias: "HUC8",
-        serviceId: 1,
-        AOISelect: true
 
-    },
-    grp1: {idField: "GRP_1_NUM",
-        nameField: ["GRP_1_NAM"],
-        alias: "Independent Watershed",
-        serviceId: 2,
-        AOISelect: true
-    },
-    st: {idField: "ST",
-        nameField: ["ST"],
-        alias: "State",
-        serviceId: 3,
-        AOISelect: true
-    }
-} 
 
-//
+
  
