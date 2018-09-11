@@ -1,45 +1,45 @@
 [
   {
-    "name": "Wimpo",
+    "name": "sparrow-greatlakes-js",
     "organization": "U.S. Geological Survey",
-    "description": "Documents best practices for software development within WIM",
+    "description": "Display Spatially-Referenced Regresson On Watershed Attributes (SPARROW) data for the Great Lakes",
     "version": "v0.0.0",
-    "status": "Ideation", "Development", "Alpha", "Beta", "Release Candidate", "Production", "Archival"
+    "status": "Production",
 
     "permissions": {
       "usageType": "openSource",
       "licenses": [
         {
-          "name": "Public Domain, CC0-1.0",
-          "URL": "https://github.com/usgs/best-practices/blob/master/LICENSE.md"
+          "name": "Public Domain",
+          "URL": "https://github.com/USGS-WiM/sparrow-greatlakes-js/blob/master/LICENSE.md"
         }
       ]
     },
 
-    "homepageURL": "https://wim.usgs.gov",
-    "downloadURL": "https://github.com/USGS-WiM/wimpo/archive/master.zip",
-    "disclaimerURL": "https://github.com/USGS-WiM/wimpo/blob/master/LICENSE.md",
-    "repositoryUrl": "https://github.com/USGS-WiM/wimpo",
+    "homepageURL": "https://sparrow.wim.usgs.gov/great-lakes/",
+    "downloadURL": "https://github.com/USGS-WiM/sparrow-greatlakes-js/archive/master.zip",
+    "disclaimerURL": "https://github.com/USGS-WiM/sparrow-greatlakes-js/blob/master/DISCLAIMER.md",
+    "repositoryUrl": "https://github.com/USGS-WiM/sparrow-greatlakes-js",
     "vcs": "git",
 
     "laborHours": null,
 
     "tags": [
-      "guidance",
-      "template"
+      "sparrow",
+      "Great Lakes"
     ],
 
     "languages": [
-      "Markdown"
+      "javascript"
     ],
 
     "contact": {
-      "name": "jessie doe",
-      "email": "jdoe@usgs.gov"
+      "name": "Erik Myers",
+      "email": "emyers@usgs.gov"
     },
 
     "date": {
-      "metadataLastUpdated": "2017-10-25"
+      "metadataLastUpdated": "2018-02-07"
     }
   }
 ]
