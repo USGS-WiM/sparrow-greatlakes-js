@@ -1,6 +1,7 @@
 //for jshint
 'use strict';
 // Generated on 2015-04-13 using generator-wim 0.0.1
+// Updated 10/16/2018 Rachel Stevenson 
 
 var app = {};
 
@@ -1934,7 +1935,7 @@ require([
     });
 
     function showAboutModal () {
-        $("#aboutModalHeader").html('About ' + appTitle + ' ' + appVersion);
+        $("#aboutModalHeader").html('About ' + appTitle + ' ');
         $('#aboutModal').modal('show');
     }
     $('#aboutNav').click(function(){
