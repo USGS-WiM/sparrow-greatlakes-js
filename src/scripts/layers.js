@@ -35,7 +35,7 @@ require([
             "showGroupHeading": true,
             "includeInLayerList": true,
             "layers": {
-                "Nutrient Model Results Overlay":{
+                "SPARROW Model Results":{
                     "url" : serviceBaseURL,
                     "visibleLayers": [sparrowOverlay],
                     "options":{
