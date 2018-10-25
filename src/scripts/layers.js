@@ -24,7 +24,7 @@ require([
     if ($("#radio1")[0].checked == true){
         sparrowOverlay = 0;
     } else{
-        sparrowOverlay = 1;
+        sparrowOverlay = 0;
     }
 
 
