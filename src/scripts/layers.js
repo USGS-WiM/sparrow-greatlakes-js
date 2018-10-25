@@ -24,7 +24,7 @@ require([
     if ($("#radio1")[0].checked == true){
         sparrowOverlay = 0;
     } else{
-        sparrowOverlay = 1;
+        sparrowOverlay = 0;
     }
 
 
@@ -35,7 +35,7 @@ require([
             "showGroupHeading": true,
             "includeInLayerList": true,
             "layers": {
-                "Nutrient Model Results Overlay":{
+                "SPARROW Model Results":{
                     "url" : serviceBaseURL,
                     "visibleLayers": [sparrowOverlay],
                     "options":{

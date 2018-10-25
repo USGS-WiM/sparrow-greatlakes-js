@@ -1,9 +1,12 @@
 function loadEventHandlers() {
 
      /*RADIO EVENTS*/
+
+
     $('.radio').on('change', function(e){
         $("#page-loader").fadeIn();
 
+        
         var groupBySelectedIndex = $("#groupResultsSelect")[0].selectedIndex;
         var selectedRadio = this.firstElementChild.id;
 
@@ -18,6 +21,10 @@ function loadEventHandlers() {
  
             app.createChartQuery();
         }
+
+        if ($("#SparrowRanking").hasClass("active") == true) {
+            (generateRenderer())
+           };
 
     });
     /*END RADIO EVENTS*/
@@ -363,6 +370,10 @@ function loadEventHandlers() {
     });
     $('#btnGray').on('click', function () {
         app.map.setBasemap('gray');
+        app.map.removeLayer(nationalMapBasemap);
+    });
+    $("#btnDark").on("click", function() {
+        app.map.setBasemap("dark-gray");
         app.map.removeLayer(nationalMapBasemap);
     });
     $('#btnNatGeo').on('click', function () {
