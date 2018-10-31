@@ -354,38 +354,29 @@ function loadEventHandlers() {
     //on clicks to swap basemap.app.map.removeLayer is required for nat'l map b/c it is not technically a basemap, but a tiled layer.
     $("#btnStreets").on('click', function () {
         app.map.setBasemap('streets');
-        app.map.removeLayer(nationalMapBasemap);
     });
     $('#btnSatellite').on('click', function () {
         app.map.setBasemap('satellite');
-        app.map.removeLayer(nationalMapBasemap);
     });
     $('#btnHybrid').on('click', function () {
         app.map.setBasemap('hybrid');
-        app.map.removeLayer(nationalMapBasemap);
     });
     $('#btnTerrain').on('click', function () {
         app.map.setBasemap('terrain');
-        app.map.removeLayer(nationalMapBasemap);
     });
     $('#btnGray').on('click', function () {
         app.map.setBasemap('gray');
-        app.map.removeLayer(nationalMapBasemap);
     });
     $("#btnDark").on("click", function() {
         app.map.setBasemap("dark-gray");
-        app.map.removeLayer(nationalMapBasemap);
     });
     $('#btnNatGeo').on('click', function () {
         app.map.setBasemap('national-geographic');
-        app.map.removeLayer(nationalMapBasemap);
     });
     $('#btnOSM').on('click', function () {
         app.map.setBasemap('osm');
-        app.map.removeLayer(nationalMapBasemap);
     });
     $('#btnTopo').on('click', function () {
         app.map.setBasemap('topo');
-        app.map.removeLayer(nationalMapBasemap);
     });
 }

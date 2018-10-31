@@ -2047,40 +2047,46 @@ require([
             //click listener for regular
             button.click(function(e) {
                 //toggle checkmark
-                $(this).find('i.glyphspan').toggleClass('fa-check-square-o fa-square-o');
-                $(this).find('button').button('toggle');
+                if (e.target.id != "SparrowRanking"){
+                    $(this)
+                        .find("i.glyphspan")
+                        .toggleClass("fa-check-square-o fa-square-o");
+                    $(this)
+                        .find("button")
+                        .button("toggle");
 
-                e.preventDefault();
-                e.stopPropagation();
+                    e.preventDefault();
+                    e.stopPropagation();
 
-                $('#' + camelize(layerName)).toggle();
+                    $("#" + camelize(layerName)).toggle();
 
-                //layer toggle
-                if (layer.visible) {
-                    layer.setVisibility(false);
-                    //find id, remove from legend
-                    var ids = [];
-                    $.each(app.legend.layerInfos, function(i, infos){
-                        ids.push(infos.layer.id);
-                    });
+                    //layer toggle
+                    if (layer.visible) {
+                        layer.setVisibility(false);
+                        //find id, remove from legend
+                        var ids = [];
+                        $.each(app.legend.layerInfos, function(i, infos) {
+                            ids.push(infos.layer.id);
+                        });
 
-                    var index = ids.indexOf(layer.id);
-                    if (index > -1){
-                        app.legend.layerInfos.splice(index, 1);
-                    }
-                    app.legend.refresh();
-                } else {
-                    layer.setVisibility(true);
-                    //add to legend
-                    if (app.map.getLayer(layer.id).id != "modelArea"){
-                         /* Cheap, ugly fix 
-                            -- seems that layers that are on by default will show up in legend when re-toggled.
-                            -- getting around that here by checking for the offending layer id above and skipping the legend layer push
-                        */
-                        app.legend.layerInfos.push({layer: layer, title: e.currentTarget.innerText});
+                        var index = ids.indexOf(layer.id);
+                        if (index > -1) {
+                            app.legend.layerInfos.splice(index, 1);
+                        }
                         app.legend.refresh();
+                    } else {
+                        layer.setVisibility(true);
+                        //add to legend.
+                        app.legend.layerInfos.push({
+                            layer: layer,
+                            title: e.currentTarget.innerText
+                        });
+                        app.legend.refresh();
+
+                        //TODO: note that layers that are turned on won't show up in the legend on instantiation
                     }
                 }
+                
             });
 
             //group heading logic
