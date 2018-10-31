@@ -200,6 +200,10 @@ body {
     font-weight: bold;
 }
 
+.lyrTogDiv #SparrowRanking{
+    cursor: not-allowed !important;
+}
+
 .alert {
     margin-top: 0px;
     margin-bottom: 0px;
