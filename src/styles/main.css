@@ -648,6 +648,11 @@ table.hover-highlight tbody > tr.even:hover > td {
     width: 100%;
 }
 
+.panel-body select{
+    display: block;
+    width: 100%;
+}
+
 .btn-group{
     display: block;
     width: 100% !important;
@@ -1073,6 +1078,11 @@ Mitch GH Issues Aug 28
 .nicescroll-rails-hr{
     display: block !important;
 }
+
+.aoiSelect{
+    padding:5px;
+}
+
 .esriMapContainer{
 	width: 100% !important;
 	height: 100% !important;
