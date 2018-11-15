@@ -2047,10 +2047,10 @@ require([
             //click listener for regular
             button.click(function(e) {
                 //toggle checkmark
-                if (e.target.id != "SparrowRanking"){
+                if (e.currentTarget.firstElementChild.id != "SparrowRanking"){
                     $(this)
                         .find("i.glyphspan")
-                        .toggleClass("fa-check-square-o fa-square-o");
+                        .toggleClass("fa-check-square-o fa-square");
                     $(this)
                         .find("button")
                         .button("toggle");

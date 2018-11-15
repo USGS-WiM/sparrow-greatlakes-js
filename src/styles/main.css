@@ -215,6 +215,7 @@ body {
 }
 
 #legendCollapse {
+    width: 325px;
     /*max-height: inherit;*/
 }
 
@@ -595,10 +596,9 @@ table.hover-highlight tbody > tr.even:hover > td {
 }
 
 
-
 /*Mitch Mar 9*/
 #legendElement{
-    max-width: 280px;
+    max-width: 425px;
     height: auto !important;
     overflow: auto;  /*Erik Edited from scroll to auto 3/17/17*/
     max-height: 400px;

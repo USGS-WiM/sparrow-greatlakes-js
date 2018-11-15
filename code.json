@@ -3,7 +3,7 @@
     "name": "sparrow-greatlakes-js",
     "organization": "U.S. Geological Survey",
     "description": "Display Spatially-Referenced Regresson On Watershed Attributes (SPARROW) data for the Great Lakes",
-    "version": "v0.0.0",
+    "version": "v1.0.0",
     "status": "Production",
 
     "permissions": {
