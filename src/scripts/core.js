@@ -2050,7 +2050,7 @@ require([
                 if (e.currentTarget.firstElementChild.id != "SparrowRanking"){
                     $(this)
                         .find("i.glyphspan")
-                        .toggleClass("fa-check-square-o fa-square");
+                        .toggleClass("fa-check-square-o fa-square-o");
                     $(this)
                         .find("button")
                         .button("toggle");

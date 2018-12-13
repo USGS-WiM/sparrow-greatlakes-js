@@ -636,9 +636,7 @@ table.hover-highlight tbody > tr.even:hover > td {
 #toggle{
     padding: 25px 0 !important;
 }
-.panel-body{
 
-}
 .panel-body .btn{
     display: block;
     width: 100%;
@@ -1079,9 +1077,10 @@ Mitch GH Issues Aug 28
     display: block !important;
 }
 
-.aoiSelect{
+/* removed after rolling back bootstrap-select */
+/* .aoiSelect{
     padding:5px;
-}
+} */
 
 .esriMapContainer{
 	width: 100% !important;

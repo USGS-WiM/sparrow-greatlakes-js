@@ -8,7 +8,7 @@ CONFIG FILE FOR USE WITH SPARROW-GREAT LAKES
 var appTitle = "Great Lakes 2002 Nutrient Loading";
 var appVersion = "v0.9.0";
 
-var serviceBaseURL = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakes/MapServer/"; //important! UPDATE rest service URL
+var serviceBaseURL = "https://sparrowtest.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakes/SparrowGreatLakes/MapServer/"; //important! UPDATE rest service URL
 var downloadBaseURL = "https://sparrow.wim.usgs.gov/great-lakes/downloads/";
 var chartUnits = " (kg/yr.)"
 

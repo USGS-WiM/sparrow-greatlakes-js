@@ -508,7 +508,7 @@ function generateRenderer(){
         }
         
         //UPDATE important!  url must match service url ---- note maybe move to config file?
-        app.Url = "https://gis.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakesV2/SparrowGreatLakes/MapServer/" + sparrowId;
+        app.Url = "https://sparrowtest.wim.usgs.gov/arcgis/rest/services/SparrowGreatLakes/SparrowGreatLakes/MapServer/" + sparrowId;
         
         var selectedMetric = $('#displayedMetricSelect')[0].value;
         //var selectedMetric = "ST_AL";
