@@ -11,14 +11,20 @@ This project is based on the USGS WiM Generator template for ESRI Javascript API
 
 * [Node Package Manager](https://www.npmjs.com/)
 * [Git](https://desktop.github.com/)
+* [Bower](https://bower.io/)
 
-```
-Give examples
-```
+
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.  
+Note: Some dependencies may not be compatible with newer versions of Node Package Manager.  This application has been tested with the following versions:
+* Node JS v10.15.3
+* Node Package Manager v6.4.1
+
+Other versions will also likely work. However, if problems installing and running the application persist, it is possible to revert to the versions above to successfully run the app.
+
+
 
 ### Installing
 
@@ -38,6 +44,11 @@ Install dependencies using NPM
 
 ```
 npm install
+```
+Install dependencies using Bower
+
+```
+bower install
 ```
 ## Building and testing
 
