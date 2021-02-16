@@ -140,52 +140,83 @@ require([
     app.geocoder.on('findResults', geocodeResults);
     app.geocoder.on('clear', app.clearFindGraphics);
 
-     //TX WSC Search API
-    search_api.create( 'geosearch_usgs', {
-        on_result: function(o) {
-            // what to do when a location is found
-            // o.result is geojson point feature of location with properties
-            var noExtents = ["GNIS_MAJOR", "GNIS_MINOR", "ZIPCODE", "AREACODE"];
-            var noExtentCheck = noExtents.indexOf(o.result.properties["Source"])
-            if (noExtentCheck == -1) {
-                app.map.setExtent(
-                    new esri.geometry.Extent({
-                        xmin: o.result.properties.LonMin,
-                        ymin: o.result.properties.LatMin,
-                        xmax: o.result.properties.LonMax,
-                        ymax: o.result.properties.LatMax,
-                        spatialReference: {"wkid":4326}
-                    }),
-                    true
-                );
-            } else {
-                app.map.centerAndZoom(
-                    new Point( o.result.properties.Lon, o.result.properties.Lat ),
-                    12
-                );
-            }
+    function showModal() {
+        $('#geosearchModal').modal('show');
+    }
 
-            // open popup at location listing all properties
-            app.map.infoWindow.setTitle('Search Result');
-            app.map.infoWindow.setContent(
-                $.map( Object.keys(o.result.properties), function(property) {
-                    return '<b>' + property + ': </b>' + o.result.properties[property];
-                }).join('<br/>')
-            );
-            // Close modal
-            $('#geosearchModal').modal('hide');
+    // Geosearch nav menu is selected
+    $('#geosearchNav').click(function () {
+        // create search_api widget in element "geosearch"
+        var isItUP = true;
+        try {
+            search_api
+        }
+        catch (err) {
+            isItUP = false;
+            console.log("did not work")
+        }
 
-            app.map.infoWindow.show(
-                new Point( o.result.properties.Lon, o.result.properties.Lat )
-            );
-        },
-        "include_usgs_sw" : true,
-        "include_huc2" : true,
-        "include_huc4" : true,
-        "include_huc6" : true,
-        "include_huc8" : true,
-        "include_huc12" : true,
-        "verbose" : false
+        if (isItUP) {
+            showModal();
+            console.log('init');
+            search_api.create( "geosearch", {
+                on_result: function(o) {
+                    // what to do when a location is found
+                    // o.result is geojson point feature of location with properties
+                    // zoom to location
+                    require(["esri/geometry/Extent"], function(Extent) {
+                        var noExtents = ["GNIS_MAJOR", "GNIS_MINOR", "ZIPCODE", "AREACODE"];
+                        var noExtentCheck = noExtents.indexOf(o.result.properties["Source"])
+                        $("#geosearchModal").modal('hide');
+                        if (noExtentCheck == -1) {
+                            map.setExtent(
+                                new esri.geometry.Extent({
+                                    xmin: o.result.properties.LonMin,
+                                    ymin: o.result.properties.LatMin,
+                                    xmax: o.result.properties.LonMax,
+                                    ymax: o.result.properties.LatMax,
+                                    spatialReference: {"wkid":4326}
+                                }),
+                                true
+                            );
+                        } else {
+                            //map.setCenter();
+                            require( ["esri/geometry/Point"], function(Point) {
+                                map.centerAndZoom(
+                                    new Point( o.result.properties.Lon, o.result.properties.Lat ),
+                                    12
+                                );
+                            });
+                        }
+                    });
+                    
+                },
+                "include_usgs_sw": true,
+                "include_usgs_gw": true,
+                "include_usgs_sp": true,
+                "include_usgs_at": true,
+                "include_usgs_ot": true,
+                "include_huc2": true,
+                "include_huc4": true,
+                "include_huc6": true,
+                "include_huc8": true,
+                "include_huc10": true,
+                "include_huc12": true,
+
+                on_failure: function (o) {
+                    $("#test").html("Sorry, a location could not be found in search for '" + o.val() + "'");
+                    $("#invalidSearchLocationModal").modal('show');
+                }
+            });
+
+        } else {
+            showsearchDownModal();
+        }
+
+        function showsearchDownModal() {
+            $('#searchDownModal').modal('show');
+        }
+        
     });
 
 
@@ -1917,14 +1948,6 @@ require([
             feature.setSymbol(selectedSymbol);
             app.map.graphics.add(feature);
         }
-    });
-
-    function showModal() {
-        $('#geosearchModal').modal('show');
-    }
-    // Geosearch nav menu is selected
-    $('#geosearchNav').click(function(){
-        showModal();
     });
     
     function showDataDownloadModal () {
