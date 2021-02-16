@@ -2,7 +2,7 @@
   "name": "sparrow-greatlakes-js",
   "version": "0.0.0",
   "description": "WiM generator",
-  "scripts":{
+  "scripts": {
     "gulp": "gulp",
     "start": "gulp watch",
     "build": "npm install && npm install -g gulp && gulp build",
