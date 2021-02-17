@@ -12,7 +12,7 @@ jobs:
       - name: Set Up Node
         uses: actions/setup-node@v1
         with:
-          node-version: "10.15"
+          node-version: '10.15'
       - run: npm run-script build
 
       - name: Configure AWS Credentials
