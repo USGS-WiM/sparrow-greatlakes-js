@@ -176,7 +176,7 @@ require([
             );
             $("#geosearchModal").modal("hide");
             if (noExtentCheck == -1) {
-              map.setExtent(
+              app.map.setExtent(
                 new esri.geometry.Extent({
                   xmin: o.result.properties.LonMin,
                   ymin: o.result.properties.LatMin,
@@ -189,7 +189,7 @@ require([
             } else {
               //map.setCenter();
               require(["esri/geometry/Point"], function (Point) {
-                map.centerAndZoom(
+                app.map.centerAndZoom(
                   new Point(o.result.properties.Lon, o.result.properties.Lat),
                   12
                 );
@@ -197,17 +197,14 @@ require([
             }
           });
         },
-        include_usgs_sw: true,
-        include_usgs_gw: true,
-        include_usgs_sp: true,
-        include_usgs_at: true,
-        include_usgs_ot: true,
-        include_huc2: true,
-        include_huc4: true,
-        include_huc6: true,
-        include_huc8: true,
-        include_huc10: true,
-        include_huc12: true,
+        "include_usgs_sw": true,
+        "include_huc2": true,
+        "include_huc4": true,
+        "include_huc6": true,
+        "include_huc8": true,
+        "include_huc10": true,
+        "include_huc12": true,
+        "verbose": false,
 
         on_failure: function (o) {
           $("#test").html(
