@@ -5,7 +5,7 @@
   "scripts": {
     "gulp": "gulp",
     "start": "gulp watch",
-    "build": "npm install && npm install -g gulp && gulp build",
+    "build": "npm install && npm install npm install bower && bower install && gulp",
     "patch": "bump patch package.json code.json && gulp build",
     "minor": "bump minor package.json code.json && gulp build",
     "major": "bump major package.json code.json && gulp build"
