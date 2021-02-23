@@ -151,51 +151,58 @@ require([
   }
 
   // Geosearch nav menu is selected
-  $("#geosearchNav").click(function () {
+  $("#geosearchNav").on("click", function () {
     // create search_api widget in element "geosearch"
     var isItUP = true;
     try {
       search_api;
     } catch (err) {
       isItUP = false;
-      console.log("did not work");
+      console.log("search api did not respond");
     }
 
     if (isItUP) {
       showModal();
       console.log("init");
-      search_api.create("geosearch", {
+      search_api.create("geosearch_usgs", {
         on_result: function (o) {
           // what to do when a location is found
           // o.result is geojson point feature of location with properties
           // zoom to location
-          require(["esri/geometry/Extent"], function (Extent) {
-            var noExtents = ["GNIS_MAJOR", "GNIS_MINOR", "ZIPCODE", "AREACODE"];
-            var noExtentCheck = noExtents.indexOf(
-              o.result.properties["Source"]
+          var noExtents = ["GNIS_MAJOR", "GNIS_MINOR", "ZIPCODE", "AREACODE"];
+          var noExtentCheck = noExtents.indexOf(o.result.properties["Source"]);
+          $("#geosearchModal").modal("hide");
+          if (noExtentCheck == -1) {
+            app.map.setExtent(
+              new esri.geometry.Extent({
+                xmin: o.result.properties.LonMin,
+                ymin: o.result.properties.LatMin,
+                xmax: o.result.properties.LonMax,
+                ymax: o.result.properties.LatMax,
+                spatialReference: { wkid: 4326 },
+              }),
+              true
             );
-            $("#geosearchModal").modal("hide");
-            if (noExtentCheck == -1) {
-              app.map.setExtent(
-                new esri.geometry.Extent({
-                  xmin: o.result.properties.LonMin,
-                  ymin: o.result.properties.LatMin,
-                  xmax: o.result.properties.LonMax,
-                  ymax: o.result.properties.LatMax,
-                  spatialReference: { wkid: 4326 },
-                }),
-                true
+          } else {
+            app.map.centerAndZoom(
+              new Point(o.result.properties.Lon, o.result.properties.Lat),
+              12
+            );
+          }
+          // open popup at location listing all properties
+          app.map.infoWindow.setTitle("Search Result");
+          app.map.infoWindow.setContent(
+            $.map(Object.keys(o.result.properties), function (property) {
+              return (
+                "<b>" + property + ": </b>" + o.result.properties[property]
               );
-            } else {
-              //map.setCenter();
-              require(["esri/geometry/Point"], function (Point) {
-                app.map.centerAndZoom(
-                  new Point(o.result.properties.Lon, o.result.properties.Lat),
-                  12
-                );
-              });
-            }
-          });
+            }).join("<br/>")
+          );
+          // Close modal
+          $("#geosearchModal").modal("hide");
+          app.map.infoWindow.show(
+            new Point(o.result.properties.Lon, o.result.properties.Lat)
+          );
         },
         "include_usgs_sw": true,
         "include_huc2": true,
